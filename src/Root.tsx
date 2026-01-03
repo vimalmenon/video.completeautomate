@@ -1,7 +1,7 @@
 import "./index.css";
 import { Composition } from "remotion";
 import { HelloWorld, myCompSchema } from "./HelloWorld";
-import { Intro, introSchema } from "./Common"
+import { Intro, introSchema } from "./Common";
 
 // Each <Composition> is an entry in the sidebar!
 
@@ -39,9 +39,7 @@ export const RemotionRoot: React.FC = () => {
         // You can override these props for each render:
         // https://www.remotion.dev/docs/parametrized-rendering
         schema={introSchema}
-        defaultProps={{
-          text: "Welcome to CompleteAutomate",
-        }}
+        defaultProps={{ text: "CompleteAutomate" }}
       />
     </>
   );
