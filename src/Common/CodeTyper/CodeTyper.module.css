@@ -1,0 +1,218 @@
+.editor {
+  display: flex;
+  flex-direction: column;
+  background-color: #1e1e1e;
+  color: #d4d4d4;
+  font-family: 'Courier New', Courier, monospace;
+  font-size: 14px;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+}
+
+.editor.light {
+  background-color: #ffffff;
+  color: #333333;
+}
+
+.header {
+  background-color: #252526;
+  border-bottom: 1px solid #3e3e42;
+  padding: 0;
+  display: flex;
+}
+
+.editor.light .header {
+  background-color: #f3f3f3;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+.titleBar {
+  display: flex;
+  align-items: center;
+  padding: 8px 16px;
+  gap: 8px;
+}
+
+.fileName {
+  color: #cccccc;
+  font-size: 13px;
+  user-select: none;
+}
+
+.editor.light .fileName {
+  color: #333333;
+}
+
+.editorContent {
+  display: flex;
+  flex: 1;
+  overflow: hidden;
+  background-color: #1e1e1e;
+}
+
+.editor.light .editorContent {
+  background-color: #ffffff;
+}
+
+.lineNumbers {
+  display: flex;
+  flex-direction: column;
+  background-color: #1e1e1e;
+  border-right: 1px solid #3e3e42;
+  padding: 16px 8px;
+  user-select: none;
+  min-width: 50px;
+}
+
+.editor.light .lineNumbers {
+  background-color: #f8f8f8;
+  border-right: 1px solid #e0e0e0;
+}
+
+.lineNumber {
+  color: #858585;
+  text-align: right;
+  padding: 0 8px;
+  line-height: 1.5;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+}
+
+.editor.light .lineNumber {
+  color: #999999;
+}
+
+.codeArea {
+  flex: 1;
+  overflow: auto;
+  padding: 16px;
+  background-color: #1e1e1e;
+}
+
+.editor.light .codeArea {
+  background-color: #ffffff;
+}
+
+.code {
+  margin: 0;
+  padding: 0;
+  font-family: 'Courier New', Courier, monospace;
+  font-size: 14px;
+  line-height: 1.5;
+  white-space: pre;
+}
+
+.codeLine {
+  display: flex;
+  align-items: center;
+  min-height: 24px;
+}
+
+/* Syntax highlighting colors */
+.keyword {
+  color: #569cd6;
+  font-weight: bold;
+}
+
+.editor.light .keyword {
+  color: #0000ff;
+}
+
+.builtin {
+  color: #4ec9b0;
+}
+
+.editor.light .builtin {
+  color: #0070c1;
+}
+
+.string {
+  color: #ce9178;
+}
+
+.editor.light .string {
+  color: #a31515;
+}
+
+.comment {
+  color: #6a9955;
+  font-style: italic;
+}
+
+.editor.light .comment {
+  color: #008000;
+}
+
+.number {
+  color: #b5cea8;
+}
+
+.editor.light .number {
+  color: #098658;
+}
+
+.cursor {
+  display: inline-block;
+  width: 2px;
+  background-color: #aeafad;
+  margin-left: 2px;
+  animation: blink 1s infinite;
+  opacity: 0;
+}
+
+.cursor.visible {
+  opacity: 1;
+}
+
+@keyframes blink {
+  0%,
+  49% {
+    opacity: 1;
+  }
+  50%,
+  100% {
+    opacity: 0;
+  }
+}
+
+.statusBar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #007acc;
+  color: #ffffff;
+  padding: 4px 16px;
+  font-size: 12px;
+  user-select: none;
+}
+
+.editor.light .statusBar {
+  background-color: #007acc;
+  color: #ffffff;
+}
+
+/* Scrollbar styling */
+.codeArea::-webkit-scrollbar {
+  width: 12px;
+  height: 12px;
+}
+
+.codeArea::-webkit-scrollbar-track {
+  background: #1e1e1e;
+}
+
+.editor.light .codeArea::-webkit-scrollbar-track {
+  background: #f8f8f8;
+}
+
+.codeArea::-webkit-scrollbar-thumb {
+  background: #464647;
+  border-radius: 6px;
+}
+
+.codeArea::-webkit-scrollbar-thumb:hover {
+  background: #5a5a5a;
+}
