@@ -1,55 +1,45 @@
-import { Composition, staticFile } from "remotion";
-import { Scene, myCompSchema } from "./Scene";
-import { getMediaMetadata } from "./helpers/get-media-metadata";
+import "./index.css";
+import { Composition } from "remotion";
+import { HelloWorld, myCompSchema } from "./HelloWorld";
+import { Logo, myCompSchema2 } from "./HelloWorld/Logo";
 
-// Welcome to the Remotion Three Starter Kit!
-// Two compositions have been created, showing how to use
-// the `ThreeCanvas` component and the `useVideoTexture` hook.
-
-// You can play around with the example or delete everything inside the canvas.
-
-// Remotion Docs:
-// https://remotion.dev/docs
-
-// @remotion/three Docs:
-// https://remotion.dev/docs/three
-
-// React Three Fiber Docs:
-// https://docs.pmnd.rs/react-three-fiber/getting-started/introduction
+// Each <Composition> is an entry in the sidebar!
 
 export const RemotionRoot: React.FC = () => {
   return (
     <>
       <Composition
-        id="Scene"
-        component={Scene}
+        // You can take the "id" to render a video:
+        // npx remotion render HelloWorld
+        id="HelloWorld"
+        component={HelloWorld}
+        durationInFrames={150}
         fps={30}
-        durationInFrames={300}
-        width={1280}
-        height={720}
+        width={1920}
+        height={1080}
+        // You can override these props for each render:
+        // https://www.remotion.dev/docs/parametrized-rendering
         schema={myCompSchema}
         defaultProps={{
-          deviceType: "phone",
-          phoneColor: "rgba(110, 152, 191, 0.00)" as const,
-          baseScale: 1,
-          mediaMetadata: null,
-          videoSrc: null,
+          titleText: "Welcome to Remotion",
+          titleColor: "#000000",
+          logoColor1: "#91EAE4",
+          logoColor2: "#86A8E7",
         }}
-        calculateMetadata={async ({ props }) => {
-          const videoSrc =
-            props.deviceType === "phone"
-              ? staticFile("phone.mp4")
-              : staticFile("tablet.mp4");
+      />
 
-          const mediaMetadata = await getMediaMetadata(videoSrc);
-
-          return {
-            props: {
-              ...props,
-              mediaMetadata,
-              videoSrc,
-            },
-          };
+      {/* Mount any React component to make it show up in the sidebar and work on it individually! */}
+      <Composition
+        id="OnlyLogo"
+        component={Logo}
+        durationInFrames={150}
+        fps={30}
+        width={1920}
+        height={1080}
+        schema={myCompSchema2}
+        defaultProps={{
+          logoColor1: "#91dAE2" as const,
+          logoColor2: "#86A8E7" as const,
         }}
       />
     </>
