@@ -2,5 +2,5 @@
 
 
 ### Short Videos
-- [ ] AutomationNextBigThing How Automation is going to next thing
+- [ ] Automation Next Big Thing How Automation is going to be next thing
 - [ ]
