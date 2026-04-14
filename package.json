@@ -6,22 +6,22 @@
   "license": "UNLICENSED",
   "private": true,
   "dependencies": {
-    "@remotion/cli": "4.0.414",
-    "@remotion/zod-types": "4.0.414",
-    "react": "19.2.4",
-    "react-dom": "19.2.4",
-    "remotion": "4.0.414",
-    "zod": "3.22.3",
-    "@remotion/tailwind-v4": "4.0.414",
-    "tailwindcss": "4.1.18"
+    "@remotion/cli": "4.0.448",
+    "@remotion/zod-types": "4.0.448",
+    "react": "19.2.5",
+    "react-dom": "19.2.5",
+    "remotion": "4.0.448",
+    "zod": "4.3.6",
+    "@remotion/tailwind-v4": "4.0.448",
+    "tailwindcss": "4.2.2"
   },
   "devDependencies": {
-    "@remotion/eslint-config-flat": "4.0.414",
-    "@types/react": "19.2.10",
-    "@types/web": "0.0.323",
-    "eslint": "9.39.2",
-    "prettier": "3.8.1",
-    "typescript": "5.9.3"
+    "@remotion/eslint-config-flat": "4.0.448",
+    "@types/react": "19.2.14",
+    "@types/web": "0.0.345",
+    "eslint": "10.2.0",
+    "prettier": "3.8.2",
+    "typescript": "6.0.2"
   },
   "scripts": {
     "dev": "remotion studio",
