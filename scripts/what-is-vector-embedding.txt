@@ -1,0 +1,43 @@
+**SCRIPT:**
+
+---
+
+**HOOK (0-3s):**  
+[Excited tone, pointing at the camera]  
+"How does Netflix *know* what shows you’ll love? Or how Google finds exactly what you’re looking for? The secret? A thing called *vector embeddings*! Let me explain."
+
+---
+
+**ANALOGY (3-20s):**  
+[Wide smile, holding a map prop or showing a digital map on screen]  
+"Imagine the world is a giant map. On this map, restaurants are in one neighborhood, parks in another, and libraries in another. Everything similar is grouped close together. Now, instead of places, think of *ideas*, like words, pictures, or songs. Vector embeddings are like giving each of those ideas a pin on this meaning map, so similar ones are neighbors!"
+
+[Zoom into clusters on the map: books, coffee shops, etc.]
+
+---
+
+**SIMPLE EXPLANATION (20-35s):**  
+[Switch to a curious, “aha!” tone, with a simple graphic of numbers popping up]  
+"Here’s the thing: computers don’t *understand* words or pictures like we do. So, vector embeddings turn them into numbers — basically, coordinates on this map. That way, computers can measure how close two things are in meaning!"
+
+[Show two pins on the map moving closer together, labeled “cozy” and “coffee shop.”]
+
+---
+
+**REAL EXAMPLE (35-50s):**  
+[Excited tone, with a coffee shop search bar on screen]  
+"Like when you Google 'cozy coffee shop.' Google doesn’t just match the words — it finds places whose meaning-vectors are closest to yours. That’s why it shows you a cute indie cafe instead of, like, a Starbucks!"
+
+[Show a cozy indie cafe result popping up, with a heart icon.]
+
+---
+
+**OUTRO (50-60s):**  
+[Big smile, holding a “meaning map” visual]  
+"So, vector embeddings? They’re like giving everything a coordinate on a meaning map so computers can figure out what’s related. Cool, right? Next time you get a perfect Netflix rec, you’ll know why!"
+
+[End with a wink and a “Subscribe for more!” animation.]
+
+--- 
+
+[End screen with upbeat music and “Vector Embeddings = Meaning Map” text.]
