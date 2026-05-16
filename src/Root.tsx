@@ -2,6 +2,7 @@ import "./index.css";
 import { Composition } from "remotion";
 import { HelloWorld, myCompSchema } from "./HelloWorld";
 import { Intro, introSchema } from "./Common";
+import { AutomationNextBigThing, automationNextBigThingSchema } from "./Events/AutomationNextBigThing";
 import { CodeTyperExample } from "./Common/CodeTyper/CodeTyper.example";
 
 // Each <Composition> is an entry in the sidebar!
@@ -51,6 +52,19 @@ export const RemotionRoot: React.FC = () => {
         fps={30}
         width={1920}
         height={1080}
+      />
+      <Composition
+        id="AutomationNextBigThing"
+        component={AutomationNextBigThing}
+        durationInFrames={300}
+        fps={30}
+        width={1920}
+        height={1080}
+        schema={automationNextBigThingSchema}
+        defaultProps={{
+          text: "Automation is the next big thing",
+          subtext: "And it's already here.",
+        }}
       />
     </>
   );
