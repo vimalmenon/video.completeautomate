@@ -8,3 +8,4 @@ export * from "./CinematicTransitionsDemo";
 export * from "./LogoBrandingDemo";
 export * from "./IntroOutroDemo";
 export * from "./ImageMediaDemo";
+export * from "./ThreeDemo";

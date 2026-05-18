@@ -8,11 +8,14 @@
   "dependencies": {
     "@remotion/cli": "4.0.462",
     "@remotion/tailwind-v4": "4.0.462",
+    "@remotion/three": "^4.0.462",
     "@remotion/zod-types": "4.0.462",
+    "@types/three": "^0.184.1",
     "react": "19.2.6",
     "react-dom": "19.2.6",
     "remotion": "4.0.462",
-    "tailwindcss": "4.3.0"
+    "tailwindcss": "4.3.0",
+    "three": "^0.184.0"
   },
   "devDependencies": {
     "@remotion/eslint-config-flat": "4.0.462",

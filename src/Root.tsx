@@ -13,6 +13,7 @@ import { CinematicTransitionsDemo, cinematicTransitionsDemoSchema } from "./Even
 import { LogoBrandingDemo, logoBrandingDemoSchema } from "./Events/LogoBrandingDemo";
 import { IntroOutroDemo, introOutroDemoSchema } from "./Events/IntroOutroDemo";
 import { ImageMediaDemo, imageMediaDemoSchema } from "./Events/ImageMediaDemo";
+import { ThreeDemo } from "./Events/ThreeDemo";
 
 // Each <Composition> is an entry in the sidebar!
 // Common reusable components live in src/Common/ for import into your own compositions
@@ -173,6 +174,14 @@ export const RemotionRoot: React.FC = () => {
         height={1080}
         schema={imageMediaDemoSchema}
         defaultProps={{ text: "Media" }}
+      />
+      <Composition
+        id="ThreeDemo"
+        component={ThreeDemo}
+        durationInFrames={600}
+        fps={30}
+        width={1920}
+        height={1080}
       />
     </>
   );
