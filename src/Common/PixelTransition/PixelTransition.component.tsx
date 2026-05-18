@@ -1,5 +1,6 @@
-import React from "react";
-import { interpolate, useCurrentFrame } from "remotion";
+import React from 'react';
+
+import { interpolate, useCurrentFrame } from 'remotion';
 
 interface PixelTransitionProps {
   gridSize?: number;
@@ -7,21 +8,18 @@ interface PixelTransitionProps {
   startFrame?: number;
   durationInFrames?: number;
   children?: React.ReactNode;
-  direction?: "left-to-right" | "random";
+  direction?: 'left-to-right' | 'random';
 }
 
-const defaultColors = [
-  "#4361ee", "#3a0ca3", "#7209b7", "#f72585",
-  "#4cc9f0", "#4895ef", "#b5179e",
-];
+const defaultColors = ['#4361ee', '#3a0ca3', '#7209b7', '#f72585', '#4cc9f0', '#4895ef', '#b5179e'];
 
 export const PixelTransition: React.FC<PixelTransitionProps> = ({
-  gridSize = 8,
-  colors = defaultColors,
-  startFrame = 0,
-  durationInFrames = 60,
   children,
-  direction = "left-to-right",
+  colors = defaultColors,
+  direction = 'left-to-right',
+  durationInFrames = 60,
+  gridSize = 8,
+  startFrame = 0,
 }) => {
   const frame = useCurrentFrame();
   const cols = gridSize;
@@ -36,14 +34,15 @@ export const PixelTransition: React.FC<PixelTransitionProps> = ({
   for (let r = 0; r < rows; r++) {
     for (let c = 0; c < cols; c++) {
       const index = r * cols + c;
-      const delay = direction === "random"
-        ? ((index * 937 + r * 491 + c * 283) % totalCells) / totalCells
-        : (r * cols + c) / totalCells;
+      const delay =
+        direction === 'random'
+          ? ((index * 937 + r * 491 + c * 283) % totalCells) / totalCells
+          : (r * cols + c) / totalCells;
       cells.push({
-        row: r,
         col: c,
-        delay,
         color: colors[(r + c) % colors.length],
+        delay,
+        row: r,
       });
     }
   }
@@ -51,24 +50,22 @@ export const PixelTransition: React.FC<PixelTransitionProps> = ({
   return (
     <div
       style={{
-        position: "absolute",
         inset: 0,
-        overflow: "hidden",
+        overflow: 'hidden',
+        position: 'absolute',
       }}
     >
       {/* Content behind transition */}
-      {children && (
-        <div style={{ position: "absolute", inset: 0 }}>{children}</div>
-      )}
+      {children && <div style={{ inset: 0, position: 'absolute' }}>{children}</div>}
 
       {/* Pixel grid */}
       <div
         style={{
-          position: "absolute",
-          inset: 0,
-          display: "grid",
+          display: 'grid',
           gridTemplateColumns: `repeat(${cols}, 1fr)`,
           gridTemplateRows: `repeat(${rows}, 1fr)`,
+          inset: 0,
+          position: 'absolute',
         }}
       >
         {cells.map((cell, i) => {
@@ -76,13 +73,13 @@ export const PixelTransition: React.FC<PixelTransitionProps> = ({
             frame - startFrame,
             [cell.delay * durationInFrames, cell.delay * durationInFrames + 8],
             [1, 0],
-            { extrapolateLeft: "clamp", extrapolateRight: "clamp" }
+            { extrapolateLeft: 'clamp', extrapolateRight: 'clamp' }
           );
           const scale = interpolate(
             frame - startFrame,
             [cell.delay * durationInFrames, cell.delay * durationInFrames + 8],
             [1, 0],
-            { extrapolateLeft: "clamp", extrapolateRight: "clamp" }
+            { extrapolateLeft: 'clamp', extrapolateRight: 'clamp' }
           );
 
           return (
@@ -90,10 +87,10 @@ export const PixelTransition: React.FC<PixelTransitionProps> = ({
               key={i}
               style={{
                 backgroundColor: cell.color,
+                height: pixelH,
                 opacity,
                 transform: `scale(${scale})`,
                 width: pixelW,
-                height: pixelH,
               }}
             />
           );

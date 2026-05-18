@@ -1,1 +1,1 @@
-export { ParticleExplosion } from "./ParticleExplosion.component";
+export { ParticleExplosion } from './ParticleExplosion.component';

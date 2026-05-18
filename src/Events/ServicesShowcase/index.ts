@@ -1,1 +1,1 @@
-export { ServicesShowcase, servicesShowcaseSchema } from "./ServicesShowcase.component";
+export { ServicesShowcase, servicesShowcaseSchema } from './ServicesShowcase.component';

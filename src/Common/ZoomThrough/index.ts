@@ -1,1 +1,1 @@
-export { ZoomThrough } from "./ZoomThrough.component";
+export { ZoomThrough } from './ZoomThrough.component';

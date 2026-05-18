@@ -1,1 +1,1 @@
-export { CrossDissolve } from "./CrossDissolve.component";
+export { CrossDissolve } from './CrossDissolve.component';

@@ -1,1 +1,1 @@
-export { ProcessFlow, processFlowSchema } from "./ProcessFlow.component";
+export { ProcessFlow, processFlowSchema } from './ProcessFlow.component';

@@ -1,11 +1,12 @@
-import React, { useMemo } from "react";
-import { ThreeCanvas } from "@remotion/three";
-import { useCurrentFrame, interpolate, AbsoluteFill, useVideoConfig } from "remotion";
-import * as THREE from "three";
+import React, { useMemo } from 'react';
+
+import { ThreeCanvas } from '@remotion/three';
+import { AbsoluteFill, interpolate, useCurrentFrame, useVideoConfig } from 'remotion';
+import * as THREE from 'three';
 
 export const ThreeGalaxy: React.FC = () => {
   const frame = useCurrentFrame();
-  const { width, height } = useVideoConfig();
+  const { height, width } = useVideoConfig();
 
   const rotationY = useMemo(() => interpolate(frame, [0, 600], [0, Math.PI * 0.5]), [frame]);
 
@@ -15,7 +16,7 @@ export const ThreeGalaxy: React.FC = () => {
     const colors = new Float32Array(count * 3);
     const sizes = new Float32Array(count);
 
-    const colorInside = new THREE.Color("#ffffff");
+    const colorInside = new THREE.Color('#ffffff');
     const colorOutside = new THREE.Color(8 / 255, 145 / 255, 178 / 255);
 
     for (let i = 0; i < count; i++) {
@@ -46,15 +47,15 @@ export const ThreeGalaxy: React.FC = () => {
     }
 
     const geometry = new THREE.BufferGeometry();
-    geometry.setAttribute("position", new THREE.BufferAttribute(positions, 3));
-    geometry.setAttribute("color", new THREE.BufferAttribute(colors, 3));
-    geometry.setAttribute("size", new THREE.BufferAttribute(sizes, 1));
+    geometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
+    geometry.setAttribute('color', new THREE.BufferAttribute(colors, 3));
+    geometry.setAttribute('size', new THREE.BufferAttribute(sizes, 1));
 
     return geometry;
   }, []);
 
   return (
-    <AbsoluteFill style={{ backgroundColor: "#000000" }}>
+    <AbsoluteFill style={{ backgroundColor: '#000000' }}>
       <ThreeCanvas width={width} height={height}>
         <perspectiveCamera position={[0, 1.5, 6]} />
         <ambientLight intensity={0.1} />

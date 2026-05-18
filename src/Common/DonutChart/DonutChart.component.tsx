@@ -1,5 +1,6 @@
-import React from "react";
-import { interpolate, useCurrentFrame } from "remotion";
+import React from 'react';
+
+import { interpolate, useCurrentFrame } from 'remotion';
 
 interface DonutSlice {
   value: number;
@@ -21,13 +22,13 @@ interface DonutChartProps {
 export { type DonutSlice };
 
 export const DonutChart: React.FC<DonutChartProps> = ({
-  data,
-  centreValue,
   centreLabel,
+  centreValue,
   chartSize = 500,
-  strokeWidth = 40,
-  startFrame = 0,
+  data,
   staggerFrames = 15,
+  startFrame = 0,
+  strokeWidth = 40,
   title,
 }) => {
   const frame = useCurrentFrame();
@@ -37,9 +38,12 @@ export const DonutChart: React.FC<DonutChartProps> = ({
 
   const total = data.reduce((s, d) => s + d.value, 0);
   const circumference = 2 * Math.PI * radius;
-  const animatedValue = centreValue !== undefined
-    ? Math.round(interpolate(frame - startFrame, [0, 40], [0, centreValue], { extrapolateRight: "clamp" }))
-    : undefined;
+  const animatedValue =
+    centreValue !== undefined
+      ? Math.round(
+          interpolate(frame - startFrame, [0, 40], [0, centreValue], { extrapolateRight: 'clamp' })
+        )
+      : undefined;
 
   let cumulativePercent = 0;
 
@@ -66,7 +70,7 @@ export const DonutChart: React.FC<DonutChartProps> = ({
           frame - startFrame,
           [i * staggerFrames, 15 + i * staggerFrames],
           [0, 1],
-          { extrapolateLeft: "clamp", extrapolateRight: "clamp" }
+          { extrapolateLeft: 'clamp', extrapolateRight: 'clamp' }
         );
         const offset = circumference * cumulativePercent + gap / 2;
         const visibleLength = sliceLength * progress;
@@ -120,7 +124,7 @@ export const DonutChart: React.FC<DonutChartProps> = ({
           fontFamily="system-ui, sans-serif"
         >
           {animatedValue}
-          {centreLabel?.includes("%") ? "%" : ""}
+          {centreLabel?.includes('%') ? '%' : ''}
         </text>
       )}
       {centreLabel && (
@@ -132,7 +136,7 @@ export const DonutChart: React.FC<DonutChartProps> = ({
           fontSize="14"
           fontFamily="system-ui, sans-serif"
         >
-          {centreLabel.replace("%", "")}
+          {centreLabel.replace('%', '')}
         </text>
       )}
     </svg>

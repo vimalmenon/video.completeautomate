@@ -1,1 +1,1 @@
-export { LogoWall } from "./LogoWall.component";
+export { LogoWall } from './LogoWall.component';

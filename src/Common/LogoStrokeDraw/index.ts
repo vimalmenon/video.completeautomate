@@ -1,1 +1,1 @@
-export { LogoStrokeDraw } from "./LogoStrokeDraw.component";
+export { LogoStrokeDraw } from './LogoStrokeDraw.component';

@@ -1,1 +1,1 @@
-export { DiamondWipe } from "./DiamondWipe.component";
+export { DiamondWipe } from './DiamondWipe.component';

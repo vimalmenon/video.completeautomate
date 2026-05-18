@@ -1,11 +1,12 @@
-import React, { useMemo } from "react";
-import { ThreeCanvas } from "@remotion/three";
-import { useCurrentFrame, interpolate, AbsoluteFill, useVideoConfig } from "remotion";
-import * as THREE from "three";
+import React, { useMemo } from 'react';
+
+import { ThreeCanvas } from '@remotion/three';
+import { AbsoluteFill, interpolate, useCurrentFrame, useVideoConfig } from 'remotion';
+import * as THREE from 'three';
 
 export const ThreeGlobe: React.FC = () => {
   const frame = useCurrentFrame();
-  const { width, height } = useVideoConfig();
+  const { height, width } = useVideoConfig();
 
   const rotationY = useMemo(() => interpolate(frame, [0, 240], [0, Math.PI * 2]), [frame]);
 
@@ -59,12 +60,12 @@ export const ThreeGlobe: React.FC = () => {
       positions[i * 3 + 2] = p.z;
     });
     const geo = new THREE.BufferGeometry();
-    geo.setAttribute("position", new THREE.BufferAttribute(positions, 3));
+    geo.setAttribute('position', new THREE.BufferAttribute(positions, 3));
     return geo;
   }, [ringPoints]);
 
   return (
-    <AbsoluteFill style={{ backgroundColor: "#000000" }}>
+    <AbsoluteFill style={{ backgroundColor: '#000000' }}>
       <ThreeCanvas width={width} height={height}>
         <perspectiveCamera position={[0, 0, 6]} />
         <ambientLight intensity={0.4} />
@@ -80,12 +81,7 @@ export const ThreeGlobe: React.FC = () => {
           {/* Sphere surface - semi-transparent */}
           <mesh>
             <sphereGeometry args={[2, 32, 32]} />
-            <meshPhongMaterial
-              color="#0891B2"
-              transparent
-              opacity={0.08}
-              wireframe={false}
-            />
+            <meshPhongMaterial color="#0891B2" transparent opacity={0.08} wireframe={false} />
           </mesh>
 
           {/* Lat/Lon rings */}

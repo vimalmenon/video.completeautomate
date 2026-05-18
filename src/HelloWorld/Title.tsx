@@ -1,31 +1,33 @@
-import React from "react";
-import { spring, useCurrentFrame, useVideoConfig } from "remotion";
-import { FONT_FAMILY } from "./constants";
+import React from 'react';
+
+import { spring, useCurrentFrame, useVideoConfig } from 'remotion';
+
+import { FONT_FAMILY } from './constants';
 
 const title: React.CSSProperties = {
-  fontFamily: FONT_FAMILY,
-  fontWeight: "bold",
-  fontSize: 100,
-  textAlign: "center",
-  position: "absolute",
   bottom: 160,
-  width: "100%",
+  fontFamily: FONT_FAMILY,
+  fontSize: 100,
+  fontWeight: 'bold',
+  position: 'absolute',
+  textAlign: 'center',
+  width: '100%',
 };
 
 const word: React.CSSProperties = {
+  display: 'inline-block',
   marginLeft: 10,
   marginRight: 10,
-  display: "inline-block",
 };
 
 export const Title: React.FC<{
   readonly titleText: string;
   readonly titleColor: string;
-}> = ({ titleText, titleColor }) => {
+}> = ({ titleColor, titleText }) => {
   const videoConfig = useVideoConfig();
   const frame = useCurrentFrame();
 
-  const words = titleText.split(" ");
+  const words = titleText.split(' ');
 
   return (
     <h1 style={title}>
@@ -33,11 +35,11 @@ export const Title: React.FC<{
         const delay = i * 5;
 
         const scale = spring({
-          fps: videoConfig.fps,
-          frame: frame - delay,
           config: {
             damping: 200,
           },
+          fps: videoConfig.fps,
+          frame: frame - delay,
         });
 
         return (

@@ -1,12 +1,13 @@
-import React from "react";
+import React from 'react';
+
 import {
+  AbsoluteFill,
+  interpolate,
+  Sequence,
   spring,
   useCurrentFrame,
   useVideoConfig,
-  interpolate,
-  AbsoluteFill,
-  Sequence,
-} from "remotion";
+} from 'remotion';
 
 interface LogoStrokeDrawProps {
   logoText: string;
@@ -15,67 +16,58 @@ interface LogoStrokeDrawProps {
 }
 
 export const LogoStrokeDraw: React.FC<LogoStrokeDrawProps> = ({
-  logoText = "CA",
-  companyName = "Complete Automate",
-  tagline = "Building the future",
+  companyName = 'Complete Automate',
+  logoText = 'CA',
+  tagline = 'Building the future',
 }) => {
   const frame = useCurrentFrame();
   const { fps } = useVideoConfig();
 
   const drawProgress = spring({
-    frame,
+    config: { damping: 12, mass: 0.5, stiffness: 100 },
     fps,
+    frame,
     from: 0,
     to: 1,
-    config: { mass: 0.5, damping: 12, stiffness: 100 },
   });
 
-  const strokeDashoffset = interpolate(
-    drawProgress,
-    [0, 1],
-    [200, 0],
-    { extrapolateLeft: "clamp", extrapolateRight: "clamp" }
-  );
+  const strokeDashoffset = interpolate(drawProgress, [0, 1], [200, 0], {
+    extrapolateLeft: 'clamp',
+    extrapolateRight: 'clamp',
+  });
 
-  const fillOpacity = interpolate(
-    drawProgress,
-    [0.5, 1],
-    [0, 1],
-    { extrapolateLeft: "clamp", extrapolateRight: "clamp" }
-  );
+  const fillOpacity = interpolate(drawProgress, [0.5, 1], [0, 1], {
+    extrapolateLeft: 'clamp',
+    extrapolateRight: 'clamp',
+  });
 
   const nameSpr = spring({
-    frame: frame - 30,
+    config: { damping: 14, mass: 0.4, stiffness: 120 },
     fps,
+    frame: frame - 30,
     from: 0,
     to: 1,
-    config: { mass: 0.4, damping: 14, stiffness: 120 },
   });
 
   const taglineSpr = spring({
-    frame: frame - 45,
+    config: { damping: 14, mass: 0.4, stiffness: 120 },
     fps,
+    frame: frame - 45,
     from: 0,
     to: 1,
-    config: { mass: 0.4, damping: 14, stiffness: 120 },
   });
 
   return (
     <AbsoluteFill
       style={{
-        backgroundColor: "#0F172A",
-        justifyContent: "center",
-        alignItems: "center",
-        flexDirection: "column",
+        alignItems: 'center',
+        backgroundColor: '#0F172A',
+        flexDirection: 'column',
+        justifyContent: 'center',
       }}
     >
       {/* SVG Logo Text */}
-      <svg
-        width="500"
-        height="120"
-        viewBox="0 0 500 120"
-        style={{ marginBottom: 16 }}
-      >
+      <svg width="500" height="120" viewBox="0 0 500 120" style={{ marginBottom: 16 }}>
         <text
           x="250"
           y="80"
@@ -83,7 +75,7 @@ export const LogoStrokeDraw: React.FC<LogoStrokeDrawProps> = ({
           fontSize="90"
           fontWeight={900}
           fontFamily="'Inter', system-ui, sans-serif"
-          fill={fillOpacity > 0 ? "#0891B2" : "transparent"}
+          fill={fillOpacity > 0 ? '#0891B2' : 'transparent'}
           fillOpacity={fillOpacity}
           stroke="#0891B2"
           strokeWidth={3}
@@ -100,14 +92,14 @@ export const LogoStrokeDraw: React.FC<LogoStrokeDrawProps> = ({
       <Sequence from={30}>
         <div
           style={{
-            fontSize: "2rem",
-            fontWeight: 700,
-            color: "#FFFFFF",
+            color: '#FFFFFF',
             fontFamily: "'Inter', system-ui, sans-serif",
+            fontSize: '2rem',
+            fontWeight: 700,
+            letterSpacing: '0.05em',
+            marginBottom: 8,
             opacity: nameSpr,
             transform: `translateY(${(1 - nameSpr) * 20}px)`,
-            letterSpacing: "0.05em",
-            marginBottom: 8,
           }}
         >
           {companyName}
@@ -118,14 +110,14 @@ export const LogoStrokeDraw: React.FC<LogoStrokeDrawProps> = ({
       <Sequence from={45}>
         <div
           style={{
-            fontSize: "1.1rem",
-            fontWeight: 400,
-            color: "rgba(255,255,255,0.6)",
+            color: 'rgba(255,255,255,0.6)',
             fontFamily: "'Inter', system-ui, sans-serif",
+            fontSize: '1.1rem',
+            fontWeight: 400,
+            letterSpacing: '0.15em',
             opacity: taglineSpr,
+            textTransform: 'uppercase',
             transform: `translateY(${(1 - taglineSpr) * 15}px)`,
-            letterSpacing: "0.15em",
-            textTransform: "uppercase",
           }}
         >
           {tagline}

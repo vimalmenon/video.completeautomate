@@ -1,11 +1,6 @@
-import React, { useMemo } from "react";
-import {
-  AbsoluteFill,
-  useCurrentFrame,
-  useVideoConfig,
-  interpolate,
-  random,
-} from "remotion";
+import React, { useMemo } from 'react';
+
+import { AbsoluteFill, interpolate, random, useCurrentFrame, useVideoConfig } from 'remotion';
 
 interface MatrixRainProps {
   columnWidth?: number;
@@ -14,7 +9,8 @@ interface MatrixRainProps {
   fadeOpacity?: number;
 }
 
-const CHARS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789<>/{}[]|~!@#$%^&*()_+-=あいうえおかきくけこさしすせそ";
+const CHARS =
+  'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789<>/{}[]|~!@#$%^&*()_+-=あいうえおかきくけこさしすせそ';
 
 interface Column {
   x: number;
@@ -25,13 +21,13 @@ interface Column {
 }
 
 export const MatrixRain: React.FC<MatrixRainProps> = ({
-  columnWidth = 20,
   charSize = 16,
-  color = "#00FF41",
+  color = '#00FF41',
+  columnWidth = 20,
   fadeOpacity = 0.8,
 }) => {
   const frame = useCurrentFrame();
-  const { width, height } = useVideoConfig();
+  const { height, width } = useVideoConfig();
 
   const cols = Math.ceil(width / columnWidth);
   const visibleChars = Math.ceil(height / charSize) + 2;
@@ -42,23 +38,21 @@ export const MatrixRain: React.FC<MatrixRainProps> = ({
       const colChars: string[] = [];
       const len = Math.floor(random(`len-${i}`) * 15 + 5);
       for (let j = 0; j < len + visibleChars; j++) {
-        colChars.push(
-          CHARS[Math.floor(random(`char-${i}-${j}`) * CHARS.length)]
-        );
+        colChars.push(CHARS[Math.floor(random(`char-${i}-${j}`) * CHARS.length)]);
       }
       result.push({
-        x: i * columnWidth,
-        length: len,
-        speed: random(`speed-${i}`) * 1.5 + 0.5,
-        offset: random(`offset-${i}`) * 200,
         chars: colChars,
+        length: len,
+        offset: random(`offset-${i}`) * 200,
+        speed: random(`speed-${i}`) * 1.5 + 0.5,
+        x: i * columnWidth,
       });
     }
     return result;
   }, [cols, visibleChars]);
 
   return (
-    <AbsoluteFill style={{ backgroundColor: "#0F172A", overflow: "hidden" }}>
+    <AbsoluteFill style={{ backgroundColor: '#0F172A', overflow: 'hidden' }}>
       {columns.map((col) => {
         const scrollPos = (frame * col.speed + col.offset) % (col.length + visibleChars);
         const startIdx = Math.floor(scrollPos);
@@ -67,12 +61,12 @@ export const MatrixRain: React.FC<MatrixRainProps> = ({
           <div
             key={col.x}
             style={{
-              position: "absolute",
+              height: '100%',
               left: col.x,
+              overflow: 'hidden',
+              position: 'absolute',
               top: 0,
               width: columnWidth,
-              height: "100%",
-              overflow: "hidden",
             }}
           >
             {Array.from({ length: visibleChars + 2 }).map((_, j) => {
@@ -86,31 +80,28 @@ export const MatrixRain: React.FC<MatrixRainProps> = ({
                 distFromHead,
                 [0, 2, col.length - 2, col.length],
                 [1, fadeOpacity, fadeOpacity * 0.3, 0],
-                { extrapolateLeft: "clamp", extrapolateRight: "clamp" }
+                { extrapolateLeft: 'clamp', extrapolateRight: 'clamp' }
               );
 
               const isHead = j === 0 || j === 1;
-              const charColor = isHead ? "#FFFFFF" : color;
+              const charColor = isHead ? '#FFFFFF' : color;
 
               return (
                 <span
                   key={`${col.x}-${j}`}
                   style={{
-                    display: "block",
-                    fontFamily: "monospace",
-                    fontSize: charSize,
                     color: charColor,
-                    opacity: charOpacity,
-                    textShadow:
-                      j < 2
-                        ? `0 0 8px ${color}`
-                        : `0 0 3px ${color}44`,
-                    lineHeight: 1,
+                    display: 'block',
+                    fontFamily: 'monospace',
+                    fontSize: charSize,
                     height: charSize,
-                    position: "absolute",
-                    top: yPos,
                     left: 2,
-                    whiteSpace: "nowrap",
+                    lineHeight: 1,
+                    opacity: charOpacity,
+                    position: 'absolute',
+                    textShadow: j < 2 ? `0 0 8px ${color}` : `0 0 3px ${color}44`,
+                    top: yPos,
+                    whiteSpace: 'nowrap',
                   }}
                 >
                   {char}

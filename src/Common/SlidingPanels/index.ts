@@ -1,1 +1,1 @@
-export { SlidingPanels } from "./SlidingPanels.component";
+export { SlidingPanels } from './SlidingPanels.component';

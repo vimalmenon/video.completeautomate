@@ -1,1 +1,1 @@
-export * from "./SpotlightReveal.component";
+export * from './SpotlightReveal.component';

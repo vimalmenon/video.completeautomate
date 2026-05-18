@@ -1,5 +1,6 @@
-import React from "react";
-import { spring, useCurrentFrame, useVideoConfig } from "remotion";
+import React from 'react';
+
+import { spring, useCurrentFrame, useVideoConfig } from 'remotion';
 
 interface FloatingTextChipProps {
   text?: string;
@@ -10,29 +11,29 @@ interface FloatingTextChipProps {
 }
 
 export const FloatingTextChip: React.FC<FloatingTextChipProps> = ({
-  text = "NEW FEATURE",
+  bgColor = 'rgba(8, 145, 178, 0.15)',
+  color = '#22D3EE',
+  fontSize = '1.2rem',
   startFrame = 0,
-  color = "#22D3EE",
-  bgColor = "rgba(8, 145, 178, 0.15)",
-  fontSize = "1.2rem",
+  text = 'NEW FEATURE',
 }) => {
   const frame = useCurrentFrame();
   const { fps } = useVideoConfig();
 
   const opacity = spring({
-    frame: frame - startFrame,
+    config: { damping: 10, mass: 0.3, stiffness: 120 },
     fps,
+    frame: frame - startFrame,
     from: 0,
     to: 1,
-    config: { mass: 0.3, damping: 10, stiffness: 120 },
   });
 
   const y = spring({
-    frame: frame - startFrame,
+    config: { damping: 8, mass: 0.4, stiffness: 100 },
     fps,
+    frame: frame - startFrame,
     from: 30,
     to: 0,
-    config: { mass: 0.4, damping: 8, stiffness: 100 },
   });
 
   const floatY = Math.sin((frame - startFrame) / 30) * 5;
@@ -40,36 +41,36 @@ export const FloatingTextChip: React.FC<FloatingTextChipProps> = ({
   return (
     <div
       style={{
-        display: "inline-flex",
-        alignItems: "center",
-        gap: 8,
-        padding: "8px 18px",
+        alignItems: 'center',
+        backdropFilter: 'blur(4px)',
         backgroundColor: bgColor,
-        borderRadius: 100,
         border: `1px solid ${color}30`,
-        opacity,
-        transform: `translateY(${y + floatY}px)`,
+        borderRadius: 100,
         boxShadow: `0 4px 20px ${color}20`,
-        backdropFilter: "blur(4px)",
+        display: 'inline-flex',
+        gap: 8,
+        opacity,
+        padding: '8px 18px',
+        transform: `translateY(${y + floatY}px)`,
       }}
     >
       <span
         style={{
-          width: 8,
-          height: 8,
-          borderRadius: 4,
           backgroundColor: color,
-          display: "inline-block",
+          borderRadius: 4,
+          display: 'inline-block',
+          height: 8,
           opacity: 0.8,
+          width: 8,
         }}
       />
       <span
         style={{
+          color,
+          fontFamily: 'system-ui, sans-serif',
           fontSize,
           fontWeight: 700,
-          color,
-          fontFamily: "system-ui, sans-serif",
-          letterSpacing: "0.05em",
+          letterSpacing: '0.05em',
         }}
       >
         {text}

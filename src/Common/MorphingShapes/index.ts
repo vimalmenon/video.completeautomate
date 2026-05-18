@@ -1,1 +1,1 @@
-export * from "./MorphingShapes.component";
+export * from './MorphingShapes.component';

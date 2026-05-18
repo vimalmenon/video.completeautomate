@@ -1,5 +1,6 @@
-import React from "react";
-import { interpolate, useCurrentFrame } from "remotion";
+import React from 'react';
+
+import { interpolate, useCurrentFrame } from 'remotion';
 
 interface AreaDataPoint {
   x: number;
@@ -22,34 +23,31 @@ interface AreaChartProps {
 export { type AreaDataPoint };
 
 export const AreaChart: React.FC<AreaChartProps> = ({
-  data,
-  chartWidth = 900,
   chartHeight = 500,
+  chartWidth = 900,
+  data,
+  durationInFrames = 60,
+  gradientEnd = '#4361ee00',
+  gradientStart = '#4361ee',
+  lineColor = '#4361ee',
   padding = 60,
   startFrame = 0,
-  lineColor = "#4361ee",
-  gradientStart = "#4361ee",
-  gradientEnd = "#4361ee00",
-  durationInFrames = 60,
 }) => {
   const frame = useCurrentFrame();
 
   const xScale = (x: number) =>
     (x / Math.max(data.length - 1, 1)) * (chartWidth - padding * 2) + padding;
-  const yScale = (y: number) =>
-    chartHeight - padding - (y / 100) * (chartHeight - padding * 2);
+  const yScale = (y: number) => chartHeight - padding - (y / 100) * (chartHeight - padding * 2);
 
-  const linePoints = data.map((d) => `${xScale(d.x)},${yScale(d.y)}`).join(" ");
-  const areaPoints = `${xScale(data[0].x)},${chartHeight - padding} ` +
-    data.map((d) => `${xScale(d.x)},${yScale(d.y)}`).join(" ") +
+  const linePoints = data.map((d) => `${xScale(d.x)},${yScale(d.y)}`).join(' ');
+  const areaPoints =
+    `${xScale(data[0].x)},${chartHeight - padding} ` +
+    data.map((d) => `${xScale(d.x)},${yScale(d.y)}`).join(' ') +
     ` ${xScale(data[data.length - 1].x)},${chartHeight - padding}`;
 
-  const clipWidth = interpolate(
-    frame - startFrame,
-    [0, durationInFrames],
-    [0, chartWidth],
-    { extrapolateRight: "clamp" }
-  );
+  const clipWidth = interpolate(frame - startFrame, [0, durationInFrames], [0, chartWidth], {
+    extrapolateRight: 'clamp',
+  });
 
   return (
     <svg width={chartWidth} height={chartHeight}>
@@ -90,11 +88,7 @@ export const AreaChart: React.FC<AreaChartProps> = ({
       ))}
 
       {/* Area fill */}
-      <polygon
-        points={areaPoints}
-        fill="url(#areaGrad)"
-        clipPath="url(#areaClip)"
-      />
+      <polygon points={areaPoints} fill="url(#areaGrad)" clipPath="url(#areaClip)" />
 
       {/* Line */}
       <polyline
@@ -133,12 +127,10 @@ export const AreaChart: React.FC<AreaChartProps> = ({
 
       {/* Dots */}
       {data.map((p, i) => {
-        const dotOpacity = interpolate(
-          frame - startFrame,
-          [5 + i * 6, 10 + i * 6],
-          [0, 1],
-          { extrapolateLeft: "clamp", extrapolateRight: "clamp" }
-        );
+        const dotOpacity = interpolate(frame - startFrame, [5 + i * 6, 10 + i * 6], [0, 1], {
+          extrapolateLeft: 'clamp',
+          extrapolateRight: 'clamp',
+        });
         return (
           <circle
             key={`dot-${i}`}

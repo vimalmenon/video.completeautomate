@@ -1,5 +1,6 @@
-import React from "react";
-import { interpolate, useCurrentFrame, Easing } from "remotion";
+import React from 'react';
+
+import { Easing, interpolate, useCurrentFrame } from 'remotion';
 
 interface LetterboxRevealProps {
   children: React.ReactNode;
@@ -9,39 +10,39 @@ interface LetterboxRevealProps {
 }
 
 export const LetterboxReveal: React.FC<LetterboxRevealProps> = ({
-  children,
-  startFrame = 0,
-  durationInFrames = 40,
   barHeight = 120,
+  children,
+  durationInFrames = 40,
+  startFrame = 0,
 }) => {
   const frame = useCurrentFrame();
   const elapsed = frame - startFrame;
 
   const topOffset = interpolate(elapsed, [0, durationInFrames], [0, -barHeight], {
-    extrapolateLeft: "clamp",
-    extrapolateRight: "clamp",
     easing: Easing.inOut(Easing.cubic),
+    extrapolateLeft: 'clamp',
+    extrapolateRight: 'clamp',
   });
 
   const bottomOffset = interpolate(elapsed, [0, durationInFrames], [0, barHeight], {
-    extrapolateLeft: "clamp",
-    extrapolateRight: "clamp",
     easing: Easing.inOut(Easing.cubic),
+    extrapolateLeft: 'clamp',
+    extrapolateRight: 'clamp',
   });
 
   return (
-    <div style={{ position: "absolute", inset: 0 }}>
+    <div style={{ inset: 0, position: 'absolute' }}>
       {children}
 
       {/* Top bar */}
       <div
         style={{
-          position: "absolute",
-          top: topOffset,
-          left: 0,
-          right: 0,
+          backgroundColor: '#000',
           height: barHeight,
-          backgroundColor: "#000",
+          left: 0,
+          position: 'absolute',
+          right: 0,
+          top: topOffset,
           zIndex: 10,
         }}
       />
@@ -49,12 +50,12 @@ export const LetterboxReveal: React.FC<LetterboxRevealProps> = ({
       {/* Bottom bar */}
       <div
         style={{
-          position: "absolute",
+          backgroundColor: '#000',
           bottom: bottomOffset,
-          left: 0,
-          right: 0,
           height: barHeight,
-          backgroundColor: "#000",
+          left: 0,
+          position: 'absolute',
+          right: 0,
           zIndex: 10,
         }}
       />

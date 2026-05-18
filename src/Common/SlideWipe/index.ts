@@ -1,1 +1,1 @@
-export { SlideWipe } from "./SlideWipe.component";
+export { SlideWipe } from './SlideWipe.component';

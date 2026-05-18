@@ -1,1 +1,1 @@
-export * from "./ImageReveal.component";
+export * from './ImageReveal.component';

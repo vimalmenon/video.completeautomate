@@ -1,1 +1,1 @@
-export { BokehCircles } from "./BokehCircles.component";
+export { BokehCircles } from './BokehCircles.component';

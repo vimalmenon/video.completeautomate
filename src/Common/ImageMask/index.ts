@@ -1,1 +1,1 @@
-export * from "./ImageMask.component";
+export * from './ImageMask.component';

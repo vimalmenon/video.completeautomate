@@ -1,1 +1,1 @@
-export { LogoFadeReveal } from "./LogoFadeReveal.component";
+export { LogoFadeReveal } from './LogoFadeReveal.component';

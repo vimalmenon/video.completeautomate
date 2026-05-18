@@ -1,1 +1,1 @@
-export { CleanLowerThird } from "./CleanLowerThird.component";
+export { CleanLowerThird } from './CleanLowerThird.component';

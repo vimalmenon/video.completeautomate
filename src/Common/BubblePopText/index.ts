@@ -1,1 +1,1 @@
-export { BubblePopText } from "./BubblePopText.component";
+export { BubblePopText } from './BubblePopText.component';

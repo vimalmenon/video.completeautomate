@@ -1,1 +1,1 @@
-export * from "./FilmBurn.component";
+export * from './FilmBurn.component';

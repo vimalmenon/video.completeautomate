@@ -1,5 +1,6 @@
-import React from "react";
-import { interpolate, spring, useCurrentFrame, useVideoConfig } from "remotion";
+import React from 'react';
+
+import { interpolate, spring, useCurrentFrame, useVideoConfig } from 'remotion';
 
 interface StatCounterProps {
   value: number;
@@ -10,57 +11,53 @@ interface StatCounterProps {
 }
 
 export const StatCounter: React.FC<StatCounterProps> = ({
-  value,
+  color = '#22D3EE',
   label,
   startFrame = 0,
-  suffix = "",
-  color = "#22D3EE",
+  suffix = '',
+  value,
 }) => {
   const frame = useCurrentFrame();
   const { fps } = useVideoConfig();
 
   const progress = spring({
-    frame: frame - startFrame,
-    fps,
     config: {
       damping: 12,
       mass: 0.5,
     },
+    fps,
+    frame: frame - startFrame,
   });
 
   const displayValue = Math.round(interpolate(progress, [0, 1], [0, value]));
 
-  const opacity = interpolate(
-    frame - startFrame,
-    [-5, 5],
-    [0, 1],
-    { extrapolateLeft: "clamp", extrapolateRight: "clamp" }
-  );
+  const opacity = interpolate(frame - startFrame, [-5, 5], [0, 1], {
+    extrapolateLeft: 'clamp',
+    extrapolateRight: 'clamp',
+  });
 
-  const y = interpolate(
-    frame - startFrame,
-    [0, 20],
-    [30, 0],
-    { extrapolateLeft: "clamp", extrapolateRight: "clamp" }
-  );
+  const y = interpolate(frame - startFrame, [0, 20], [30, 0], {
+    extrapolateLeft: 'clamp',
+    extrapolateRight: 'clamp',
+  });
 
   return (
     <div
       style={{
-        display: "flex",
-        flexDirection: "column",
-        alignItems: "center",
-        justifyContent: "center",
+        alignItems: 'center',
+        display: 'flex',
+        flexDirection: 'column',
+        justifyContent: 'center',
         opacity,
         transform: `translateY(${y}px)`,
       }}
     >
       <span
         style={{
+          color,
+          fontFamily: 'system-ui, sans-serif',
           fontSize: 72,
           fontWeight: 800,
-          color,
-          fontFamily: "system-ui, sans-serif",
           lineHeight: 1,
         }}
       >
@@ -69,12 +66,12 @@ export const StatCounter: React.FC<StatCounterProps> = ({
       </span>
       <span
         style={{
+          color: '#94A3B8',
           fontSize: 20,
-          color: "#94A3B8",
-          marginTop: 8,
           fontWeight: 500,
-          textTransform: "uppercase",
-          letterSpacing: "0.05em",
+          letterSpacing: '0.05em',
+          marginTop: 8,
+          textTransform: 'uppercase',
         }}
       >
         {label}

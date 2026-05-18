@@ -1,12 +1,6 @@
-import React from "react";
-import {
-  spring,
-  useCurrentFrame,
-  useVideoConfig,
-  interpolate,
-  AbsoluteFill,
-  Img,
-} from "remotion";
+import React from 'react';
+
+import { AbsoluteFill, Img, interpolate, spring, useCurrentFrame, useVideoConfig } from 'remotion';
 
 interface GalleryItem {
   src: string;
@@ -19,16 +13,16 @@ interface GalleryGridProps {
 
 export const GalleryGrid: React.FC<GalleryGridProps> = ({
   images = [
-    { src: "https://picsum.photos/seed/img1/400/300", label: "Image 1" },
-    { src: "https://picsum.photos/seed/img2/400/300", label: "Image 2" },
-    { src: "https://picsum.photos/seed/img3/400/300", label: "Image 3" },
-    { src: "https://picsum.photos/seed/img4/400/300", label: "Image 4" },
-    { src: "https://picsum.photos/seed/img5/400/300", label: "Image 5" },
-    { src: "https://picsum.photos/seed/img6/400/300", label: "Image 6" },
+    { label: 'Image 1', src: 'https://picsum.photos/seed/img1/400/300' },
+    { label: 'Image 2', src: 'https://picsum.photos/seed/img2/400/300' },
+    { label: 'Image 3', src: 'https://picsum.photos/seed/img3/400/300' },
+    { label: 'Image 4', src: 'https://picsum.photos/seed/img4/400/300' },
+    { label: 'Image 5', src: 'https://picsum.photos/seed/img5/400/300' },
+    { label: 'Image 6', src: 'https://picsum.photos/seed/img6/400/300' },
   ],
 }) => {
   const frame = useCurrentFrame();
-  const { fps, width, height } = useVideoConfig();
+  const { fps, height, width } = useVideoConfig();
 
   const cols = 3;
   const gap = 12;
@@ -38,40 +32,38 @@ export const GalleryGrid: React.FC<GalleryGridProps> = ({
   return (
     <AbsoluteFill
       style={{
-        backgroundColor: "#0F172A",
-        justifyContent: "center",
-        alignItems: "center",
+        alignItems: 'center',
+        backgroundColor: '#0F172A',
+        justifyContent: 'center',
         padding: 40,
       }}
     >
       <div
         style={{
-          display: "flex",
-          flexWrap: "wrap",
+          display: 'flex',
+          flexWrap: 'wrap',
           gap,
-          width: "100%",
-          justifyContent: "center",
+          justifyContent: 'center',
+          width: '100%',
         }}
       >
         {images.slice(0, 6).map((img, i) => {
           const staggerDelay = i * 4;
           const imgSpring = spring({
-            frame: frame - staggerDelay,
+            config: { damping: 12, mass: 0.5, stiffness: 100 },
             fps,
+            frame: frame - staggerDelay,
             from: 0,
             to: 1,
-            config: { mass: 0.5, damping: 12, stiffness: 100 },
           });
 
           if (frame < staggerDelay) return null;
 
           const scale = interpolate(imgSpring, [0, 1], [0.8, 1]);
-          const opacity = interpolate(
-            frame - staggerDelay,
-            [0, 8],
-            [0, 1],
-            { extrapolateLeft: "clamp", extrapolateRight: "clamp" }
-          );
+          const opacity = interpolate(frame - staggerDelay, [0, 8], [0, 1], {
+            extrapolateLeft: 'clamp',
+            extrapolateRight: 'clamp',
+          });
 
           const translateY = interpolate(imgSpring, [0, 1], [30, 0]);
 
@@ -79,41 +71,41 @@ export const GalleryGrid: React.FC<GalleryGridProps> = ({
             <div
               key={i}
               style={{
-                width: cellWidth,
-                height: cellHeight,
+                backgroundColor: 'rgba(255,255,255,0.05)',
+                border: '1px solid rgba(8, 145, 178, 0.2)',
                 borderRadius: 12,
-                overflow: "hidden",
-                backgroundColor: "rgba(255,255,255,0.05)",
-                border: "1px solid rgba(8, 145, 178, 0.2)",
+                height: cellHeight,
                 opacity,
+                overflow: 'hidden',
+                position: 'relative',
                 transform: `scale(${scale}) translateY(${translateY}px)`,
-                position: "relative",
+                width: cellWidth,
               }}
             >
               <Img
                 src={img.src}
                 style={{
-                  width: "100%",
-                  height: "100%",
-                  objectFit: "cover",
+                  height: '100%',
+                  objectFit: 'cover',
+                  width: '100%',
                 }}
               />
               <div
                 style={{
-                  position: "absolute",
+                  background: 'linear-gradient(transparent, rgba(0,0,0,0.7))',
                   bottom: 0,
                   left: 0,
+                  padding: '8px 12px',
+                  position: 'absolute',
                   right: 0,
-                  padding: "8px 12px",
-                  background: "linear-gradient(transparent, rgba(0,0,0,0.7))",
                 }}
               >
                 <span
                   style={{
+                    color: '#FFFFFF',
+                    fontFamily: 'system-ui, sans-serif',
                     fontSize: 14,
                     fontWeight: 600,
-                    color: "#FFFFFF",
-                    fontFamily: "system-ui, sans-serif",
                   }}
                 >
                   {img.label}

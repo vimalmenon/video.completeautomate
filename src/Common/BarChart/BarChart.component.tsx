@@ -1,5 +1,6 @@
-import React from "react";
-import { interpolate, useCurrentFrame } from "remotion";
+import React from 'react';
+
+import { interpolate, useCurrentFrame } from 'remotion';
 
 export interface BarDataPoint {
   x: number;
@@ -19,26 +20,33 @@ interface BarChartProps {
 }
 
 const defaultColors = [
-  "#4361ee", "#3a0ca3", "#7209b7", "#f72585", "#4cc9f0",
-  "#4895ef", "#560bad", "#b5179e", "#f15bb5", "#00b4d8",
+  '#4361ee',
+  '#3a0ca3',
+  '#7209b7',
+  '#f72585',
+  '#4cc9f0',
+  '#4895ef',
+  '#560bad',
+  '#b5179e',
+  '#f15bb5',
+  '#00b4d8',
 ];
 
 export const BarChart: React.FC<BarChartProps> = ({
-  data,
-  colors = defaultColors,
-  chartWidth = 900,
-  chartHeight = 500,
-  padding = 60,
-  startFrame = 0,
-  staggerFrames = 3,
   barRadius = 6,
+  chartHeight = 500,
+  chartWidth = 900,
+  colors = defaultColors,
+  data,
+  padding = 60,
+  staggerFrames = 3,
+  startFrame = 0,
 }) => {
   const frame = useCurrentFrame();
 
   const xScale = (x: number) =>
     (x / Math.max(data.length - 1, 1)) * (chartWidth - padding * 2) + padding;
-  const yScale = (y: number) =>
-    chartHeight - padding - (y / 100) * (chartHeight - padding * 2);
+  const yScale = (y: number) => chartHeight - padding - (y / 100) * (chartHeight - padding * 2);
 
   const barWidth = ((chartWidth - padding * 2) / data.length) * 0.7;
 
@@ -103,7 +111,7 @@ export const BarChart: React.FC<BarChartProps> = ({
           frame - startFrame,
           [i * staggerFrames, 15 + i * staggerFrames],
           [0, 1],
-          { extrapolateLeft: "clamp", extrapolateRight: "clamp" }
+          { extrapolateLeft: 'clamp', extrapolateRight: 'clamp' }
         );
 
         const currentHeight = Math.max(0, barHeight * barProgress);
@@ -113,7 +121,7 @@ export const BarChart: React.FC<BarChartProps> = ({
           frame - startFrame,
           [i * staggerFrames + 12, i * staggerFrames + 18],
           [0, 1],
-          { extrapolateLeft: "clamp", extrapolateRight: "clamp" }
+          { extrapolateLeft: 'clamp', extrapolateRight: 'clamp' }
         );
 
         return (

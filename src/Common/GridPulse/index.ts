@@ -1,1 +1,1 @@
-export { GridPulse } from "./GridPulse.component";
+export { GridPulse } from './GridPulse.component';

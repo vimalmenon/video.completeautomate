@@ -1,1 +1,1 @@
-export { LogoWatermark } from "./LogoWatermark.component";
+export { LogoWatermark } from './LogoWatermark.component';

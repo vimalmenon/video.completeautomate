@@ -1,1 +1,1 @@
-export { ThreeMorphing } from "./ThreeMorphing.component";
+export { ThreeMorphing } from './ThreeMorphing.component';

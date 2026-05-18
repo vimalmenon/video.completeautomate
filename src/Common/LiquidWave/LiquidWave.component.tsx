@@ -1,5 +1,6 @@
-import React, { useMemo } from "react";
-import { AbsoluteFill, useCurrentFrame, useVideoConfig } from "remotion";
+import React, { useMemo } from 'react';
+
+import { AbsoluteFill, useCurrentFrame, useVideoConfig } from 'remotion';
 
 interface LiquidWaveProps {
   waveCount?: number;
@@ -8,43 +9,43 @@ interface LiquidWaveProps {
 }
 
 export const LiquidWave: React.FC<LiquidWaveProps> = ({
-  waveCount = 4,
-  baseColor = "#0891B2",
+  baseColor = '#0891B2',
   opacity = 0.25,
+  waveCount = 4,
 }) => {
   const frame = useCurrentFrame();
-  const { width, height } = useVideoConfig();
+  const { height, width } = useVideoConfig();
 
-  const waves = useMemo(() => {
-    return Array.from({ length: waveCount }).map((_, i) => {
-      const amplitude = 20 + i * 12;
-      const frequency = 0.004 + i * 0.0015;
-      const speed = 0.02 + i * 0.008;
-      const phase = i * 1.8;
-      const verticalOffset = (height / (waveCount + 1)) * (i + 1);
-      const waveHue = 190 + i * 15;
-      return {
-        amplitude,
-        frequency,
-        speed,
-        phase,
-        verticalOffset,
-        waveHue,
-      };
-    });
-  }, [waveCount, height]);
+  const waves = useMemo(
+    () =>
+      Array.from({ length: waveCount }).map((_, i) => {
+        const amplitude = 20 + i * 12;
+        const frequency = 0.004 + i * 0.0015;
+        const speed = 0.02 + i * 0.008;
+        const phase = i * 1.8;
+        const verticalOffset = (height / (waveCount + 1)) * (i + 1);
+        const waveHue = 190 + i * 15;
+        return {
+          amplitude,
+          frequency,
+          phase,
+          speed,
+          verticalOffset,
+          waveHue,
+        };
+      }),
+    [waveCount, height]
+  );
 
-  const generatePath = (wave: typeof waves[0], yOffset: number): string => {
+  const generatePath = (wave: (typeof waves)[0], yOffset: number): string => {
     const points = 120;
-    let path = "";
+    let path = '';
     for (let p = 0; p <= points; p++) {
       const x = (p / points) * width;
       const y =
         wave.verticalOffset +
         yOffset +
-        Math.sin(x * wave.frequency + frame * wave.speed + wave.phase) *
-          wave.amplitude *
-          1.0 +
+        Math.sin(x * wave.frequency + frame * wave.speed + wave.phase) * wave.amplitude * 1.0 +
         Math.sin(x * wave.frequency * 2.3 + frame * wave.speed * 0.7 + wave.phase * 1.5) *
           wave.amplitude *
           0.4 +
@@ -63,7 +64,7 @@ export const LiquidWave: React.FC<LiquidWaveProps> = ({
   };
 
   return (
-    <AbsoluteFill style={{ overflow: "hidden" }}>
+    <AbsoluteFill style={{ overflow: 'hidden' }}>
       <svg width={width} height={height}>
         {waves.map((wave, i) => {
           const path = generatePath(wave, -i * 30);

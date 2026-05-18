@@ -1,1 +1,1 @@
-export * from "./GalleryGrid.component";
+export * from './GalleryGrid.component';

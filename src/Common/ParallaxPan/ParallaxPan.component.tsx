@@ -1,5 +1,6 @@
-import React from "react";
-import { interpolate, useCurrentFrame, useVideoConfig, Img } from "remotion";
+import React from 'react';
+
+import { Img, interpolate, useCurrentFrame, useVideoConfig } from 'remotion';
 
 interface ParallaxLayer {
   src: string;
@@ -8,14 +9,14 @@ interface ParallaxLayer {
 
 interface ParallaxPanProps {
   layers: ParallaxLayer[];
-  direction?: "horizontal" | "vertical";
+  direction?: 'horizontal' | 'vertical';
   durationInFrames?: number;
 }
 
 export const ParallaxPan: React.FC<ParallaxPanProps> = ({
-  layers,
-  direction = "horizontal",
+  direction = 'horizontal',
   durationInFrames = 60,
+  layers,
 }) => {
   const frame = useCurrentFrame();
   const { fps } = useVideoConfig();
@@ -23,20 +24,18 @@ export const ParallaxPan: React.FC<ParallaxPanProps> = ({
   return (
     <div
       style={{
-        position: "absolute",
+        backgroundColor: '#0F172A',
         inset: 0,
-        overflow: "hidden",
-        backgroundColor: "#0F172A",
+        overflow: 'hidden',
+        position: 'absolute',
       }}
     >
       {layers.map((layer, i) => {
         const offset = interpolate(
           frame,
           [0, durationInFrames],
-          direction === "horizontal"
-            ? [0, -200 * layer.speed]
-            : [0, -150 * layer.speed],
-          { extrapolateLeft: "clamp", extrapolateRight: "clamp" }
+          direction === 'horizontal' ? [0, -200 * layer.speed] : [0, -150 * layer.speed],
+          { extrapolateLeft: 'clamp', extrapolateRight: 'clamp' }
         );
 
         const scale = 1 + layer.speed * 0.05;
@@ -45,21 +44,22 @@ export const ParallaxPan: React.FC<ParallaxPanProps> = ({
           <div
             key={i}
             style={{
-              position: "absolute",
               inset: 0,
-              transform: direction === "horizontal"
-                ? `translateX(${offset}px) scale(${scale})`
-                : `translateY(${offset}px) scale(${scale})`,
-              zIndex: layers.length - i,
               opacity: 1 - i * 0.15,
+              position: 'absolute',
+              transform:
+                direction === 'horizontal'
+                  ? `translateX(${offset}px) scale(${scale})`
+                  : `translateY(${offset}px) scale(${scale})`,
+              zIndex: layers.length - i,
             }}
           >
             <Img
               src={layer.src}
               style={{
-                width: "100%",
-                height: "100%",
-                objectFit: "cover",
+                height: '100%',
+                objectFit: 'cover',
+                width: '100%',
               }}
             />
           </div>

@@ -1,1 +1,1 @@
-export { LogoSpinReveal } from "./LogoSpinReveal.component";
+export { LogoSpinReveal } from './LogoSpinReveal.component';

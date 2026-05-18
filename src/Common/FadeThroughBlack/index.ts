@@ -1,1 +1,1 @@
-export { FadeThroughBlack } from "./FadeThroughBlack.component";
+export { FadeThroughBlack } from './FadeThroughBlack.component';

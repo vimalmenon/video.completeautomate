@@ -1,1 +1,1 @@
-export * from "./LowerThird.component";
+export * from './LowerThird.component';

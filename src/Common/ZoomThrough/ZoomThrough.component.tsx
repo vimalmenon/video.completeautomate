@@ -1,5 +1,6 @@
-import React from "react";
-import { AbsoluteFill, interpolate, useCurrentFrame } from "remotion";
+import React from 'react';
+
+import { AbsoluteFill, interpolate, useCurrentFrame } from 'remotion';
 
 interface ZoomThroughProps {
   children: [React.ReactNode, React.ReactNode];
@@ -17,39 +18,39 @@ export const ZoomThrough: React.FC<ZoomThroughProps> = ({
   const half = durationInFrames / 2;
 
   const aScale = interpolate(frame, [0, half], [1, peakScale], {
-    extrapolateLeft: "clamp",
-    extrapolateRight: "clamp",
+    extrapolateLeft: 'clamp',
+    extrapolateRight: 'clamp',
   });
 
   const aOpacity = interpolate(frame, [half - 4, half], [1, 0], {
-    extrapolateLeft: "clamp",
-    extrapolateRight: "clamp",
+    extrapolateLeft: 'clamp',
+    extrapolateRight: 'clamp',
   });
 
   const bScale = interpolate(frame, [half, durationInFrames], [peakScale, 1], {
-    extrapolateLeft: "clamp",
-    extrapolateRight: "clamp",
+    extrapolateLeft: 'clamp',
+    extrapolateRight: 'clamp',
   });
 
   const bOpacity = interpolate(frame, [half, half + 4], [0, 1], {
-    extrapolateLeft: "clamp",
-    extrapolateRight: "clamp",
+    extrapolateLeft: 'clamp',
+    extrapolateRight: 'clamp',
   });
 
   return (
-    <AbsoluteFill style={{ backgroundColor: "#0F172A", overflow: "hidden" }}>
+    <AbsoluteFill style={{ backgroundColor: '#0F172A', overflow: 'hidden' }}>
       <AbsoluteFill
         style={{
-          transform: `scale(${aScale})`,
           opacity: aOpacity,
+          transform: `scale(${aScale})`,
         }}
       >
         {sceneA}
       </AbsoluteFill>
       <AbsoluteFill
         style={{
-          transform: `scale(${bScale})`,
           opacity: bOpacity,
+          transform: `scale(${bScale})`,
         }}
       >
         {sceneB}

@@ -1,11 +1,6 @@
-import React from "react";
-import {
-  spring,
-  useCurrentFrame,
-  useVideoConfig,
-  interpolate,
-  AbsoluteFill,
-} from "remotion";
+import React from 'react';
+
+import { AbsoluteFill, interpolate, spring, useCurrentFrame, useVideoConfig } from 'remotion';
 
 interface Notification {
   title: string;
@@ -19,9 +14,9 @@ interface NotificationPopProps {
 
 export const NotificationPop: React.FC<NotificationPopProps> = ({
   notifications = [
-    { title: "Update Available", message: "Version 2.0 is ready" },
-    { title: "Download Complete", message: "File saved successfully" },
-    { title: "New Message", message: "You have 3 unread messages" },
+    { message: 'Version 2.0 is ready', title: 'Update Available' },
+    { message: 'File saved successfully', title: 'Download Complete' },
+    { message: 'You have 3 unread messages', title: 'New Message' },
   ],
 }) => {
   const frame = useCurrentFrame();
@@ -33,29 +28,29 @@ export const NotificationPop: React.FC<NotificationPopProps> = ({
   return (
     <AbsoluteFill
       style={{
-        backgroundColor: "#0F172A",
-        justifyContent: "flex-end",
-        alignItems: "flex-end",
+        alignItems: 'flex-end',
+        backgroundColor: '#0F172A',
+        justifyContent: 'flex-end',
         padding: 40,
       }}
     >
       {notifications.map((notif, i) => {
         const startFrame = i * staggerDelay;
         const progress = spring({
-          frame: frame - startFrame,
+          config: { damping: 10, mass: 0.4, stiffness: 100 },
           fps,
+          frame: frame - startFrame,
           from: 0,
           to: 1,
-          config: { mass: 0.4, damping: 10, stiffness: 100 },
         });
 
         const translateX = interpolate(progress, [0, 1], [200, 0], {
-          extrapolateLeft: "clamp",
-          extrapolateRight: "clamp",
+          extrapolateLeft: 'clamp',
+          extrapolateRight: 'clamp',
         });
 
         const opacity = interpolate(progress, [0, 0.3, 1], [0, 1, 1], {
-          extrapolateLeft: "clamp",
+          extrapolateLeft: 'clamp',
         });
 
         const yOffset = i * (toastHeight + gap);
@@ -66,48 +61,44 @@ export const NotificationPop: React.FC<NotificationPopProps> = ({
           <div
             key={i}
             style={{
-              position: "absolute",
-              bottom: 40 + yOffset,
-              right: 40,
-              width: 320,
-              minHeight: toastHeight,
-              backgroundColor: "rgba(15, 23, 42, 0.95)",
+              alignItems: 'flex-start',
+              backdropFilter: 'blur(8px)',
+              backgroundColor: 'rgba(15, 23, 42, 0.95)',
+              border: '1px solid rgba(8, 145, 178, 0.3)',
               borderRadius: 14,
-              border: "1px solid rgba(8, 145, 178, 0.3)",
-              padding: "16px 20px",
-              display: "flex",
-              alignItems: "flex-start",
+              bottom: 40 + yOffset,
+              boxShadow: '0 8px 32px rgba(0,0,0,0.4), 0 0 20px rgba(8,145,178,0.1)',
+              display: 'flex',
               gap: 14,
-              transform: `translateX(${translateX}px)`,
+              minHeight: toastHeight,
               opacity,
-              boxShadow: "0 8px 32px rgba(0,0,0,0.4), 0 0 20px rgba(8,145,178,0.1)",
-              backdropFilter: "blur(8px)",
+              padding: '16px 20px',
+              position: 'absolute',
+              right: 40,
+              transform: `translateX(${translateX}px)`,
+              width: 320,
             }}
           >
-            {notif.icon && (
-              <span style={{ fontSize: "1.4rem", flexShrink: 0 }}>
-                {notif.icon}
-              </span>
-            )}
+            {notif.icon && <span style={{ flexShrink: 0, fontSize: '1.4rem' }}>{notif.icon}</span>}
             {!notif.icon && (
               <div
                 style={{
-                  width: 10,
-                  height: 10,
-                  borderRadius: "50%",
-                  backgroundColor: "#0891B2",
+                  backgroundColor: '#0891B2',
+                  borderRadius: '50%',
                   flexShrink: 0,
+                  height: 10,
                   marginTop: 5,
+                  width: 10,
                 }}
               />
             )}
             <div style={{ flex: 1 }}>
               <div
                 style={{
-                  fontSize: "0.95rem",
+                  color: '#22D3EE',
+                  fontFamily: 'system-ui, sans-serif',
+                  fontSize: '0.95rem',
                   fontWeight: 700,
-                  color: "#22D3EE",
-                  fontFamily: "system-ui, sans-serif",
                   marginBottom: 4,
                 }}
               >
@@ -115,9 +106,9 @@ export const NotificationPop: React.FC<NotificationPopProps> = ({
               </div>
               <div
                 style={{
-                  fontSize: "0.85rem",
-                  color: "rgba(255,255,255,0.7)",
-                  fontFamily: "system-ui, sans-serif",
+                  color: 'rgba(255,255,255,0.7)',
+                  fontFamily: 'system-ui, sans-serif',
+                  fontSize: '0.85rem',
                 }}
               >
                 {notif.message}

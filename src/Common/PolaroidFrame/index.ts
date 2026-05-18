@@ -1,1 +1,1 @@
-export * from "./PolaroidFrame.component";
+export * from './PolaroidFrame.component';

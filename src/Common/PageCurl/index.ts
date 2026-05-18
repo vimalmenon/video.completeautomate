@@ -1,1 +1,1 @@
-export { PageCurl } from "./PageCurl.component";
+export { PageCurl } from './PageCurl.component';

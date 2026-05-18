@@ -1,19 +1,27 @@
-import React from "react";
-import { AbsoluteFill, spring, interpolate, useCurrentFrame, useVideoConfig, random } from "remotion";
+import React from 'react';
+
+import {
+  AbsoluteFill,
+  interpolate,
+  random,
+  spring,
+  useCurrentFrame,
+  useVideoConfig,
+} from 'remotion';
 
 interface MorphingShapesProps {
   numShapes?: number;
   colors?: string[];
 }
 
-const defaultColors = ["#0891B2", "#06B6D4", "#22D3EE", "#67E8F9", "#0EA5E9", "#3B82F6"];
+const defaultColors = ['#0891B2', '#06B6D4', '#22D3EE', '#67E8F9', '#0EA5E9', '#3B82F6'];
 
 export const MorphingShapes: React.FC<MorphingShapesProps> = ({
-  numShapes = 6,
   colors = defaultColors,
+  numShapes = 6,
 }) => {
   const frame = useCurrentFrame();
-  const { width, height, durationInFrames } = useVideoConfig();
+  const { durationInFrames, height, width } = useVideoConfig();
 
   const shapes = Array.from({ length: numShapes }).map((_, i) => {
     const cx = width * (0.15 + (i / numShapes) * 0.7);
@@ -24,16 +32,16 @@ export const MorphingShapes: React.FC<MorphingShapesProps> = ({
 
     // Morph between shape indices
     const morphPhase = Math.sin(t * Math.PI * 2);
-    const sides = Math.floor(interpolate(
-      morphPhase,
-      [-1, -0.33, 0.33, 1],
-      [3, 4, 6, 8],
-      { extrapolateLeft: "clamp", extrapolateRight: "clamp" }
-    ));
+    const sides = Math.floor(
+      interpolate(morphPhase, [-1, -0.33, 0.33, 1], [3, 4, 6, 8], {
+        extrapolateLeft: 'clamp',
+        extrapolateRight: 'clamp',
+      })
+    );
 
     const rotation = interpolate(frame, [0, durationInFrames], [0, 360], {
-      extrapolateLeft: "clamp",
-      extrapolateRight: "clamp",
+      extrapolateLeft: 'clamp',
+      extrapolateRight: 'clamp',
     });
 
     const scale = 0.5 + Math.sin(t * Math.PI * 2) * 0.5;
@@ -41,28 +49,23 @@ export const MorphingShapes: React.FC<MorphingShapesProps> = ({
 
     const points = generatePolygonPoints(cx, cy, baseSize * scale, sides, rotation);
 
-    return { points, color: colors[i % colors.length], opacity, sides };
+    return { color: colors[i % colors.length], opacity, points, sides };
   });
 
   return (
     <div
       style={{
-        position: "absolute",
+        alignItems: 'center',
+        backgroundColor: '#0F172A',
+        display: 'flex',
         inset: 0,
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "center",
-        backgroundColor: "#0F172A",
+        justifyContent: 'center',
+        position: 'absolute',
       }}
     >
       <svg width={width} height={height} viewBox={`0 0 ${width} ${height}`}>
         {shapes.map((shape, i) => (
-          <polygon
-            key={i}
-            points={shape.points}
-            fill={shape.color}
-            opacity={shape.opacity}
-          />
+          <polygon key={i} points={shape.points} fill={shape.color} opacity={shape.opacity} />
         ))}
       </svg>
     </div>
@@ -87,5 +90,5 @@ function generatePolygonPoints(
     points.push(`${x},${y}`);
   }
 
-  return points.join(" ");
+  return points.join(' ');
 }

@@ -1,15 +1,16 @@
-import React from "react";
-import { AbsoluteFill, useCurrentFrame, useVideoConfig } from "remotion";
+import React from 'react';
+
+import { AbsoluteFill, useCurrentFrame, useVideoConfig } from 'remotion';
 
 interface GradientShiftProps {
   colors?: string[];
 }
 
 export const GradientShift: React.FC<GradientShiftProps> = ({
-  colors = ["#0F172A", "#1E293B", "#0891B2", "#0EA5E9"],
+  colors = ['#0F172A', '#1E293B', '#0891B2', '#0EA5E9'],
 }) => {
   const frame = useCurrentFrame();
-  const { width, height } = useVideoConfig();
+  const { height, width } = useVideoConfig();
 
   const gradients = colors.map((color, i) => {
     const speed = 0.003 + i * 0.001;
@@ -27,8 +28,8 @@ export const GradientShift: React.FC<GradientShiftProps> = ({
     <AbsoluteFill
       style={{
         backgroundColor: colors[0],
-        backgroundImage: gradients.join(", "),
-        transition: "background-image 0.05s linear",
+        backgroundImage: gradients.join(', '),
+        transition: 'background-image 0.05s linear',
       }}
     />
   );

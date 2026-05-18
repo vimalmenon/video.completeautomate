@@ -1,20 +1,19 @@
-import React from "react";
+import React from 'react';
+
 import {
+  AbsoluteFill,
+  interpolate,
+  Sequence,
   spring,
   useCurrentFrame,
   useVideoConfig,
-  interpolate,
-  AbsoluteFill,
-  Sequence,
-} from "remotion";
+} from 'remotion';
 
 interface CountdownTimerProps {
   from?: number;
 }
 
-export const CountdownTimer: React.FC<CountdownTimerProps> = ({
-  from = 5,
-}) => {
+export const CountdownTimer: React.FC<CountdownTimerProps> = ({ from = 5 }) => {
   const frame = useCurrentFrame();
   const { fps } = useVideoConfig();
   const framesPerNumber = Math.round(fps / 3);
@@ -22,9 +21,9 @@ export const CountdownTimer: React.FC<CountdownTimerProps> = ({
   return (
     <AbsoluteFill
       style={{
-        backgroundColor: "#0F172A",
-        justifyContent: "center",
-        alignItems: "center",
+        alignItems: 'center',
+        backgroundColor: '#0F172A',
+        justifyContent: 'center',
       }}
     >
       {Array.from({ length: from }, (_, i) => {
@@ -32,11 +31,7 @@ export const CountdownTimer: React.FC<CountdownTimerProps> = ({
         const startFrame = i * framesPerNumber;
         return (
           <Sequence key={num} from={startFrame} durationInFrames={framesPerNumber}>
-            <CountdownNumber
-              number={num}
-              frame={frame - startFrame}
-              fps={fps}
-            />
+            <CountdownNumber number={num} frame={frame - startFrame} fps={fps} />
           </Sequence>
         );
       })}
@@ -50,40 +45,36 @@ interface CountdownNumberProps {
   fps: number;
 }
 
-const CountdownNumber: React.FC<CountdownNumberProps> = ({
-  number,
-  frame,
-  fps,
-}) => {
+const CountdownNumber: React.FC<CountdownNumberProps> = ({ fps, frame, number }) => {
   const scale = spring({
-    frame,
+    config: { damping: 8, mass: 0.5, stiffness: 120 },
     fps,
+    frame,
     from: 0,
     to: 1,
-    config: { mass: 0.5, damping: 8, stiffness: 120 },
   });
 
   const opacity = interpolate(frame, [0, fps * 0.15, fps * 0.2, fps * 0.3], [0, 1, 1, 0], {
-    extrapolateLeft: "clamp",
-    extrapolateRight: "clamp",
+    extrapolateLeft: 'clamp',
+    extrapolateRight: 'clamp',
   });
 
   return (
     <AbsoluteFill
       style={{
-        justifyContent: "center",
-        alignItems: "center",
+        alignItems: 'center',
+        justifyContent: 'center',
       }}
     >
       <span
         style={{
-          fontSize: "12rem",
-          fontWeight: 900,
-          color: "#0891B2",
+          color: '#0891B2',
           fontFamily: "'Impact', 'Arial Black', sans-serif",
-          transform: `scale(${scale})`,
+          fontSize: '12rem',
+          fontWeight: 900,
           opacity,
-          textShadow: "0 0 40px rgba(8, 145, 178, 0.5), 0 0 80px rgba(8, 145, 178, 0.2)",
+          textShadow: '0 0 40px rgba(8, 145, 178, 0.5), 0 0 80px rgba(8, 145, 178, 0.2)',
+          transform: `scale(${scale})`,
         }}
       >
         {number}

@@ -1,5 +1,6 @@
-import React from "react";
-import { interpolate, useCurrentFrame } from "remotion";
+import React from 'react';
+
+import { interpolate, useCurrentFrame } from 'remotion';
 
 interface FilmBurnProps {
   children: React.ReactNode;
@@ -9,8 +10,8 @@ interface FilmBurnProps {
 
 export const FilmBurn: React.FC<FilmBurnProps> = ({
   children,
-  startFrame = 0,
   durationInFrames = 80,
+  startFrame = 0,
 }) => {
   const frame = useCurrentFrame();
   const elapsed = frame - startFrame;
@@ -20,21 +21,18 @@ export const FilmBurn: React.FC<FilmBurnProps> = ({
     [0, durationInFrames * 0.3, durationInFrames * 0.6, durationInFrames],
     [0, 0.35, 0.15, 0],
     {
-      extrapolateLeft: "clamp",
-      extrapolateRight: "clamp",
+      extrapolateLeft: 'clamp',
+      extrapolateRight: 'clamp',
     }
   );
 
   return (
-    <div style={{ position: "absolute", inset: 0 }}>
+    <div style={{ inset: 0, position: 'absolute' }}>
       {children}
 
       {/* Warm light leak overlay */}
       <div
         style={{
-          position: "absolute",
-          inset: 0,
-          opacity: burnOpacity,
           background: `
             radial-gradient(
               ellipse 120% 80% at 70% 30%,
@@ -48,9 +46,12 @@ export const FilmBurn: React.FC<FilmBurnProps> = ({
               transparent 50%
             )
           `,
-          mixBlendMode: "screen",
+          inset: 0,
+          mixBlendMode: 'screen',
+          opacity: burnOpacity,
+          pointerEvents: 'none',
+          position: 'absolute',
           zIndex: 5,
-          pointerEvents: "none",
         }}
       />
     </div>

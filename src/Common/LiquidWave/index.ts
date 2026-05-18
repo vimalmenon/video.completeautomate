@@ -1,1 +1,1 @@
-export { LiquidWave } from "./LiquidWave.component";
+export { LiquidWave } from './LiquidWave.component';

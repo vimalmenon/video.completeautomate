@@ -1,19 +1,13 @@
-import React from "react";
-import {
-  useCurrentFrame,
-  interpolate,
-  AbsoluteFill,
-} from "remotion";
+import React from 'react';
+
+import { AbsoluteFill, interpolate, useCurrentFrame } from 'remotion';
 
 interface SoundWaveProps {
   numBars?: number;
   barColor?: string;
 }
 
-export const SoundWave: React.FC<SoundWaveProps> = ({
-  numBars = 40,
-  barColor = "#0891B2",
-}) => {
+export const SoundWave: React.FC<SoundWaveProps> = ({ barColor = '#0891B2', numBars = 40 }) => {
   const frame = useCurrentFrame();
 
   const bars = Array.from({ length: numBars }, (_, i) => {
@@ -44,18 +38,18 @@ export const SoundWave: React.FC<SoundWaveProps> = ({
   return (
     <AbsoluteFill
       style={{
-        backgroundColor: "#0F172A",
-        justifyContent: "center",
-        alignItems: "center",
+        alignItems: 'center',
+        backgroundColor: '#0F172A',
+        justifyContent: 'center',
       }}
     >
       <div
         style={{
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
-          height: 300,
+          alignItems: 'center',
+          display: 'flex',
           gap,
+          height: 300,
+          justifyContent: 'center',
         }}
       >
         {bars.map((bar, i) => {
@@ -63,8 +57,8 @@ export const SoundWave: React.FC<SoundWaveProps> = ({
           const barHeight = bar.height * maxHeight;
 
           const opacity = interpolate(bar.height, [0.05, 0.5, 1], [0.2, 0.8, 1], {
-            extrapolateLeft: "clamp",
-            extrapolateRight: "clamp",
+            extrapolateLeft: 'clamp',
+            extrapolateRight: 'clamp',
           });
 
           const hueShift = (i / numBars) * 30;
@@ -73,16 +67,14 @@ export const SoundWave: React.FC<SoundWaveProps> = ({
             <div
               key={i}
               style={{
-                width: barWidth,
-                height: barHeight,
-                borderRadius: barWidth / 2,
                 backgroundColor: barColor,
-                opacity,
+                borderRadius: barWidth / 2,
+                boxShadow: bar.height > 0.7 ? `0 0 12px ${barColor}` : 'none',
                 filter: `brightness(${0.6 + bar.height * 0.6}) hue-rotate(${hueShift}deg)`,
-                boxShadow: bar.height > 0.7
-                  ? `0 0 12px ${barColor}`
-                  : "none",
-                transformOrigin: "bottom center",
+                height: barHeight,
+                opacity,
+                transformOrigin: 'bottom center',
+                width: barWidth,
               }}
             />
           );

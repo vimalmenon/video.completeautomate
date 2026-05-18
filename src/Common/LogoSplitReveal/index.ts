@@ -1,1 +1,1 @@
-export { LogoSplitReveal } from "./LogoSplitReveal.component";
+export { LogoSplitReveal } from './LogoSplitReveal.component';

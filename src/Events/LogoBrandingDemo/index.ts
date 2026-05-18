@@ -1,1 +1,1 @@
-export { LogoBrandingDemo, logoBrandingDemoSchema } from "./LogoBrandingDemo.component";
+export { LogoBrandingDemo, logoBrandingDemoSchema } from './LogoBrandingDemo.component';

@@ -1,1 +1,1 @@
-export * from "./CreditsRoll.component";
+export * from './CreditsRoll.component';

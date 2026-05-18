@@ -1,1 +1,1 @@
-export { NoiseGrain } from "./NoiseGrain.component";
+export { NoiseGrain } from './NoiseGrain.component';

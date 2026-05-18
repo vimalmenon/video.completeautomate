@@ -1,1 +1,1 @@
-export { WaterRipple } from "./WaterRipple.component";
+export { WaterRipple } from './WaterRipple.component';

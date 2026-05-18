@@ -1,1 +1,1 @@
-export * from "./ParallaxPan.component";
+export * from './ParallaxPan.component';

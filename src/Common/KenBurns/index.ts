@@ -1,1 +1,1 @@
-export * from "./KenBurns.component";
+export * from './KenBurns.component';

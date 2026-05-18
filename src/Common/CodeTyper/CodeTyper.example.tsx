@@ -1,4 +1,5 @@
 import React from 'react';
+
 import { CodeTyper } from './CodeTyper.component';
 
 const pythonCode = `def fibonacci(n):
@@ -16,21 +17,19 @@ const pythonCode = `def fibonacci(n):
 result = fibonacci(10)
 print(f"Fibonacci(10) = {result}")`;
 
-export const CodeTyperExample: React.FC = () => {
-  return (
-    <div style={{ padding: '20px' }}>
-      <h1>Code Typer Component</h1>
-      <CodeTyper
-        code={pythonCode}
-        language="python"
-        typingSpeed={50}
-        startDelay={500}
-        showLineNumbers={true}
-        theme="dark"
-        height="500px"
-        width="100%"
-        onTypingComplete={() => console.log('Typing completed!')}
-      />
-    </div>
-  );
-};
+export const CodeTyperExample: React.FC = () => (
+  <div style={{ padding: '20px' }}>
+    <h1>Code Typer Component</h1>
+    <CodeTyper
+      code={pythonCode}
+      language="python"
+      typingSpeed={50}
+      startDelay={500}
+      showLineNumbers={true}
+      theme="dark"
+      height="500px"
+      width="100%"
+      onTypingComplete={() => console.log('Typing completed!')}
+    />
+  </div>
+);

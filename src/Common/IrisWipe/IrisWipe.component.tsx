@@ -1,38 +1,29 @@
-import React, { useMemo } from "react";
-import {
-  AbsoluteFill,
-  interpolate,
-  useCurrentFrame,
-  useVideoConfig,
-} from "remotion";
+import React, { useMemo } from 'react';
+
+import { AbsoluteFill, interpolate, useCurrentFrame, useVideoConfig } from 'remotion';
 
 interface IrisWipeProps {
   children: [React.ReactNode, React.ReactNode];
   durationInFrames?: number;
 }
 
-export const IrisWipe: React.FC<IrisWipeProps> = ({
-  children,
-  durationInFrames = 60,
-}) => {
+export const IrisWipe: React.FC<IrisWipeProps> = ({ children, durationInFrames = 60 }) => {
   const frame = useCurrentFrame();
-  const { width, height } = useVideoConfig();
+  const { height, width } = useVideoConfig();
   const [sceneA, sceneB] = children;
 
   const centerX = width / 2;
   const centerY = height / 2;
-  const maxRadius = Math.sqrt(
-    centerX * centerX + centerY * centerY
-  );
+  const maxRadius = Math.sqrt(centerX * centerX + centerY * centerY);
 
   const progress = interpolate(frame, [0, durationInFrames], [0, 1], {
-    extrapolateLeft: "clamp",
-    extrapolateRight: "clamp",
+    extrapolateLeft: 'clamp',
+    extrapolateRight: 'clamp',
   });
 
   const radius = interpolate(progress, [0, 1], [0, maxRadius], {
-    extrapolateLeft: "clamp",
-    extrapolateRight: "clamp",
+    extrapolateLeft: 'clamp',
+    extrapolateRight: 'clamp',
   });
 
   const clipPathStyle = useMemo(
@@ -41,7 +32,7 @@ export const IrisWipe: React.FC<IrisWipeProps> = ({
   );
 
   return (
-    <AbsoluteFill style={{ backgroundColor: "#0F172A" }}>
+    <AbsoluteFill style={{ backgroundColor: '#0F172A' }}>
       <AbsoluteFill>{sceneA}</AbsoluteFill>
       <AbsoluteFill style={{ clipPath: clipPathStyle }}>
         {sceneB}
@@ -50,10 +41,10 @@ export const IrisWipe: React.FC<IrisWipeProps> = ({
           width={width}
           height={height}
           style={{
-            position: "absolute",
-            top: 0,
             left: 0,
-            pointerEvents: "none",
+            pointerEvents: 'none',
+            position: 'absolute',
+            top: 0,
           }}
         >
           <circle

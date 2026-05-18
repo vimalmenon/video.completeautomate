@@ -1,1 +1,1 @@
-export * from "./ImageZoomReveal.component";
+export * from './ImageZoomReveal.component';

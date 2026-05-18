@@ -1,1 +1,4 @@
-export { CinematicTransitionsDemo, cinematicTransitionsDemoSchema } from "./CinematicTransitionsDemo.component";
+export {
+  CinematicTransitionsDemo,
+  cinematicTransitionsDemoSchema,
+} from './CinematicTransitionsDemo.component';

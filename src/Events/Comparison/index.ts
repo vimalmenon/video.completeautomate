@@ -1,1 +1,1 @@
-export { Comparison, comparisonSchema } from "./Comparison.component";
+export { Comparison, comparisonSchema } from './Comparison.component';

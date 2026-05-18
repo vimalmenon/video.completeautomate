@@ -1,16 +1,17 @@
-import React, { useMemo } from "react";
-import { ThreeCanvas } from "@remotion/three";
-import { useCurrentFrame, interpolate, AbsoluteFill, useVideoConfig } from "remotion";
-import * as THREE from "three";
+import React, { useMemo } from 'react';
+
+import { ThreeCanvas } from '@remotion/three';
+import { AbsoluteFill, interpolate, useCurrentFrame, useVideoConfig } from 'remotion';
+import * as THREE from 'three';
 
 export const ThreeRotatingCube: React.FC = () => {
   const frame = useCurrentFrame();
-  const { width, height } = useVideoConfig();
+  const { height, width } = useVideoConfig();
 
   const rotationY = useMemo(() => interpolate(frame, [0, 120], [0, Math.PI * 4]), [frame]);
 
   return (
-    <AbsoluteFill style={{ backgroundColor: "#000000" }}>
+    <AbsoluteFill style={{ backgroundColor: '#000000' }}>
       <ThreeCanvas width={width} height={height}>
         <perspectiveCamera position={[0, 0, 5]} />
         <ambientLight intensity={0.4} />

@@ -1,62 +1,74 @@
-import React from "react";
-import { AbsoluteFill, interpolate, Sequence, useCurrentFrame, useVideoConfig } from "remotion";
-import { z } from "zod";
-import { StatCounter } from "../../Common/StatCounter";
-import { LogoWall } from "../../Common/LogoWall";
+import React from 'react';
+
+import { AbsoluteFill, interpolate, Sequence, useCurrentFrame, useVideoConfig } from 'remotion';
+import { z } from 'zod';
+
+import { LogoWall } from '../../Common/LogoWall';
+import { StatCounter } from '../../Common/StatCounter';
 
 const logoItemSchema = z.object({
-  name: z.string(),
   color: z.string().optional(),
+  name: z.string(),
 });
 
 export const automationNextBigThingSchema = z.object({
-  text: z.string(),
-  subtext: z.string(),
   logos: z.array(logoItemSchema).optional(),
+  subtext: z.string(),
+  text: z.string(),
 });
 
 type AutomationNextBigThingProps = z.infer<typeof automationNextBigThingSchema>;
 
-export const AutomationNextBigThing: React.FC<AutomationNextBigThingProps> = ({ text, subtext, logos }) => {
+export const AutomationNextBigThing: React.FC<AutomationNextBigThingProps> = ({
+  logos,
+  subtext,
+  text,
+}) => {
   const frame = useCurrentFrame();
   const { width } = useVideoConfig();
 
-  const primaryColor = "#0891B2";
-  const primaryLightColor = "#22D3EE";
-  const backgroundColor = "#0F172A";
+  const primaryColor = '#0891B2';
+  const primaryLightColor = '#22D3EE';
+  const backgroundColor = '#0F172A';
 
   const fadeIn = (start: number, end: number) =>
-    interpolate(frame, [start, end], [0, 1], { extrapolateLeft: "clamp", extrapolateRight: "clamp" });
+    interpolate(frame, [start, end], [0, 1], {
+      extrapolateLeft: 'clamp',
+      extrapolateRight: 'clamp',
+    });
 
   const scaleIn = (start: number, end: number) =>
-    interpolate(frame, [start, end], [0.8, 1], { extrapolateLeft: "clamp", extrapolateRight: "clamp" });
+    interpolate(frame, [start, end], [0.8, 1], {
+      extrapolateLeft: 'clamp',
+      extrapolateRight: 'clamp',
+    });
 
   const baseFontSize = width / 20;
 
   return (
-    <AbsoluteFill style={{ backgroundColor, justifyContent: "center", alignItems: "center" }}>
+    <AbsoluteFill style={{ alignItems: 'center', backgroundColor, justifyContent: 'center' }}>
       {/* Section 1: Hero Text (0-90) */}
       <Sequence from={0} durationInFrames={90}>
         <div
           style={{
-            fontSize: baseFontSize,
-            fontWeight: "bold",
             color: primaryColor,
+            fontSize: baseFontSize,
+            fontWeight: 'bold',
             opacity: fadeIn(0, 30),
+            padding: '0 60px',
+            textAlign: 'center',
             transform: `scale(${scaleIn(0, 30)})`,
-            textAlign: "center",
-            padding: "0 60px",
           }}
         >
           {text}
         </div>
         <div
           style={{
-            fontSize: baseFontSize / 2,
             color: primaryLightColor,
-            opacity: fadeIn(15, 45),
+            fontSize: baseFontSize / 2,
             marginTop: 20,
-            textAlign: "center",
+            opacity: fadeIn(15, 45),
+            textAlign: 'center',
           }}
         >
           {subtext}
@@ -67,19 +79,31 @@ export const AutomationNextBigThing: React.FC<AutomationNextBigThingProps> = ({ 
       <Sequence from={90} durationInFrames={120}>
         <div
           style={{
-            position: "absolute",
-            top: "50%",
-            left: "50%",
-            transform: "translate(-50%, -50%)",
-            display: "flex",
+            alignItems: 'center',
+            display: 'flex',
             gap: 60,
-            alignItems: "center",
-            justifyContent: "center",
+            justifyContent: 'center',
+            left: '50%',
+            position: 'absolute',
+            top: '50%',
+            transform: 'translate(-50%, -50%)',
           }}
         >
           <StatCounter value={500} label="Hours Saved" suffix="+" startFrame={90} color="#22D3EE" />
-          <StatCounter value={50} label="Businesses Automated" suffix="+" startFrame={130} color="#0891B2" />
-          <StatCounter value={98} label="Client Satisfaction" suffix="%" startFrame={170} color="#22D3EE" />
+          <StatCounter
+            value={50}
+            label="Businesses Automated"
+            suffix="+"
+            startFrame={130}
+            color="#0891B2"
+          />
+          <StatCounter
+            value={98}
+            label="Client Satisfaction"
+            suffix="%"
+            startFrame={170}
+            color="#22D3EE"
+          />
         </div>
       </Sequence>
 
@@ -87,23 +111,23 @@ export const AutomationNextBigThing: React.FC<AutomationNextBigThingProps> = ({ 
       <Sequence from={210} durationInFrames={90}>
         <div
           style={{
-            fontSize: baseFontSize,
-            fontWeight: "bold",
             color: primaryColor,
+            fontSize: baseFontSize,
+            fontWeight: 'bold',
             opacity: fadeIn(210, 240),
+            textAlign: 'center',
             transform: `scale(${scaleIn(210, 240)})`,
-            textAlign: "center",
           }}
         >
           Complete Automate
         </div>
         <div
           style={{
-            fontSize: baseFontSize / 2,
             color: primaryLightColor,
-            opacity: fadeIn(225, 255),
+            fontSize: baseFontSize / 2,
             marginTop: 20,
-            textAlign: "center",
+            opacity: fadeIn(225, 255),
+            textAlign: 'center',
           }}
         >
           AI Automation Consulting
@@ -115,22 +139,22 @@ export const AutomationNextBigThing: React.FC<AutomationNextBigThingProps> = ({ 
         <Sequence from={300} durationInFrames={120}>
           <div
             style={{
-              position: "absolute",
-              top: "18%",
               left: 0,
+              position: 'absolute',
               right: 0,
-              textAlign: "center",
+              textAlign: 'center',
+              top: '18%',
             }}
           >
             <div
               style={{
+                color: '#64748B',
                 fontSize: 20,
                 fontWeight: 600,
-                color: "#64748B",
-                textTransform: "uppercase",
-                letterSpacing: "0.08em",
+                letterSpacing: '0.08em',
                 marginBottom: 40,
                 opacity: fadeIn(300, 320),
+                textTransform: 'uppercase',
               }}
             >
               Trusted By

@@ -1,11 +1,12 @@
-import React, { useMemo } from "react";
-import { ThreeCanvas } from "@remotion/three";
-import { useCurrentFrame, interpolate, AbsoluteFill, useVideoConfig } from "remotion";
-import * as THREE from "three";
+import React, { useMemo } from 'react';
+
+import { ThreeCanvas } from '@remotion/three';
+import { AbsoluteFill, interpolate, useCurrentFrame, useVideoConfig } from 'remotion';
+import * as THREE from 'three';
 
 export const ThreeTorusKnot: React.FC = () => {
   const frame = useCurrentFrame();
-  const { width, height } = useVideoConfig();
+  const { height, width } = useVideoConfig();
 
   const rotationX = useMemo(() => interpolate(frame, [0, 120], [0, Math.PI * 3]), [frame]);
   const rotationY = useMemo(() => interpolate(frame, [0, 120], [0, Math.PI * 5]), [frame]);
@@ -16,7 +17,7 @@ export const ThreeTorusKnot: React.FC = () => {
   }, [frame]);
 
   return (
-    <AbsoluteFill style={{ backgroundColor: "#000000" }}>
+    <AbsoluteFill style={{ backgroundColor: '#000000' }}>
       <ThreeCanvas width={width} height={height}>
         <perspectiveCamera position={[0, 0, 5]} />
         <ambientLight intensity={0.3} />
@@ -26,11 +27,7 @@ export const ThreeTorusKnot: React.FC = () => {
         <group rotation={[rotationX, rotationY, 0]}>
           <mesh>
             <torusKnotGeometry args={[1, 0.3, 100, 16]} />
-            <meshPhongMaterial
-              color={color}
-              shininess={80}
-              specular={new THREE.Color("#0891B2")}
-            />
+            <meshPhongMaterial color={color} shininess={80} specular={new THREE.Color('#0891B2')} />
           </mesh>
         </group>
       </ThreeCanvas>

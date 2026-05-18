@@ -1,1 +1,1 @@
-export { CircularProgress } from "./CircularProgress.component";
+export { CircularProgress } from './CircularProgress.component';

@@ -1,11 +1,6 @@
-import React from "react";
-import {
-  spring,
-  useCurrentFrame,
-  useVideoConfig,
-  interpolate,
-  AbsoluteFill,
-} from "remotion";
+import React from 'react';
+
+import { AbsoluteFill, interpolate, spring, useCurrentFrame, useVideoConfig } from 'remotion';
 
 interface QuoteCardProps {
   quote: string;
@@ -13,80 +8,80 @@ interface QuoteCardProps {
 }
 
 export const QuoteCard: React.FC<QuoteCardProps> = ({
-  quote = "The only way to do great work is to love what you do.",
-  author = "Steve Jobs",
+  author = 'Steve Jobs',
+  quote = 'The only way to do great work is to love what you do.',
 }) => {
   const frame = useCurrentFrame();
   const { fps } = useVideoConfig();
 
   // Opening quote mark
   const quoteMarkSpring = spring({
-    frame,
+    config: { damping: 12, mass: 0.4, stiffness: 90 },
     fps,
+    frame,
     from: 0,
     to: 1,
-    config: { mass: 0.4, damping: 12, stiffness: 90 },
   });
 
   const quoteMarkScale = interpolate(quoteMarkSpring, [0, 1], [1.5, 1]);
   const quoteMarkOpacity = interpolate(frame, [0, 12], [0, 1], {
-    extrapolateLeft: "clamp",
-    extrapolateRight: "clamp",
+    extrapolateLeft: 'clamp',
+    extrapolateRight: 'clamp',
   });
 
   // Quote text appears character by character (word by word approximation)
   const textOpacity = interpolate(frame, [10, 35], [0, 1], {
-    extrapolateLeft: "clamp",
-    extrapolateRight: "clamp",
+    extrapolateLeft: 'clamp',
+    extrapolateRight: 'clamp',
   });
 
   const textTranslateY = interpolate(frame, [10, 35], [20, 0], {
-    extrapolateLeft: "clamp",
-    extrapolateRight: "clamp",
+    extrapolateLeft: 'clamp',
+    extrapolateRight: 'clamp',
   });
 
   // Author attribution
   const authorOpacity = interpolate(frame, [30, 48], [0, 1], {
-    extrapolateLeft: "clamp",
-    extrapolateRight: "clamp",
+    extrapolateLeft: 'clamp',
+    extrapolateRight: 'clamp',
   });
 
   const authorTranslateX = interpolate(frame, [30, 48], [-20, 0], {
-    extrapolateLeft: "clamp",
-    extrapolateRight: "clamp",
+    extrapolateLeft: 'clamp',
+    extrapolateRight: 'clamp',
   });
 
   // Decorative line
   const lineScale = interpolate(frame, [30, 40], [0, 1], {
-    extrapolateLeft: "clamp",
-    extrapolateRight: "clamp",
+    extrapolateLeft: 'clamp',
+    extrapolateRight: 'clamp',
   });
 
   return (
     <AbsoluteFill
       style={{
-        backgroundColor: "#0F172A",
-        justifyContent: "center",
-        alignItems: "center",
+        alignItems: 'center',
+        backgroundColor: '#0F172A',
+        justifyContent: 'center',
         padding: 80,
       }}
     >
       <div
         style={{
           maxWidth: 800,
-          textAlign: "center",
+          textAlign: 'center',
         }}
       >
         {/* Opening quote mark */}
         <div
           style={{
+            color: '#0891B2',
+            fontFamily: 'Georgia, serif',
             fontSize: 80,
-            color: "#0891B2",
-            fontFamily: "Georgia, serif",
             lineHeight: 0.6,
+            marginBottom: 12,
             opacity: quoteMarkOpacity,
             transform: `scale(${quoteMarkScale})`,
-            marginBottom: 12,
           }}
         >
           "
@@ -95,15 +90,15 @@ export const QuoteCard: React.FC<QuoteCardProps> = ({
         {/* Quote text */}
         <div
           style={{
+            color: '#E2E8F0',
+            fontFamily: 'Georgia, serif',
             fontSize: 32,
+            fontStyle: 'italic',
             fontWeight: 500,
-            color: "#E2E8F0",
-            fontFamily: "Georgia, serif",
-            fontStyle: "italic",
             lineHeight: 1.5,
+            marginBottom: 28,
             opacity: textOpacity,
             transform: `translateY(${textTranslateY}px)`,
-            marginBottom: 28,
           }}
         >
           {quote}
@@ -112,36 +107,36 @@ export const QuoteCard: React.FC<QuoteCardProps> = ({
         {/* Decorative line */}
         <div
           style={{
-            display: "flex",
-            justifyContent: "center",
+            display: 'flex',
             gap: 8,
+            justifyContent: 'center',
             marginBottom: 20,
           }}
         >
           <div
             style={{
-              height: 2,
-              width: 40,
-              backgroundColor: "#0891B2",
+              backgroundColor: '#0891B2',
               borderRadius: 1,
+              height: 2,
               transform: `scaleX(${lineScale})`,
+              width: 40,
             }}
           />
           <div
             style={{
-              width: 6,
+              backgroundColor: '#0891B2',
+              borderRadius: '50%',
               height: 6,
-              borderRadius: "50%",
-              backgroundColor: "#0891B2",
+              width: 6,
             }}
           />
           <div
             style={{
-              height: 2,
-              width: 40,
-              backgroundColor: "#0891B2",
+              backgroundColor: '#0891B2',
               borderRadius: 1,
+              height: 2,
               transform: `scaleX(${lineScale})`,
+              width: 40,
             }}
           />
         </div>
@@ -149,13 +144,13 @@ export const QuoteCard: React.FC<QuoteCardProps> = ({
         {/* Author */}
         <div
           style={{
+            color: '#94A3B8',
+            fontFamily: 'system-ui, sans-serif',
             fontSize: 20,
             fontWeight: 700,
-            color: "#94A3B8",
-            fontFamily: "system-ui, sans-serif",
-            letterSpacing: "0.05em",
-            textTransform: "uppercase",
+            letterSpacing: '0.05em',
             opacity: authorOpacity,
+            textTransform: 'uppercase',
             transform: `translateX(${authorTranslateX}px)`,
           }}
         >

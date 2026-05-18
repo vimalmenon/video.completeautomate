@@ -1,1 +1,1 @@
-export { PulsingText } from "./PulsingText.component";
+export { PulsingText } from './PulsingText.component';

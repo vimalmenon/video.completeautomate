@@ -1,1 +1,1 @@
-export * from "./VignettePulse.component";
+export * from './VignettePulse.component';

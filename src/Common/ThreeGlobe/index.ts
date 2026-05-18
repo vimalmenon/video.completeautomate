@@ -1,1 +1,1 @@
-export { ThreeGlobe } from "./ThreeGlobe.component";
+export { ThreeGlobe } from './ThreeGlobe.component';

@@ -1,70 +1,69 @@
-import React from "react";
-import { interpolate, useCurrentFrame, useVideoConfig, Img, Easing } from "remotion";
+import React from 'react';
+
+import { Easing, Img, interpolate, useCurrentFrame, useVideoConfig } from 'remotion';
 
 interface ImageMaskProps {
   src: string;
-  maskShape?: "circle" | "star" | "heart" | "diamond";
+  maskShape?: 'circle' | 'star' | 'heart' | 'diamond';
   startFrame?: number;
   durationInFrames?: number;
   size?: number;
 }
 
 export const ImageMask: React.FC<ImageMaskProps> = ({
-  src,
-  maskShape = "circle",
-  startFrame = 0,
   durationInFrames = 40,
+  maskShape = 'circle',
   size = 400,
+  src,
+  startFrame = 0,
 }) => {
   const frame = useCurrentFrame();
-  const { width, height } = useVideoConfig();
+  const { height, width } = useVideoConfig();
   const elapsed = frame - startFrame;
 
   const progress = interpolate(elapsed, [0, durationInFrames], [0, 1], {
-    extrapolateLeft: "clamp",
-    extrapolateRight: "clamp",
     easing: Easing.out(Easing.cubic),
+    extrapolateLeft: 'clamp',
+    extrapolateRight: 'clamp',
   });
 
   const cx = width / 2;
   const cy = height / 2;
   const currentSize = size * progress;
 
-  const maskId = "image-mask";
+  const maskId = 'image-mask';
 
   return (
     <div
       style={{
-        position: "absolute",
+        alignItems: 'center',
+        backgroundColor: '#0F172A',
+        display: 'flex',
         inset: 0,
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "center",
-        backgroundColor: "#0F172A",
+        justifyContent: 'center',
+        position: 'absolute',
       }}
     >
       <svg width={width} height={height} viewBox={`0 0 ${width} ${height}`}>
         <defs>
-          <clipPath id={maskId}>
-            {getMaskShape(maskShape, cx, cy, currentSize)}
-          </clipPath>
+          <clipPath id={maskId}>{getMaskShape(maskShape, cx, cy, currentSize)}</clipPath>
         </defs>
       </svg>
 
       <div
         style={{
-          position: "absolute",
-          inset: 0,
           clipPath: `url(#${maskId})`,
+          inset: 0,
+          position: 'absolute',
           WebkitClipPath: `url(#${maskId})`,
         }}
       >
         <Img
           src={src}
           style={{
-            width: "100%",
-            height: "100%",
-            objectFit: "cover",
+            height: '100%',
+            objectFit: 'cover',
+            width: '100%',
           }}
         />
       </div>
@@ -72,31 +71,22 @@ export const ImageMask: React.FC<ImageMaskProps> = ({
   );
 };
 
-function getMaskShape(
-  shape: string,
-  cx: number,
-  cy: number,
-  size: number
-): React.ReactNode {
+function getMaskShape(shape: string, cx: number, cy: number, size: number): React.ReactNode {
   const r = size / 2;
 
   switch (shape) {
-    case "circle":
+    case 'circle':
       return <circle cx={cx} cy={cy} r={r} />;
 
-    case "star": {
+    case 'star': {
       const points = generateStarPoints(cx, cy, r, r * 0.45, 5);
       return <polygon points={points} />;
     }
 
-    case "diamond":
-      return (
-        <polygon
-          points={`${cx},${cy - r} ${cx + r},${cy} ${cx},${cy + r} ${cx - r},${cy}`}
-        />
-      );
+    case 'diamond':
+      return <polygon points={`${cx},${cy - r} ${cx + r},${cy} ${cx},${cy + r} ${cx - r},${cy}`} />;
 
-    case "heart": {
+    case 'heart': {
       const s = size * 0.35;
       return (
         <path
@@ -130,5 +120,5 @@ function generateStarPoints(
     coords.push(`${x},${y}`);
   }
 
-  return coords.join(" ");
+  return coords.join(' ');
 }

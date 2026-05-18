@@ -1,5 +1,6 @@
-import React from "react";
-import { useCurrentFrame } from "remotion";
+import React from 'react';
+
+import { useCurrentFrame } from 'remotion';
 
 interface ZoomPulseProps {
   children: React.ReactNode;
@@ -10,8 +11,8 @@ interface ZoomPulseProps {
 
 export const ZoomPulse: React.FC<ZoomPulseProps> = ({
   children,
-  minScale = 1,
   maxScale = 1.08,
+  minScale = 1,
   speed = 30,
 }) => {
   const frame = useCurrentFrame();
@@ -21,11 +22,11 @@ export const ZoomPulse: React.FC<ZoomPulseProps> = ({
   return (
     <div
       style={{
-        position: "absolute",
+        alignItems: 'center',
+        display: 'flex',
         inset: 0,
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "center",
+        justifyContent: 'center',
+        position: 'absolute',
         transform: `scale(${scale})`,
       }}
     >

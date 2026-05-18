@@ -1,11 +1,6 @@
-import React from "react";
-import {
-  spring,
-  useCurrentFrame,
-  useVideoConfig,
-  interpolate,
-  AbsoluteFill,
-} from "remotion";
+import React from 'react';
+
+import { AbsoluteFill, interpolate, spring, useCurrentFrame, useVideoConfig } from 'remotion';
 
 interface ProgressStepsProps {
   steps: string[];
@@ -13,8 +8,8 @@ interface ProgressStepsProps {
 }
 
 export const ProgressSteps: React.FC<ProgressStepsProps> = ({
-  steps = ["Step 1", "Step 2", "Step 3", "Step 4"],
   currentStep = 0,
+  steps = ['Step 1', 'Step 2', 'Step 3', 'Step 4'],
 }) => {
   const frame = useCurrentFrame();
   const { fps } = useVideoConfig();
@@ -27,48 +22,46 @@ export const ProgressSteps: React.FC<ProgressStepsProps> = ({
   return (
     <AbsoluteFill
       style={{
-        backgroundColor: "#0F172A",
-        justifyContent: "center",
-        alignItems: "center",
+        alignItems: 'center',
+        backgroundColor: '#0F172A',
+        justifyContent: 'center',
         padding: 40,
       }}
     >
       <div
         style={{
+          alignItems: 'center',
+          display: 'flex',
+          position: 'relative',
           width: containerWidth,
-          position: "relative",
-          display: "flex",
-          alignItems: "center",
         }}
       >
         {/* Background line */}
         <div
           style={{
-            position: "absolute",
+            backgroundColor: 'rgba(255,255,255,0.1)',
+            borderRadius: 2,
+            height: 3,
             left: circleSize / 2,
+            position: 'absolute',
             right: circleSize / 2,
             top: 0,
-            height: 3,
-            backgroundColor: "rgba(255,255,255,0.1)",
-            borderRadius: 2,
           }}
         />
 
         {/* Progress line */}
         <div
           style={{
-            position: "absolute",
-            left: circleSize / 2,
-            top: 0,
-            width: `${
-              currentStep > 0
-                ? ((currentStep) / (stepCount - 1)) * (containerWidth - circleSize)
-                : 0
-            }px`,
-            height: 3,
-            backgroundColor: "#0891B2",
+            backgroundColor: '#0891B2',
             borderRadius: 2,
-            transition: "width 0.3s",
+            height: 3,
+            left: circleSize / 2,
+            position: 'absolute',
+            top: 0,
+            transition: 'width 0.3s',
+            width: `${
+              currentStep > 0 ? (currentStep / (stepCount - 1)) * (containerWidth - circleSize) : 0
+            }px`,
           }}
         />
 
@@ -78,61 +71,53 @@ export const ProgressSteps: React.FC<ProgressStepsProps> = ({
 
           const pulseScale = isCurrent
             ? spring({
-                frame,
+                config: { damping: 8, mass: 0.5, stiffness: 100 },
                 fps,
+                frame,
                 from: 1,
                 to: 1.25,
-                config: { mass: 0.5, damping: 8, stiffness: 100 },
               })
             : 1;
 
-          const circleOpacity = isCompleted
-            ? 1
-            : isCurrent
-            ? 1
-            : 0.4;
+          const circleOpacity = isCompleted ? 1 : isCurrent ? 1 : 0.4;
 
           return (
             <div
               key={i}
               style={{
-                position: "absolute",
+                alignItems: 'center',
+                display: 'flex',
+                flexDirection: 'column',
                 left: i * stepWidth,
-                transform: "translateX(-50%)",
-                display: "flex",
-                flexDirection: "column",
-                alignItems: "center",
+                position: 'absolute',
                 top: 0,
+                transform: 'translateX(-50%)',
               }}
             >
               <div
                 style={{
-                  width: circleSize,
-                  height: circleSize,
-                  borderRadius: "50%",
+                  alignItems: 'center',
                   backgroundColor: isCompleted
-                    ? "#0891B2"
+                    ? '#0891B2'
                     : isCurrent
-                    ? "rgba(8, 145, 178, 0.2)"
-                    : "transparent",
-                  border: `3px solid ${
-                    isCompleted ? "#0891B2" : "rgba(255,255,255,0.25)"
-                  }`,
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                  transform: `scale(${pulseScale})`,
+                      ? 'rgba(8, 145, 178, 0.2)'
+                      : 'transparent',
+                  border: `3px solid ${isCompleted ? '#0891B2' : 'rgba(255,255,255,0.25)'}`,
+                  borderRadius: '50%',
+                  boxShadow: isCurrent ? '0 0 20px rgba(8, 145, 178, 0.4)' : 'none',
+                  display: 'flex',
+                  height: circleSize,
+                  justifyContent: 'center',
                   opacity: circleOpacity,
-                  boxShadow: isCurrent
-                    ? "0 0 20px rgba(8, 145, 178, 0.4)"
-                    : "none",
+                  transform: `scale(${pulseScale})`,
+                  width: circleSize,
                 }}
               >
                 {isCompleted && (
                   <span
                     style={{
-                      color: "#FFFFFF",
-                      fontSize: "1rem",
+                      color: '#FFFFFF',
+                      fontSize: '1rem',
                       fontWeight: 700,
                     }}
                   >
@@ -142,8 +127,8 @@ export const ProgressSteps: React.FC<ProgressStepsProps> = ({
                 {!isCompleted && !isCurrent && (
                   <span
                     style={{
-                      color: "rgba(255,255,255,0.25)",
-                      fontSize: "0.9rem",
+                      color: 'rgba(255,255,255,0.25)',
+                      fontSize: '0.9rem',
                       fontWeight: 600,
                     }}
                   >
@@ -153,16 +138,12 @@ export const ProgressSteps: React.FC<ProgressStepsProps> = ({
               </div>
               <span
                 style={{
-                  marginTop: 14,
-                  fontSize: "0.85rem",
+                  color: isCompleted ? '#22D3EE' : isCurrent ? '#FFFFFF' : 'rgba(255,255,255,0.4)',
+                  fontFamily: 'system-ui, sans-serif',
+                  fontSize: '0.85rem',
                   fontWeight: isCurrent ? 700 : 500,
-                  color: isCompleted
-                    ? "#22D3EE"
-                    : isCurrent
-                    ? "#FFFFFF"
-                    : "rgba(255,255,255,0.4)",
-                  fontFamily: "system-ui, sans-serif",
-                  whiteSpace: "nowrap",
+                  marginTop: 14,
+                  whiteSpace: 'nowrap',
                 }}
               >
                 {step}

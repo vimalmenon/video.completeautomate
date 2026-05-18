@@ -1,1 +1,1 @@
-export { SoundWave } from "./SoundWave.component";
+export { SoundWave } from './SoundWave.component';

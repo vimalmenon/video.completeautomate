@@ -1,5 +1,6 @@
-import React from "react";
-import { interpolate, useCurrentFrame } from "remotion";
+import React from 'react';
+
+import { interpolate, useCurrentFrame } from 'remotion';
 
 interface LineChartDataPoint {
   x: number;
@@ -21,23 +22,22 @@ interface LineChartProps {
 export { type LineChartDataPoint };
 
 export const LineChart: React.FC<LineChartProps> = ({
-  data,
-  chartWidth = 900,
   chartHeight = 500,
+  chartWidth = 900,
+  data,
+  dotColor = '#f72585',
+  durationInFrames = 60,
+  lineColor = '#4361ee',
   padding = 70,
   startFrame = 0,
-  lineColor = "#4361ee",
-  dotColor = "#f72585",
-  durationInFrames = 60,
 }) => {
   const frame = useCurrentFrame();
 
   const xScale = (x: number) =>
     (x / Math.max(data.length - 1, 1)) * (chartWidth - padding * 2) + padding;
-  const yScale = (y: number) =>
-    chartHeight - padding - (y / 100) * (chartHeight - padding * 2);
+  const yScale = (y: number) => chartHeight - padding - (y / 100) * (chartHeight - padding * 2);
 
-  const pointsStr = data.map((d) => `${xScale(d.x)},${yScale(d.y)}`).join(" ");
+  const pointsStr = data.map((d) => `${xScale(d.x)},${yScale(d.y)}`).join(' ');
 
   let totalLength = 0;
   for (let i = 1; i < data.length; i++) {
@@ -46,12 +46,9 @@ export const LineChart: React.FC<LineChartProps> = ({
     totalLength += Math.sqrt(dx * dx + dy * dy);
   }
 
-  const dashOffset = interpolate(
-    frame - startFrame,
-    [0, durationInFrames],
-    [totalLength, 0],
-    { extrapolateRight: "clamp" }
-  );
+  const dashOffset = interpolate(frame - startFrame, [0, durationInFrames], [totalLength, 0], {
+    extrapolateRight: 'clamp',
+  });
 
   return (
     <svg width={chartWidth} height={chartHeight}>
@@ -127,12 +124,10 @@ export const LineChart: React.FC<LineChartProps> = ({
       />
       {/* Data dots */}
       {data.map((point, i) => {
-        const pointProgress = interpolate(
-          frame - startFrame,
-          [5 + i * 6, 10 + i * 6],
-          [0, 1],
-          { extrapolateLeft: "clamp", extrapolateRight: "clamp" }
-        );
+        const pointProgress = interpolate(frame - startFrame, [5 + i * 6, 10 + i * 6], [0, 1], {
+          extrapolateLeft: 'clamp',
+          extrapolateRight: 'clamp',
+        });
         return (
           <circle
             key={`dot-${i}`}

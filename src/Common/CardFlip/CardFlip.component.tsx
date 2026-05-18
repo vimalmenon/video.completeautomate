@@ -1,11 +1,6 @@
-import React from "react";
-import {
-  spring,
-  useCurrentFrame,
-  useVideoConfig,
-  interpolate,
-  AbsoluteFill,
-} from "remotion";
+import React from 'react';
+
+import { AbsoluteFill, interpolate, spring, useCurrentFrame, useVideoConfig } from 'remotion';
 
 interface CardFlipProps {
   frontContent: React.ReactNode;
@@ -13,80 +8,76 @@ interface CardFlipProps {
 }
 
 export const CardFlip: React.FC<CardFlipProps> = ({
-  frontContent = (
-    <div style={{ color: "#FFFFFF", fontSize: "1.5rem", fontWeight: 700 }}>
-      Front Side
-    </div>
-  ),
   backContent = (
-    <div style={{ color: "#FFFFFF", fontSize: "1.5rem", fontWeight: 700 }}>
-      Back Side
-    </div>
+    <div style={{ color: '#FFFFFF', fontSize: '1.5rem', fontWeight: 700 }}>Back Side</div>
+  ),
+  frontContent = (
+    <div style={{ color: '#FFFFFF', fontSize: '1.5rem', fontWeight: 700 }}>Front Side</div>
   ),
 }) => {
   const frame = useCurrentFrame();
   const { fps } = useVideoConfig();
 
   const flipProgress = spring({
-    frame,
+    config: { damping: 10, mass: 0.6, stiffness: 80 },
     fps,
+    frame,
     from: 0,
     to: 1,
-    config: { mass: 0.6, damping: 10, stiffness: 80 },
   });
 
   const rotation = interpolate(flipProgress, [0, 1], [0, 180], {
-    extrapolateLeft: "clamp",
-    extrapolateRight: "clamp",
+    extrapolateLeft: 'clamp',
+    extrapolateRight: 'clamp',
   });
 
   const frontOpacity = interpolate(flipProgress, [0, 0.4, 0.5], [1, 1, 0], {
-    extrapolateLeft: "clamp",
-    extrapolateRight: "clamp",
+    extrapolateLeft: 'clamp',
+    extrapolateRight: 'clamp',
   });
 
   const backRotation = rotation + 180;
   const backOpacity = interpolate(flipProgress, [0.5, 0.6, 1], [0, 1, 1], {
-    extrapolateLeft: "clamp",
-    extrapolateRight: "clamp",
+    extrapolateLeft: 'clamp',
+    extrapolateRight: 'clamp',
   });
 
   return (
     <AbsoluteFill
       style={{
-        backgroundColor: "#0F172A",
-        justifyContent: "center",
-        alignItems: "center",
+        alignItems: 'center',
+        backgroundColor: '#0F172A',
+        justifyContent: 'center',
         perspective: 1200,
       }}
     >
       <div
         style={{
-          width: 320,
-          height: 420,
+          backgroundColor: '#1E293B',
+          border: '1px solid rgba(8, 145, 178, 0.3)',
           borderRadius: 20,
-          backgroundColor: "#1E293B",
-          border: "1px solid rgba(8, 145, 178, 0.3)",
-          position: "relative",
-          transformStyle: "preserve-3d",
+          height: 420,
+          position: 'relative',
+          transformStyle: 'preserve-3d',
+          width: 320,
         }}
       >
         {/* Front */}
         <div
           style={{
-            position: "absolute",
-            inset: 0,
+            alignItems: 'center',
+            backfaceVisibility: 'hidden',
+            background: 'linear-gradient(135deg, #1E293B 0%, #0F172A 100%)',
+            backgroundColor: '#1E293B',
             borderRadius: 20,
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-            backgroundColor: "#1E293B",
-            background: "linear-gradient(135deg, #1E293B 0%, #0F172A 100%)",
-            backfaceVisibility: "hidden",
-            transform: `rotateY(${rotation}deg)`,
+            boxShadow: '0 8px 32px rgba(0,0,0,0.3)',
+            display: 'flex',
+            inset: 0,
+            justifyContent: 'center',
             opacity: frontOpacity,
             padding: 24,
-            boxShadow: "0 8px 32px rgba(0,0,0,0.3)",
+            position: 'absolute',
+            transform: `rotateY(${rotation}deg)`,
           }}
         >
           {frontContent}
@@ -95,19 +86,19 @@ export const CardFlip: React.FC<CardFlipProps> = ({
         {/* Back */}
         <div
           style={{
-            position: "absolute",
-            inset: 0,
+            alignItems: 'center',
+            backfaceVisibility: 'hidden',
+            background: 'linear-gradient(135deg, #0F172A 0%, #1E293B 100%)',
+            backgroundColor: '#1E293B',
             borderRadius: 20,
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-            backgroundColor: "#1E293B",
-            background: "linear-gradient(135deg, #0F172A 0%, #1E293B 100%)",
-            backfaceVisibility: "hidden",
-            transform: `rotateY(${backRotation}deg)`,
+            boxShadow: '0 8px 32px rgba(0,0,0,0.3)',
+            display: 'flex',
+            inset: 0,
+            justifyContent: 'center',
             opacity: backOpacity,
             padding: 24,
-            boxShadow: "0 8px 32px rgba(0,0,0,0.3)",
+            position: 'absolute',
+            transform: `rotateY(${backRotation}deg)`,
           }}
         >
           {backContent}

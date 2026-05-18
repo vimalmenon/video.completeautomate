@@ -1,1 +1,1 @@
-export { TextDemo, textDemoSchema } from "./TextDemo.component";
+export { TextDemo, textDemoSchema } from './TextDemo.component';

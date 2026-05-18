@@ -1,17 +1,15 @@
-import React, { useMemo } from "react";
-import { AbsoluteFill, useCurrentFrame, useVideoConfig, random } from "remotion";
+import React, { useMemo } from 'react';
+
+import { AbsoluteFill, random, useCurrentFrame, useVideoConfig } from 'remotion';
 
 interface NoiseGrainProps {
   opacity?: number;
   grainSize?: number;
 }
 
-export const NoiseGrain: React.FC<NoiseGrainProps> = ({
-  opacity = 0.06,
-  grainSize = 3,
-}) => {
+export const NoiseGrain: React.FC<NoiseGrainProps> = ({ grainSize = 3, opacity = 0.06 }) => {
   const frame = useCurrentFrame();
-  const { width, height } = useVideoConfig();
+  const { height, width } = useVideoConfig();
 
   const cols = Math.ceil(width / grainSize);
   const rows = Math.ceil(height / grainSize);
@@ -32,9 +30,9 @@ export const NoiseGrain: React.FC<NoiseGrainProps> = ({
   return (
     <AbsoluteFill
       style={{
-        pointerEvents: "none",
+        mixBlendMode: 'overlay' as React.CSSProperties['mixBlendMode'],
         opacity,
-        mixBlendMode: "overlay" as React.CSSProperties["mixBlendMode"],
+        pointerEvents: 'none',
       }}
     >
       <svg width={width} height={height}>
@@ -49,12 +47,7 @@ export const NoiseGrain: React.FC<NoiseGrainProps> = ({
             <feColorMatrix type="saturate" values="0" />
           </filter>
         </defs>
-        <rect
-          width="100%"
-          height="100%"
-          filter={`url(#noise-${frame})`}
-          opacity={1}
-        />
+        <rect width="100%" height="100%" filter={`url(#noise-${frame})`} opacity={1} />
       </svg>
     </AbsoluteFill>
   );

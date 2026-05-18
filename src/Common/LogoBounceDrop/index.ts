@@ -1,1 +1,1 @@
-export { LogoBounceDrop } from "./LogoBounceDrop.component";
+export { LogoBounceDrop } from './LogoBounceDrop.component';

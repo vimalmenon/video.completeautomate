@@ -1,1 +1,1 @@
-export { FloatingTextChip } from "./FloatingTextChip.component";
+export { FloatingTextChip } from './FloatingTextChip.component';

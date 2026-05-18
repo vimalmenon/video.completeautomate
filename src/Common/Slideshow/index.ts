@@ -1,1 +1,1 @@
-export * from "./Slideshow.component";
+export * from './Slideshow.component';

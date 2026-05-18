@@ -1,5 +1,6 @@
-import React from "react";
-import { interpolate, useCurrentFrame, useVideoConfig, Easing } from "remotion";
+import React from 'react';
+
+import { Easing, interpolate, useCurrentFrame, useVideoConfig } from 'remotion';
 
 interface SpotlightRevealProps {
   children: React.ReactNode;
@@ -9,11 +10,11 @@ interface SpotlightRevealProps {
 
 export const SpotlightReveal: React.FC<SpotlightRevealProps> = ({
   children,
-  startFrame = 0,
   durationInFrames = 45,
+  startFrame = 0,
 }) => {
   const frame = useCurrentFrame();
-  const { width, height } = useVideoConfig();
+  const { height, width } = useVideoConfig();
   const elapsed = frame - startFrame;
 
   const cx = width / 2;
@@ -21,17 +22,17 @@ export const SpotlightReveal: React.FC<SpotlightRevealProps> = ({
   const maxRadius = Math.sqrt(width * width + height * height) / 2;
 
   const radius = interpolate(elapsed, [0, durationInFrames], [0, maxRadius], {
-    extrapolateLeft: "clamp",
-    extrapolateRight: "clamp",
     easing: Easing.inOut(Easing.cubic),
+    extrapolateLeft: 'clamp',
+    extrapolateRight: 'clamp',
   });
 
   return (
     <div
       style={{
-        position: "absolute",
-        inset: 0,
         clipPath: `circle(${radius}px at ${cx}px ${cy}px)`,
+        inset: 0,
+        position: 'absolute',
         WebkitClipPath: `circle(${radius}px at ${cx}px ${cy}px)`,
       }}
     >

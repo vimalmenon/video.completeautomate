@@ -1,1 +1,1 @@
-export * from "./ZoomPulse.component";
+export * from './ZoomPulse.component';

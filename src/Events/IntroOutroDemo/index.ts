@@ -1,1 +1,1 @@
-export { IntroOutroDemo, introOutroDemoSchema } from "./IntroOutroDemo.component";
+export { IntroOutroDemo, introOutroDemoSchema } from './IntroOutroDemo.component';

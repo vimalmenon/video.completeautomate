@@ -1,5 +1,6 @@
-import React from "react";
-import { spring, useCurrentFrame, useVideoConfig } from "remotion";
+import React from 'react';
+
+import { spring, useCurrentFrame, useVideoConfig } from 'remotion';
 
 interface SplitScreenProps {
   leftContent: React.ReactNode;
@@ -9,28 +10,28 @@ interface SplitScreenProps {
 }
 
 export const SplitScreen: React.FC<SplitScreenProps> = ({
+  gap = 4,
   leftContent,
   rightContent,
   splitRatio = 0.5,
-  gap = 4,
 }) => {
   const frame = useCurrentFrame();
-  const { width, height, fps } = useVideoConfig();
+  const { fps, height, width } = useVideoConfig();
 
   const leftSpring = spring({
-    frame,
+    config: { damping: 12, mass: 0.5, stiffness: 100 },
     fps,
+    frame,
     from: -width * 0.5,
     to: 0,
-    config: { mass: 0.5, damping: 12, stiffness: 100 },
   });
 
   const rightSpring = spring({
-    frame,
+    config: { damping: 12, mass: 0.5, stiffness: 100 },
     fps,
+    frame,
     from: width * 0.5,
     to: 0,
-    config: { mass: 0.5, damping: 12, stiffness: 100 },
   });
 
   const leftWidth = width * splitRatio - gap / 2;
@@ -39,21 +40,21 @@ export const SplitScreen: React.FC<SplitScreenProps> = ({
   return (
     <div
       style={{
-        position: "absolute",
+        alignItems: 'center',
+        backgroundColor: '#0F172A',
+        display: 'flex',
         inset: 0,
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "center",
-        backgroundColor: "#0F172A",
+        justifyContent: 'center',
+        position: 'absolute',
       }}
     >
       {/* Left panel */}
       <div
         style={{
-          width: leftWidth,
-          height: "100%",
-          overflow: "hidden",
+          height: '100%',
+          overflow: 'hidden',
           transform: `translateX(${leftSpring}px)`,
+          width: leftWidth,
         }}
       >
         {leftContent}
@@ -62,20 +63,20 @@ export const SplitScreen: React.FC<SplitScreenProps> = ({
       {/* Gap / divider */}
       <div
         style={{
-          width: gap,
-          height: "100%",
-          backgroundColor: "#0891B2",
+          backgroundColor: '#0891B2',
+          height: '100%',
           opacity: 0.6,
+          width: gap,
         }}
       />
 
       {/* Right panel */}
       <div
         style={{
-          width: rightWidth,
-          height: "100%",
-          overflow: "hidden",
+          height: '100%',
+          overflow: 'hidden',
           transform: `translateX(${rightSpring}px)`,
+          width: rightWidth,
         }}
       >
         {rightContent}

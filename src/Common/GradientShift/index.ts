@@ -1,1 +1,1 @@
-export { GradientShift } from "./GradientShift.component";
+export { GradientShift } from './GradientShift.component';

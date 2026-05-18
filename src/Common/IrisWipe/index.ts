@@ -1,1 +1,1 @@
-export { IrisWipe } from "./IrisWipe.component";
+export { IrisWipe } from './IrisWipe.component';

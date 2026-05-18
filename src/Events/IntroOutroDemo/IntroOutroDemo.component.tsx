@@ -1,46 +1,49 @@
-import React from "react";
-import { AbsoluteFill, Sequence } from "remotion";
-import { z } from "zod";
-import { CinematicTitle } from "../../Common/CinematicTitle";
-import { LowerThird } from "../../Common/LowerThird";
-import { EndCard } from "../../Common/EndCard";
-import { ChapterTitle } from "../../Common/ChapterTitle";
-import { QuoteCard } from "../../Common/QuoteCard";
-import { CreditsRoll } from "../../Common/CreditsRoll";
-import { GalleryGrid } from "../../Common/GalleryGrid";
-import { MasonryGrid } from "../../Common/MasonryGrid";
-import { Slideshow } from "../../Common/Slideshow";
-import { Carousel } from "../../Common/Carousel";
+import React from 'react';
+
+import { AbsoluteFill, Sequence } from 'remotion';
+import { z } from 'zod';
+
+import { Carousel } from '../../Common/Carousel';
+import { ChapterTitle } from '../../Common/ChapterTitle';
+import { CinematicTitle } from '../../Common/CinematicTitle';
+import { CreditsRoll } from '../../Common/CreditsRoll';
+import { EndCard } from '../../Common/EndCard';
+import { GalleryGrid } from '../../Common/GalleryGrid';
+import { LowerThird } from '../../Common/LowerThird';
+import { MasonryGrid } from '../../Common/MasonryGrid';
+import { QuoteCard } from '../../Common/QuoteCard';
+import { Slideshow } from '../../Common/Slideshow';
 
 export const introOutroDemoSchema = z.object({
-  text: z.string().optional().default("Intro"),
+  text: z.string().optional().default('Intro'),
 });
 
 type IntroOutroDemoProps = z.infer<typeof introOutroDemoSchema>;
 
-const placeholderUrl = "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=400&h=300&fit=crop";
+const placeholderUrl =
+  'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=400&h=300&fit=crop';
 
 export const IntroOutroDemo: React.FC<IntroOutroDemoProps> = () => {
   const sectionBg: React.CSSProperties = {
-    position: "absolute",
+    alignItems: 'center',
+    background: 'linear-gradient(to bottom right, #0F172A, #1E293B)',
+    display: 'flex',
+    flexDirection: 'column',
     inset: 0,
-    display: "flex",
-    flexDirection: "column",
-    alignItems: "center",
-    justifyContent: "center",
-    background: "linear-gradient(to bottom right, #0F172A, #1E293B)",
+    justifyContent: 'center',
+    position: 'absolute',
   };
 
   const labelStyle: React.CSSProperties = {
-    position: "absolute",
     bottom: 20,
-    left: 0,
-    right: 0,
-    textAlign: "center",
-    color: "rgba(255,255,255,0.6)",
+    color: 'rgba(255,255,255,0.6)',
+    fontFamily: 'system-ui, sans-serif',
     fontSize: 14,
     fontWeight: 600,
-    fontFamily: "system-ui, sans-serif",
+    left: 0,
+    position: 'absolute',
+    right: 0,
+    textAlign: 'center',
     zIndex: 20,
   };
 
@@ -57,7 +60,15 @@ export const IntroOutroDemo: React.FC<IntroOutroDemoProps> = () => {
       {/* LowerThird (60-110) */}
       <Sequence from={60} durationInFrames={50}>
         <div style={sectionBg}>
-          <div style={{ color: "white", fontSize: 20, fontWeight: 300, fontFamily: "system-ui, sans-serif", marginBottom: 100 }}>
+          <div
+            style={{
+              color: 'white',
+              fontFamily: 'system-ui, sans-serif',
+              fontSize: 20,
+              fontWeight: 300,
+              marginBottom: 100,
+            }}
+          >
             Interview footage placeholder
           </div>
           <LowerThird name="Sarah Johnson" title="VP of Engineering" accentColor="#f72585" />
@@ -97,12 +108,12 @@ export const IntroOutroDemo: React.FC<IntroOutroDemoProps> = () => {
         <div style={sectionBg}>
           <CreditsRoll
             credits={[
-              { role: "Director", name: "Alex Morgan" },
-              { role: "Producer", name: "Jamie Chen" },
-              { role: "Editor", name: "Taylor Reed" },
-              { role: "Music", name: "Jordan Blake" },
-              { role: "Sound Design", name: "Casey Kim" },
-              { role: "Visual Effects", name: "Riley Park" },
+              { name: 'Alex Morgan', role: 'Director' },
+              { name: 'Jamie Chen', role: 'Producer' },
+              { name: 'Taylor Reed', role: 'Editor' },
+              { name: 'Jordan Blake', role: 'Music' },
+              { name: 'Casey Kim', role: 'Sound Design' },
+              { name: 'Riley Park', role: 'Visual Effects' },
             ]}
           />
           <div style={labelStyle}>Credits Roll</div>
@@ -114,12 +125,12 @@ export const IntroOutroDemo: React.FC<IntroOutroDemoProps> = () => {
         <div style={sectionBg}>
           <GalleryGrid
             images={[
-              { src: placeholderUrl, label: "Image 1" },
-              { src: placeholderUrl, label: "Image 2" },
-              { src: placeholderUrl, label: "Image 3" },
-              { src: placeholderUrl, label: "Image 4" },
-              { src: placeholderUrl, label: "Image 5" },
-              { src: placeholderUrl, label: "Image 6" },
+              { label: 'Image 1', src: placeholderUrl },
+              { label: 'Image 2', src: placeholderUrl },
+              { label: 'Image 3', src: placeholderUrl },
+              { label: 'Image 4', src: placeholderUrl },
+              { label: 'Image 5', src: placeholderUrl },
+              { label: 'Image 6', src: placeholderUrl },
             ]}
           />
           <div style={labelStyle}>Gallery Grid</div>
@@ -131,11 +142,11 @@ export const IntroOutroDemo: React.FC<IntroOutroDemoProps> = () => {
         <div style={sectionBg}>
           <MasonryGrid
             images={[
-              { src: placeholderUrl, height: 200 },
-              { src: placeholderUrl, height: 300 },
-              { src: placeholderUrl, height: 250 },
-              { src: placeholderUrl, height: 180 },
-              { src: placeholderUrl, height: 280 },
+              { height: 200, src: placeholderUrl },
+              { height: 300, src: placeholderUrl },
+              { height: 250, src: placeholderUrl },
+              { height: 180, src: placeholderUrl },
+              { height: 280, src: placeholderUrl },
             ]}
           />
           <div style={labelStyle}>Masonry Grid</div>
@@ -147,9 +158,9 @@ export const IntroOutroDemo: React.FC<IntroOutroDemoProps> = () => {
         <div style={sectionBg}>
           <Slideshow
             images={[
-              { src: placeholderUrl, caption: "Beautiful landscape" },
-              { src: placeholderUrl, caption: "Mountain view" },
-              { src: placeholderUrl, caption: "Ocean sunset" },
+              { caption: 'Beautiful landscape', src: placeholderUrl },
+              { caption: 'Mountain view', src: placeholderUrl },
+              { caption: 'Ocean sunset', src: placeholderUrl },
             ]}
           />
           <div style={labelStyle}>Slideshow</div>
@@ -161,10 +172,10 @@ export const IntroOutroDemo: React.FC<IntroOutroDemoProps> = () => {
         <div style={sectionBg}>
           <Carousel
             images={[
-              { src: placeholderUrl, label: "Product A" },
-              { src: placeholderUrl, label: "Product B" },
-              { src: placeholderUrl, label: "Product C" },
-              { src: placeholderUrl, label: "Product D" },
+              { label: 'Product A', src: placeholderUrl },
+              { label: 'Product B', src: placeholderUrl },
+              { label: 'Product C', src: placeholderUrl },
+              { label: 'Product D', src: placeholderUrl },
             ]}
           />
           <div style={labelStyle}>Carousel</div>

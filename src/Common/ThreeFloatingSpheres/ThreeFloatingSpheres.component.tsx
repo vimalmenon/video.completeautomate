@@ -1,7 +1,8 @@
-import React, { useMemo } from "react";
-import { ThreeCanvas } from "@remotion/three";
-import { useCurrentFrame, AbsoluteFill, useVideoConfig } from "remotion";
-import * as THREE from "three";
+import React, { useMemo } from 'react';
+
+import { ThreeCanvas } from '@remotion/three';
+import { AbsoluteFill, useCurrentFrame, useVideoConfig } from 'remotion';
+import * as THREE from 'three';
 
 interface Particle {
   x: number;
@@ -14,7 +15,7 @@ interface Particle {
 
 export const ThreeFloatingSpheres: React.FC = () => {
   const frame = useCurrentFrame();
-  const { width, height } = useVideoConfig();
+  const { height, width } = useVideoConfig();
 
   const particles = useMemo<Particle[]>(() => {
     const result: Particle[] = [];
@@ -23,19 +24,19 @@ export const ThreeFloatingSpheres: React.FC = () => {
       const phi = Math.acos(2 * Math.random() - 1);
       const r = Math.cbrt(Math.random()) * 4;
       result.push({
+        color: new THREE.Color().setHSL(0.55 + Math.random() * 0.1, 0.8, 0.5 + Math.random() * 0.3),
+        phase: Math.random() * Math.PI * 2,
+        size: 0.05 + Math.random() * 0.1,
         x: r * Math.sin(phi) * Math.cos(theta),
         y: r * Math.sin(phi) * Math.sin(theta),
         z: r * Math.cos(phi),
-        size: 0.05 + Math.random() * 0.1,
-        phase: Math.random() * Math.PI * 2,
-        color: new THREE.Color().setHSL(0.55 + Math.random() * 0.1, 0.8, 0.5 + Math.random() * 0.3),
       });
     }
     return result;
   }, []);
 
   return (
-    <AbsoluteFill style={{ backgroundColor: "#000000" }}>
+    <AbsoluteFill style={{ backgroundColor: '#000000' }}>
       <ThreeCanvas width={width} height={height}>
         <perspectiveCamera position={[0, 0, 6]} />
         <ambientLight intensity={0.5} />

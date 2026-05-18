@@ -1,1 +1,1 @@
-export { MatrixRain } from "./MatrixRain.component";
+export { MatrixRain } from './MatrixRain.component';

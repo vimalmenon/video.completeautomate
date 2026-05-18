@@ -1,10 +1,6 @@
-import React, { useMemo } from "react";
-import {
-  AbsoluteFill,
-  spring,
-  useCurrentFrame,
-  useVideoConfig,
-} from "remotion";
+import React, { useMemo } from 'react';
+
+import { AbsoluteFill, spring, useCurrentFrame, useVideoConfig } from 'remotion';
 
 interface BlindsTransitionProps {
   children: [React.ReactNode, React.ReactNode];
@@ -14,8 +10,8 @@ interface BlindsTransitionProps {
 
 export const BlindsTransition: React.FC<BlindsTransitionProps> = ({
   children,
-  stripCount = 8,
   durationInFrames = 60,
+  stripCount = 8,
 }) => {
   const frame = useCurrentFrame();
   const { fps, height } = useVideoConfig();
@@ -23,48 +19,46 @@ export const BlindsTransition: React.FC<BlindsTransitionProps> = ({
 
   const stripHeight = height / stripCount;
 
-  const strips = useMemo(() => {
-    return Array.from({ length: stripCount }, (_, i) => i);
-  }, [stripCount]);
+  const strips = useMemo(() => Array.from({ length: stripCount }, (_, i) => i), [stripCount]);
 
   return (
-    <AbsoluteFill style={{ backgroundColor: "#0F172A", overflow: "hidden" }}>
+    <AbsoluteFill style={{ backgroundColor: '#0F172A', overflow: 'hidden' }}>
       {/* Background scene A */}
       <AbsoluteFill>{sceneA}</AbsoluteFill>
 
       {/* Blinds strips */}
       <AbsoluteFill
         style={{
-          display: "flex",
-          flexDirection: "column",
+          display: 'flex',
+          flexDirection: 'column',
         }}
       >
         {strips.map((i) => {
           const delay = (i / stripCount) * durationInFrames * 0.6;
           const spr = spring({
-            frame: frame - delay,
+            config: { damping: 15, mass: 0.5, stiffness: 120 },
             fps,
+            frame: frame - delay,
             from: 0,
             to: 1,
-            config: { mass: 0.5, damping: 15, stiffness: 120 },
           });
 
           return (
             <div
               key={i}
               style={{
-                width: "100%",
                 height: stripHeight,
-                overflow: "hidden",
+                overflow: 'hidden',
                 transform: `scaleY(${spr})`,
-                transformOrigin: "top",
+                transformOrigin: 'top',
+                width: '100%',
               }}
             >
               <div
                 style={{
-                  width: "100%",
                   height,
                   transform: `translateY(${-i * stripHeight}px)`,
+                  width: '100%',
                 }}
               >
                 {sceneB}

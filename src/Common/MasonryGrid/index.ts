@@ -1,1 +1,1 @@
-export * from "./MasonryGrid.component";
+export * from './MasonryGrid.component';

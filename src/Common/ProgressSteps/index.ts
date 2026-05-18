@@ -1,1 +1,1 @@
-export { ProgressSteps } from "./ProgressSteps.component";
+export { ProgressSteps } from './ProgressSteps.component';

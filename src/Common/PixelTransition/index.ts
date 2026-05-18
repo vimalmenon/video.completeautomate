@@ -1,1 +1,1 @@
-export { PixelTransition } from "./PixelTransition.component";
+export { PixelTransition } from './PixelTransition.component';

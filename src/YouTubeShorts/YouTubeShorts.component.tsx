@@ -1,13 +1,14 @@
-import React, { useMemo } from "react";
+import React, { useMemo } from 'react';
+
 import {
   AbsoluteFill,
   Audio,
+  interpolate,
   Sequence,
   spring,
   useCurrentFrame,
-  interpolate,
   useVideoConfig,
-} from "remotion";
+} from 'remotion';
 
 export interface YouTubeShortsProps {
   speechScript?: string;
@@ -25,11 +26,11 @@ export interface YouTubeShortsProps {
  * audio track in sync with the text reveal.
  */
 export const YouTubeShorts: React.FC<YouTubeShortsProps> = ({
-  speechScript = "Welcome to YouTube Shorts. This is an animated text composition. Each sentence slides up with a smooth spring animation.",
+  accentColor = '#0891B2',
   audioUrl,
-  topic = "YouTube Shorts",
-  accentColor = "#0891B2",
   durationInFrames: _,
+  speechScript = 'Welcome to YouTube Shorts. This is an animated text composition. Each sentence slides up with a smooth spring animation.',
+  topic = 'YouTube Shorts',
 }) => {
   const frame = useCurrentFrame();
   const { fps } = useVideoConfig();
@@ -50,60 +51,60 @@ export const YouTubeShorts: React.FC<YouTubeShortsProps> = ({
 
   // ---------- background gradient ----------
   const gradProgress = interpolate(frame, [0, totalDuration], [0, 1], {
-    extrapolateRight: "clamp",
+    extrapolateRight: 'clamp',
   });
   const bgGradient = `linear-gradient(
     135deg,
-    ${interpolateColor(gradProgress, [0, 0.5, 1], ["#0F172A", "#131D35", "#0F172A"])},
-    ${interpolateColor(gradProgress, [0, 0.5, 1], ["#1E293B", "#1A2740", "#0A0F1F"])}
+    ${interpolateColor(gradProgress, [0, 0.5, 1], ['#0F172A', '#131D35', '#0F172A'])},
+    ${interpolateColor(gradProgress, [0, 0.5, 1], ['#1E293B', '#1A2740', '#0A0F1F'])}
   )`;
 
   const containerStyle: React.CSSProperties = {
-    width: 1080,
-    height: 1920,
+    alignItems: 'center',
     background: bgGradient,
-    display: "flex",
-    flexDirection: "column",
-    alignItems: "center",
-    justifyContent: "center",
-    padding: "80px 60px",
-    fontFamily: "system-ui, -apple-system, sans-serif",
-    overflow: "hidden",
-    position: "relative",
+    display: 'flex',
+    flexDirection: 'column',
+    fontFamily: 'system-ui, -apple-system, sans-serif',
+    height: 1920,
+    justifyContent: 'center',
+    overflow: 'hidden',
+    padding: '80px 60px',
+    position: 'relative',
+    width: 1080,
   };
 
   // ---------- topic header ----------
   const headerStyle: React.CSSProperties = {
-    position: "absolute",
-    top: 60,
-    left: 0,
-    right: 0,
-    textAlign: "center",
+    color: accentColor,
     fontSize: 28,
     fontWeight: 700,
-    color: accentColor,
-    letterSpacing: "0.05em",
-    textTransform: "uppercase",
+    left: 0,
+    letterSpacing: '0.05em',
+    position: 'absolute',
+    right: 0,
+    textAlign: 'center',
+    textTransform: 'uppercase',
+    top: 60,
   };
 
   const underlineStyle: React.CSSProperties = {
-    width: 80,
-    height: 4,
     background: accentColor,
     borderRadius: 2,
-    margin: "12px auto 0",
+    height: 4,
+    margin: '12px auto 0',
+    width: 80,
   };
 
   // ---------- text segments ----------
   const textAreaStyle: React.CSSProperties = {
-    position: "relative",
-    width: "100%",
-    height: "60%",
-    display: "flex",
-    flexDirection: "column",
-    alignItems: "center",
-    justifyContent: "center",
+    alignItems: 'center',
+    display: 'flex',
+    flexDirection: 'column',
     gap: 12,
+    height: '60%',
+    justifyContent: 'center',
+    position: 'relative',
+    width: '100%',
   };
 
   return (
@@ -111,10 +112,10 @@ export const YouTubeShorts: React.FC<YouTubeShortsProps> = ({
       {/* subtle animated overlay for extra depth */}
       <div
         style={{
-          position: "absolute",
-          inset: 0,
           background: `radial-gradient(ellipse at 50% 40%, ${accentColor}15 0%, transparent 70%)`,
-          pointerEvents: "none",
+          inset: 0,
+          pointerEvents: 'none',
+          position: 'absolute',
         }}
       />
 
@@ -138,13 +139,13 @@ export const YouTubeShorts: React.FC<YouTubeShortsProps> = ({
           // Delay the spring a bit so previous segment has time to settle
           const delay = i === 0 ? 0 : 3;
           const springVal = spring({
-            frame: frame - segStart - delay,
-            fps,
             config: {
               damping: 14,
               mass: 0.6,
               stiffness: 100,
             },
+            fps,
+            frame: frame - segStart - delay,
           });
 
           const translateY = interpolate(springVal, [0, 1], [80, 0]);
@@ -158,26 +159,21 @@ export const YouTubeShorts: React.FC<YouTubeShortsProps> = ({
             ? 0
             : isCurrent
               ? 1
-              : interpolate(
-                  frame - segEnd,
-                  [0, 20],
-                  [1, 0.35],
-                  { extrapolateRight: "clamp" }
-                );
+              : interpolate(frame - segEnd, [0, 20], [1, 0.35], { extrapolateRight: 'clamp' });
 
           const segStyle: React.CSSProperties = {
-            position: "absolute",
-            textAlign: "center",
+            color: isPast ? '#94A3B8' : '#FFFFFF',
             fontSize: isCurrent ? 32 : 28,
             fontWeight: isCurrent ? 600 : 400,
-            color: isPast ? "#94A3B8" : "#FFFFFF",
             lineHeight: 1.5,
             maxWidth: 900,
-            transform: isFuture ? undefined : `translateY(${translateY}px)`,
             opacity: isFuture ? 0 : segOpacity,
-            textShadow: "0 2px 12px rgba(0,0,0,0.4)",
-            transition: "none",
-            padding: "0 20px",
+            padding: '0 20px',
+            position: 'absolute',
+            textAlign: 'center',
+            textShadow: '0 2px 12px rgba(0,0,0,0.4)',
+            transform: isFuture ? undefined : `translateY(${translateY}px)`,
+            transition: 'none',
           };
 
           return (
@@ -199,11 +195,7 @@ export const YouTubeShorts: React.FC<YouTubeShortsProps> = ({
 };
 
 /** Tiny helper to interpolate between CSS colour strings. */
-function interpolateColor(
-  t: number,
-  stops: number[],
-  colors: string[]
-): string {
+function interpolateColor(t: number, stops: number[], colors: string[]): string {
   if (t <= stops[0]) return colors[0];
   if (t >= stops[stops.length - 1]) return colors[colors.length - 1];
 
@@ -222,7 +214,7 @@ function interpolateColor(
 }
 
 function parseColor(c: string): [number, number, number] {
-  const hex = c.replace("#", "");
+  const hex = c.replace('#', '');
   return [
     parseInt(hex.substring(0, 2), 16),
     parseInt(hex.substring(2, 4), 16),

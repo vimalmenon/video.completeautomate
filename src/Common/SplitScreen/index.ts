@@ -1,1 +1,1 @@
-export * from "./SplitScreen.component";
+export * from './SplitScreen.component';

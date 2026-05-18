@@ -1,26 +1,28 @@
-import React from "react";
-import { AbsoluteFill, Sequence, useCurrentFrame, interpolate } from "remotion";
+import React from 'react';
+
+import { AbsoluteFill, interpolate, Sequence, useCurrentFrame } from 'remotion';
+
 import {
-  ThreeRotatingCube,
-  ThreeTorusKnot,
+  ThreeDonut,
   ThreeFloatingSpheres,
+  ThreeGalaxy,
   ThreeGlobe,
   ThreeMorphing,
-  ThreeGalaxy,
-  ThreeDonut,
+  ThreeRotatingCube,
   ThreeShapes,
-} from "../../Common";
+  ThreeTorusKnot,
+} from '../../Common';
 
 const SEGMENT_DURATION = 75;
 const SEGMENTS = [
-  { Component: ThreeRotatingCube, label: "Rotating Cube" },
-  { Component: ThreeTorusKnot, label: "Torus Knot" },
-  { Component: ThreeFloatingSpheres, label: "Floating Spheres" },
-  { Component: ThreeGlobe, label: "Globe" },
-  { Component: ThreeMorphing, label: "Morphing Shapes" },
-  { Component: ThreeGalaxy, label: "Galaxy" },
-  { Component: ThreeDonut, label: "Donut" },
-  { Component: ThreeShapes, label: "Shapes" },
+  { Component: ThreeRotatingCube, label: 'Rotating Cube' },
+  { Component: ThreeTorusKnot, label: 'Torus Knot' },
+  { Component: ThreeFloatingSpheres, label: 'Floating Spheres' },
+  { Component: ThreeGlobe, label: 'Globe' },
+  { Component: ThreeMorphing, label: 'Morphing Shapes' },
+  { Component: ThreeGalaxy, label: 'Galaxy' },
+  { Component: ThreeDonut, label: 'Donut' },
+  { Component: ThreeShapes, label: 'Shapes' },
 ];
 
 interface LabelOverlayProps {
@@ -28,41 +30,41 @@ interface LabelOverlayProps {
   frame: number;
 }
 
-const LabelOverlay: React.FC<LabelOverlayProps> = ({ label, frame }) => {
+const LabelOverlay: React.FC<LabelOverlayProps> = ({ frame, label }) => {
   const opacity = interpolate(frame, [0, 10, 60, 74], [0, 1, 1, 0], {
-    extrapolateLeft: "clamp",
-    extrapolateRight: "clamp",
+    extrapolateLeft: 'clamp',
+    extrapolateRight: 'clamp',
   });
 
   return (
     <div
       style={{
-        position: "absolute",
         bottom: 40,
         left: 0,
+        pointerEvents: 'none',
+        position: 'absolute',
         right: 0,
-        textAlign: "center",
+        textAlign: 'center',
         zIndex: 10,
-        pointerEvents: "none",
       }}
     >
       <div
         style={{
-          display: "inline-block",
-          padding: "8px 24px",
+          backdropFilter: 'blur(4px)',
+          backgroundColor: 'rgba(0,0,0,0.6)',
           borderRadius: 8,
-          backgroundColor: "rgba(0,0,0,0.6)",
-          backdropFilter: "blur(4px)",
+          display: 'inline-block',
           opacity,
+          padding: '8px 24px',
         }}
       >
         <span
           style={{
-            color: "#ffffff",
+            color: '#ffffff',
+            fontFamily: 'system-ui, sans-serif',
             fontSize: 18,
             fontWeight: 600,
-            fontFamily: "system-ui, sans-serif",
-            letterSpacing: "0.05em",
+            letterSpacing: '0.05em',
           }}
         >
           {label}
@@ -76,13 +78,9 @@ export const ThreeDemo: React.FC = () => {
   const frame = useCurrentFrame();
 
   return (
-    <AbsoluteFill style={{ backgroundColor: "#0F172A" }}>
+    <AbsoluteFill style={{ backgroundColor: '#0F172A' }}>
       {SEGMENTS.map(({ Component, label }, i) => (
-        <Sequence
-          key={label}
-          from={i * SEGMENT_DURATION}
-          durationInFrames={SEGMENT_DURATION}
-        >
+        <Sequence key={label} from={i * SEGMENT_DURATION} durationInFrames={SEGMENT_DURATION}>
           <Component />
           <LabelOverlay label={label} frame={frame - i * SEGMENT_DURATION} />
         </Sequence>

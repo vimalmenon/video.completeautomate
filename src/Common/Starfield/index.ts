@@ -1,1 +1,1 @@
-export { Starfield } from "./Starfield.component";
+export { Starfield } from './Starfield.component';

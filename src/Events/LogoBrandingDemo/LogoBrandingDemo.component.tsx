@@ -1,44 +1,46 @@
-import React from "react";
-import { AbsoluteFill, Sequence } from "remotion";
-import { z } from "zod";
-import { LogoFadeReveal } from "../../Common/LogoFadeReveal";
-import { LogoSpinReveal } from "../../Common/LogoSpinReveal";
-import { LogoGlitchReveal } from "../../Common/LogoGlitchReveal";
-import { LogoBounceDrop } from "../../Common/LogoBounceDrop";
-import { LogoStrokeDraw } from "../../Common/LogoStrokeDraw";
-import { LogoScaleRotate } from "../../Common/LogoScaleRotate";
-import { LogoSplitReveal } from "../../Common/LogoSplitReveal";
-import { LogoWatermark } from "../../Common/LogoWatermark";
-import { DynamicLowerThird } from "../../Common/DynamicLowerThird";
-import { CleanLowerThird } from "../../Common/CleanLowerThird";
+import React from 'react';
+
+import { AbsoluteFill, Sequence } from 'remotion';
+import { z } from 'zod';
+
+import { CleanLowerThird } from '../../Common/CleanLowerThird';
+import { DynamicLowerThird } from '../../Common/DynamicLowerThird';
+import { LogoBounceDrop } from '../../Common/LogoBounceDrop';
+import { LogoFadeReveal } from '../../Common/LogoFadeReveal';
+import { LogoGlitchReveal } from '../../Common/LogoGlitchReveal';
+import { LogoScaleRotate } from '../../Common/LogoScaleRotate';
+import { LogoSpinReveal } from '../../Common/LogoSpinReveal';
+import { LogoSplitReveal } from '../../Common/LogoSplitReveal';
+import { LogoStrokeDraw } from '../../Common/LogoStrokeDraw';
+import { LogoWatermark } from '../../Common/LogoWatermark';
 
 export const logoBrandingDemoSchema = z.object({
-  text: z.string().optional().default("Brand"),
+  text: z.string().optional().default('Brand'),
 });
 
 type LogoBrandingDemoProps = z.infer<typeof logoBrandingDemoSchema>;
 
 export const LogoBrandingDemo: React.FC<LogoBrandingDemoProps> = () => {
   const sectionBg: React.CSSProperties = {
-    position: "absolute",
+    alignItems: 'center',
+    background: 'linear-gradient(to bottom right, #0F172A, #1E293B)',
+    display: 'flex',
+    flexDirection: 'column',
     inset: 0,
-    display: "flex",
-    flexDirection: "column",
-    alignItems: "center",
-    justifyContent: "center",
-    background: "linear-gradient(to bottom right, #0F172A, #1E293B)",
+    justifyContent: 'center',
+    position: 'absolute',
   };
 
   const labelStyle: React.CSSProperties = {
-    position: "absolute",
     bottom: 30,
-    left: 0,
-    right: 0,
-    textAlign: "center",
-    color: "rgba(255,255,255,0.6)",
+    color: 'rgba(255,255,255,0.6)',
+    fontFamily: 'system-ui, sans-serif',
     fontSize: 16,
     fontWeight: 600,
-    fontFamily: "system-ui, sans-serif",
+    left: 0,
+    position: 'absolute',
+    right: 0,
+    textAlign: 'center',
     zIndex: 10,
   };
 
@@ -47,7 +49,11 @@ export const LogoBrandingDemo: React.FC<LogoBrandingDemoProps> = () => {
       {/* LogoFadeReveal (0-50) */}
       <Sequence from={0} durationInFrames={50}>
         <div style={sectionBg}>
-          <LogoFadeReveal logoText="AI" companyName="CompleteAutomate" tagline="Intelligent Automation" />
+          <LogoFadeReveal
+            logoText="AI"
+            companyName="CompleteAutomate"
+            tagline="Intelligent Automation"
+          />
           <div style={labelStyle}>Logo Fade Reveal</div>
         </div>
       </Sequence>
@@ -103,7 +109,15 @@ export const LogoBrandingDemo: React.FC<LogoBrandingDemoProps> = () => {
       {/* LogoWatermark (350-400) */}
       <Sequence from={350} durationInFrames={50}>
         <div style={sectionBg}>
-          <div style={{ color: "white", fontSize: 40, fontWeight: 300, fontFamily: "system-ui, sans-serif", marginBottom: 40 }}>
+          <div
+            style={{
+              color: 'white',
+              fontFamily: 'system-ui, sans-serif',
+              fontSize: 40,
+              fontWeight: 300,
+              marginBottom: 40,
+            }}
+          >
             Content with watermark overlay
           </div>
           <LogoWatermark logoText="CA" position="bottom-right" />

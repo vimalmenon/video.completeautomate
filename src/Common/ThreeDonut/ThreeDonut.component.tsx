@@ -1,11 +1,12 @@
-import React, { useMemo } from "react";
-import { ThreeCanvas } from "@remotion/three";
-import { useCurrentFrame, interpolate, AbsoluteFill, useVideoConfig } from "remotion";
-import * as THREE from "three";
+import React, { useMemo } from 'react';
+
+import { ThreeCanvas } from '@remotion/three';
+import { AbsoluteFill, interpolate, useCurrentFrame, useVideoConfig } from 'remotion';
+import * as THREE from 'three';
 
 export const ThreeDonut: React.FC = () => {
   const frame = useCurrentFrame();
-  const { width, height } = useVideoConfig();
+  const { height, width } = useVideoConfig();
 
   const rotationX = useMemo(() => interpolate(frame, [0, 240], [0, Math.PI * 2]), [frame]);
   const rotationY = useMemo(() => interpolate(frame, [0, 240], [0, Math.PI * 3]), [frame]);
@@ -16,7 +17,7 @@ export const ThreeDonut: React.FC = () => {
   }, [frame]);
 
   return (
-    <AbsoluteFill style={{ backgroundColor: "#000000" }}>
+    <AbsoluteFill style={{ backgroundColor: '#000000' }}>
       <ThreeCanvas width={width} height={height}>
         <perspectiveCamera position={[0, 0, 5]} />
         <ambientLight intensity={0.3} />

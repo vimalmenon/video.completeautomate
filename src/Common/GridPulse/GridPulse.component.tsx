@@ -1,11 +1,6 @@
-import React, { useMemo } from "react";
-import {
-  AbsoluteFill,
-  useCurrentFrame,
-  useVideoConfig,
-  interpolate,
-  Easing,
-} from "remotion";
+import React, { useMemo } from 'react';
+
+import { AbsoluteFill, Easing, interpolate, useCurrentFrame, useVideoConfig } from 'remotion';
 
 interface GridPulseProps {
   gridSize?: number;
@@ -14,12 +9,12 @@ interface GridPulseProps {
 }
 
 export const GridPulse: React.FC<GridPulseProps> = ({
+  dotColor = '#ffffff',
   gridSize = 20,
-  pulseColor = "#0891B2",
-  dotColor = "#ffffff",
+  pulseColor = '#0891B2',
 }) => {
   const frame = useCurrentFrame();
-  const { width, height } = useVideoConfig();
+  const { height, width } = useVideoConfig();
 
   const cols = Math.ceil(width / gridSize);
   const rows = Math.ceil(height / gridSize);
@@ -30,17 +25,17 @@ export const GridPulse: React.FC<GridPulseProps> = ({
     const centerCount = 3;
     for (let i = 0; i < centerCount; i++) {
       centers.push({
+        period: 100 + i * 30,
+        phase: i * 40,
         x: Math.cos((i / centerCount) * Math.PI * 2) * width * 0.25 + width / 2,
         y: Math.sin((i / centerCount) * Math.PI * 2) * height * 0.2 + height / 2,
-        phase: i * 40,
-        period: 100 + i * 30,
       });
     }
     return centers;
   }, [width, height]);
 
   return (
-    <AbsoluteFill style={{ backgroundColor: "#0F172A", overflow: "hidden" }}>
+    <AbsoluteFill style={{ backgroundColor: '#0F172A', overflow: 'hidden' }}>
       <svg width={width} height={height}>
         {Array.from({ length: rows }).map((_, row) =>
           Array.from({ length: cols }).map((_, col) => {
@@ -51,13 +46,9 @@ export const GridPulse: React.FC<GridPulseProps> = ({
             let totalInfluence = 0;
             for (const pc of pulseCenters) {
               const dist = Math.sqrt((cx - pc.x) ** 2 + (cy - pc.y) ** 2);
-              const pulseProgress =
-                ((frame + pc.phase) % pc.period) / pc.period;
+              const pulseProgress = ((frame + pc.phase) % pc.period) / pc.period;
               const pulseRadius = pulseProgress * Math.max(width, height) * 0.6;
-              const influence = Math.max(
-                0,
-                1 - Math.abs(dist - pulseRadius) / 100
-              );
+              const influence = Math.max(0, 1 - Math.abs(dist - pulseRadius) / 100);
               totalInfluence = Math.max(totalInfluence, influence);
             }
 
@@ -72,11 +63,7 @@ export const GridPulse: React.FC<GridPulseProps> = ({
                 cx={cx}
                 cy={cy}
                 r={dotRadius}
-                fill={
-                  totalInfluence > 0.3
-                    ? pulseColor
-                    : dotColor
-                }
+                fill={totalInfluence > 0.3 ? pulseColor : dotColor}
                 opacity={dotOpacity}
               />
             );

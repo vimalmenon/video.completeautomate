@@ -1,5 +1,6 @@
-import React from "react";
-import { interpolate, useCurrentFrame, random } from "remotion";
+import React from 'react';
+
+import { interpolate, random, useCurrentFrame } from 'remotion';
 
 interface CameraShakeProps {
   children: React.ReactNode;
@@ -10,21 +11,21 @@ interface CameraShakeProps {
 
 export const CameraShake: React.FC<CameraShakeProps> = ({
   children,
-  shakeFrame = 10,
-  intensity = 15,
   decayFrames = 30,
+  intensity = 15,
+  shakeFrame = 10,
 }) => {
   const frame = useCurrentFrame();
 
   if (frame < shakeFrame) {
-    return <div style={{ position: "absolute", inset: 0 }}>{children}</div>;
+    return <div style={{ inset: 0, position: 'absolute' }}>{children}</div>;
   }
 
   const elapsed = frame - shakeFrame;
   const decay = interpolate(elapsed, [0, decayFrames], [1, 0], {
-    extrapolateLeft: "clamp",
-    extrapolateRight: "clamp",
     easing: (t: number) => 1 - Math.pow(1 - t, 3),
+    extrapolateLeft: 'clamp',
+    extrapolateRight: 'clamp',
   });
 
   const offsetX = (random(`x-${frame}`) - 0.5) * 2 * intensity * decay;
@@ -34,8 +35,8 @@ export const CameraShake: React.FC<CameraShakeProps> = ({
   return (
     <div
       style={{
-        position: "absolute",
         inset: 0,
+        position: 'absolute',
         transform: `translate(${offsetX}px, ${offsetY}px) rotate(${rotate}deg)`,
       }}
     >

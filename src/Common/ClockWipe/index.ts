@@ -1,1 +1,1 @@
-export { ClockWipe } from "./ClockWipe.component";
+export { ClockWipe } from './ClockWipe.component';

@@ -1,1 +1,1 @@
-export { AnimatedList } from "./AnimatedList.component";
+export { AnimatedList } from './AnimatedList.component';

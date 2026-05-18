@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
+
 import styles from './CodeTyper.module.css';
 
 interface CodeTyperProps {
@@ -15,14 +16,14 @@ interface CodeTyperProps {
 
 export const CodeTyper: React.FC<CodeTyperProps> = ({
   code,
-  language = 'python',
-  typingSpeed = 50,
-  startDelay = 500,
-  showLineNumbers = true,
-  theme = 'dark',
   height = '400px',
-  width = '100%',
+  language = 'python',
   onTypingComplete,
+  showLineNumbers = true,
+  startDelay = 500,
+  theme = 'dark',
+  typingSpeed = 50,
+  width = '100%',
 }) => {
   const [displayedCode, setDisplayedCode] = useState('');
   const [isTyping, setIsTyping] = useState(false);
@@ -56,16 +57,11 @@ export const CodeTyper: React.FC<CodeTyperProps> = ({
   const totalLines = code.split('\n').length;
 
   return (
-    <div
-      className={`${styles.editor} ${styles[theme]}`}
-      style={{ height, width }}
-    >
+    <div className={`${styles.editor} ${styles[theme]}`} style={{ height, width }}>
       {/* VS Code-like header */}
       <div className={styles.header}>
         <div className={styles.titleBar}>
-          <span className={styles.fileName}>
-            {language === 'python' ? 'script.py' : 'code'}
-          </span>
+          <span className={styles.fileName}>{language === 'python' ? 'script.py' : 'code'}</span>
         </div>
       </div>
 
@@ -86,11 +82,7 @@ export const CodeTyper: React.FC<CodeTyperProps> = ({
                 <div key={lineIndex} className={styles.codeLine}>
                   {highlightSyntax(line, language)}
                   {lineIndex === lines.length - 1 && isTyping && (
-                    <span
-                      className={`${styles.cursor} ${
-                        cursorVisible ? styles.visible : ''
-                      }`}
-                    >
+                    <span className={`${styles.cursor} ${cursorVisible ? styles.visible : ''}`}>
                       |
                     </span>
                   )}
@@ -104,7 +96,9 @@ export const CodeTyper: React.FC<CodeTyperProps> = ({
       {/* Status bar */}
       <div className={styles.statusBar}>
         <span>{language}</span>
-        <span>Ln {lines.length}, Col {lines[lines.length - 1]?.length + 1 || 1}</span>
+        <span>
+          Ln {lines.length}, Col {lines[lines.length - 1]?.length + 1 || 1}
+        </span>
       </div>
     </div>
   );
@@ -116,10 +110,63 @@ function highlightSyntax(line: string, language: string): React.ReactNode {
     return line;
   }
 
-  const keywords = ['def', 'class', 'if', 'else', 'elif', 'for', 'while', 'return', 'import', 'from', 'as', 'try', 'except', 'finally', 'with', 'lambda', 'yield', 'break', 'continue', 'pass', 'raise', 'assert', 'and', 'or', 'not', 'in', 'is', 'True', 'False', 'None'];
-  const builtins = ['print', 'len', 'range', 'str', 'int', 'float', 'list', 'dict', 'set', 'tuple', 'open', 'input', 'type', 'sum', 'min', 'max', 'sorted', 'enumerate', 'zip', 'map', 'filter'];
+  const keywords = [
+    'def',
+    'class',
+    'if',
+    'else',
+    'elif',
+    'for',
+    'while',
+    'return',
+    'import',
+    'from',
+    'as',
+    'try',
+    'except',
+    'finally',
+    'with',
+    'lambda',
+    'yield',
+    'break',
+    'continue',
+    'pass',
+    'raise',
+    'assert',
+    'and',
+    'or',
+    'not',
+    'in',
+    'is',
+    'True',
+    'False',
+    'None',
+  ];
+  const builtins = [
+    'print',
+    'len',
+    'range',
+    'str',
+    'int',
+    'float',
+    'list',
+    'dict',
+    'set',
+    'tuple',
+    'open',
+    'input',
+    'type',
+    'sum',
+    'min',
+    'max',
+    'sorted',
+    'enumerate',
+    'zip',
+    'map',
+    'filter',
+  ];
 
-  let parts: React.ReactNode[] = [];
+  const parts: React.ReactNode[] = [];
   let lastIndex = 0;
 
   const tokenRegex = /(\b\w+\b|"[^"]*"|'[^']*'|#.*$|[\(\)\[\]\{\}\:\,\.]|==|!=|<=|>=|<<|>>)/g;

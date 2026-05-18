@@ -1,1 +1,1 @@
-export * from "./LetterboxReveal.component";
+export * from './LetterboxReveal.component';

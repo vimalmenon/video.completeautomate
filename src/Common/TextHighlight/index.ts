@@ -1,1 +1,1 @@
-export { TextHighlight } from "./TextHighlight.component";
+export { TextHighlight } from './TextHighlight.component';

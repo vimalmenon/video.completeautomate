@@ -1,1 +1,1 @@
-export { PoppingText } from "./PoppingText.component";
+export { PoppingText } from './PoppingText.component';

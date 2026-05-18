@@ -1,5 +1,6 @@
-import React from "react";
-import { interpolate, useCurrentFrame } from "remotion";
+import React from 'react';
+
+import { interpolate, useCurrentFrame } from 'remotion';
 
 interface PieSlice {
   value: number;
@@ -19,11 +20,11 @@ interface PieChartProps {
 export { type PieSlice };
 
 export const PieChart: React.FC<PieChartProps> = ({
-  data,
-  chartWidth = 500,
   chartHeight = 500,
-  startFrame = 0,
+  chartWidth = 500,
+  data,
   staggerFrames = 15,
+  startFrame = 0,
   title,
 }) => {
   const frame = useCurrentFrame();
@@ -59,15 +60,14 @@ export const PieChart: React.FC<PieChartProps> = ({
           frame - startFrame,
           [i * staggerFrames, 15 + i * staggerFrames],
           [0, 1],
-          { extrapolateLeft: "clamp", extrapolateRight: "clamp" }
+          { extrapolateLeft: 'clamp', extrapolateRight: 'clamp' }
         );
 
         const offset = circumference * cumulativePercent + gap / 2;
         const visibleLength = sliceLength * progress;
         cumulativePercent += slicePercent;
 
-        const midAngle =
-          (offset + visibleLength / 2) / circumference * 2 * Math.PI - Math.PI / 2;
+        const midAngle = ((offset + visibleLength / 2) / circumference) * 2 * Math.PI - Math.PI / 2;
         const labelX = cx + (radius + 30) * Math.cos(midAngle);
         const labelY = cy + (radius + 30) * Math.sin(midAngle);
 
@@ -75,7 +75,7 @@ export const PieChart: React.FC<PieChartProps> = ({
           frame - startFrame,
           [i * staggerFrames + 10, i * staggerFrames + 20],
           [0, 1],
-          { extrapolateLeft: "clamp", extrapolateRight: "clamp" }
+          { extrapolateLeft: 'clamp', extrapolateRight: 'clamp' }
         );
 
         return (

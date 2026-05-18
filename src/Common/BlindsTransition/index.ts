@@ -1,1 +1,1 @@
-export { BlindsTransition } from "./BlindsTransition.component";
+export { BlindsTransition } from './BlindsTransition.component';

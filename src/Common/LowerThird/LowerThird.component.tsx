@@ -1,10 +1,6 @@
-import React from "react";
-import {
-  spring,
-  useCurrentFrame,
-  useVideoConfig,
-  interpolate,
-} from "remotion";
+import React from 'react';
+
+import { interpolate, spring, useCurrentFrame, useVideoConfig } from 'remotion';
 
 interface LowerThirdProps {
   name: string;
@@ -13,96 +9,96 @@ interface LowerThirdProps {
 }
 
 export const LowerThird: React.FC<LowerThirdProps> = ({
-  name = "John Doe",
-  title = "Software Engineer",
-  accentColor = "#0891B2",
+  accentColor = '#0891B2',
+  name = 'John Doe',
+  title = 'Software Engineer',
 }) => {
   const frame = useCurrentFrame();
   const { fps } = useVideoConfig();
 
   // Bar slides in from left
   const barSpring = spring({
-    frame,
+    config: { damping: 14, mass: 0.4, stiffness: 90 },
     fps,
+    frame,
     from: 0,
     to: 1,
-    config: { mass: 0.4, damping: 14, stiffness: 90 },
   });
 
   const barTranslateX = interpolate(barSpring, [0, 1], [-500, 0], {
-    extrapolateLeft: "clamp",
-    extrapolateRight: "clamp",
+    extrapolateLeft: 'clamp',
+    extrapolateRight: 'clamp',
   });
 
   // Text fades in after bar arrives
   const textOpacity = interpolate(frame, [12, 25], [0, 1], {
-    extrapolateLeft: "clamp",
-    extrapolateRight: "clamp",
+    extrapolateLeft: 'clamp',
+    extrapolateRight: 'clamp',
   });
 
   const textTranslateX = interpolate(frame, [12, 25], [30, 0], {
-    extrapolateLeft: "clamp",
-    extrapolateRight: "clamp",
+    extrapolateLeft: 'clamp',
+    extrapolateRight: 'clamp',
   });
 
   return (
     <div
       style={{
-        position: "absolute",
+        alignItems: 'flex-start',
         bottom: 80,
+        display: 'flex',
+        flexDirection: 'column',
         left: 0,
-        display: "flex",
-        flexDirection: "column",
-        alignItems: "flex-start",
+        position: 'absolute',
       }}
     >
       {/* Accent bar */}
       <div
         style={{
-          height: 6,
-          width: 80,
           backgroundColor: accentColor,
-          borderRadius: "0 3px 3px 0",
-          transform: `translateX(${barTranslateX}px)`,
+          borderRadius: '0 3px 3px 0',
+          height: 6,
           marginBottom: 8,
+          transform: `translateX(${barTranslateX}px)`,
+          width: 80,
         }}
       />
 
       {/* Name & title box */}
       <div
         style={{
-          backgroundColor: "rgba(15, 23, 42, 0.92)",
-          padding: "14px 28px",
-          borderRadius: "0 8px 8px 0",
+          backdropFilter: 'blur(8px)',
+          backgroundColor: 'rgba(15, 23, 42, 0.92)',
           borderLeft: `4px solid ${accentColor}`,
+          borderRadius: '0 8px 8px 0',
+          boxShadow: '0 4px 24px rgba(0,0,0,0.4)',
+          padding: '14px 28px',
           transform: `translateX(${barTranslateX}px)`,
-          backdropFilter: "blur(8px)",
-          boxShadow: "0 4px 24px rgba(0,0,0,0.4)",
         }}
       >
         <div
           style={{
+            color: '#FFFFFF',
+            fontFamily: 'system-ui, sans-serif',
             fontSize: 28,
             fontWeight: 700,
-            color: "#FFFFFF",
-            fontFamily: "system-ui, sans-serif",
+            lineHeight: 1.2,
             opacity: textOpacity,
             transform: `translateX(${textTranslateX}px)`,
-            lineHeight: 1.2,
           }}
         >
           {name}
         </div>
         <div
           style={{
+            color: accentColor,
+            fontFamily: 'system-ui, sans-serif',
             fontSize: 16,
             fontWeight: 500,
-            color: accentColor,
-            fontFamily: "system-ui, sans-serif",
-            letterSpacing: "0.03em",
+            letterSpacing: '0.03em',
+            marginTop: 2,
             opacity: textOpacity,
             transform: `translateX(${textTranslateX}px)`,
-            marginTop: 2,
           }}
         >
           {title}

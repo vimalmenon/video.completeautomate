@@ -1,5 +1,6 @@
-import React from "react";
-import { useCurrentFrame } from "remotion";
+import React from 'react';
+
+import { useCurrentFrame } from 'remotion';
 
 interface PulsingTextProps {
   text?: string;
@@ -11,12 +12,12 @@ interface PulsingTextProps {
 }
 
 export const PulsingText: React.FC<PulsingTextProps> = ({
-  text = "PULSING",
-  color = "#f72585",
-  fontSize = "6rem",
-  minScale = 1,
+  color = '#f72585',
+  fontSize = '6rem',
   maxScale = 1.15,
+  minScale = 1,
   speed = 8,
+  text = 'PULSING',
 }) => {
   const frame = useCurrentFrame();
 
@@ -27,21 +28,21 @@ export const PulsingText: React.FC<PulsingTextProps> = ({
   return (
     <div
       style={{
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "center",
+        alignItems: 'center',
+        display: 'flex',
+        justifyContent: 'center',
       }}
     >
       <span
         style={{
+          color,
+          fontFamily: "'Impact', 'Arial Black', sans-serif",
           fontSize,
           fontWeight: 900,
-          color,
-          transform: `scale(${scale})`,
+          letterSpacing: '0.05em',
           opacity,
-          fontFamily: "'Impact', 'Arial Black', sans-serif",
           textShadow: `0 0 20px ${color}60, 0 0 40px ${color}30`,
-          letterSpacing: "0.05em",
+          transform: `scale(${scale})`,
         }}
       >
         {text}

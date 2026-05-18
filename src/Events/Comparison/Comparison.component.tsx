@@ -1,58 +1,55 @@
-import React from "react";
-import { AbsoluteFill, interpolate, useCurrentFrame } from "remotion";
-import { z } from "zod";
+import React from 'react';
+
+import { AbsoluteFill, interpolate, useCurrentFrame } from 'remotion';
+import { z } from 'zod';
 
 export const comparisonSchema = z.object({
-  beforeTitle: z.string(),
+  afterPoints: z.array(z.string()).min(1).max(8),
   afterTitle: z.string(),
   beforePoints: z.array(z.string()).min(1).max(8),
-  afterPoints: z.array(z.string()).min(1).max(8),
+  beforeTitle: z.string(),
 });
 
 type ComparisonProps = z.infer<typeof comparisonSchema>;
 
 export const Comparison: React.FC<ComparisonProps> = ({
-  beforeTitle,
+  afterPoints,
   afterTitle,
   beforePoints,
-  afterPoints,
+  beforeTitle,
 }) => {
   const frame = useCurrentFrame();
 
   // Left side opacity (before)
   const leftOpacity = interpolate(frame, [5, 20], [0, 1], {
-    extrapolateLeft: "clamp",
-    extrapolateRight: "clamp",
+    extrapolateLeft: 'clamp',
+    extrapolateRight: 'clamp',
   });
 
   // Right side opacity (after) — delayed
   const rightOpacity = interpolate(frame, [30, 50], [0, 1], {
-    extrapolateLeft: "clamp",
-    extrapolateRight: "clamp",
+    extrapolateLeft: 'clamp',
+    extrapolateRight: 'clamp',
   });
 
-  const renderPoints = (
-    points: string[],
-    side: "before" | "after",
-    baseDelay: number
-  ) => {
-    return points.map((point, i) => {
+  const renderPoints = (points: string[], side: 'before' | 'after', baseDelay: number) =>
+    points.map((point, i) => {
       const delay = baseDelay + i * 8;
       const opacity = interpolate(frame - delay, [0, 10], [0, 1], {
-        extrapolateLeft: "clamp",
-        extrapolateRight: "clamp",
+        extrapolateLeft: 'clamp',
+        extrapolateRight: 'clamp',
       });
-      const x = interpolate(frame - delay, [0, 10], [side === "before" ? -20 : 20, 0], {
-        extrapolateLeft: "clamp",
-        extrapolateRight: "clamp",
+      const x = interpolate(frame - delay, [0, 10], [side === 'before' ? -20 : 20, 0], {
+        extrapolateLeft: 'clamp',
+        extrapolateRight: 'clamp',
       });
 
       return (
         <div
           key={i}
           style={{
-            display: "flex",
-            alignItems: "flex-start",
+            alignItems: 'flex-start',
+            display: 'flex',
             gap: 12,
             marginBottom: 16,
             opacity,
@@ -61,20 +58,20 @@ export const Comparison: React.FC<ComparisonProps> = ({
         >
           <span
             style={{
-              color: side === "before" ? "#EF4444" : "#22D3EE",
-              fontSize: 20,
+              color: side === 'before' ? '#EF4444' : '#22D3EE',
               flexShrink: 0,
+              fontSize: 20,
               marginTop: 2,
             }}
           >
-            {side === "before" ? "✕" : "✓"}
+            {side === 'before' ? '✕' : '✓'}
           </span>
           <span
             style={{
+              color: side === 'before' ? '#FCA5A5' : '#CBD5E1',
+              fontFamily: 'system-ui, sans-serif',
               fontSize: 16,
-              color: side === "before" ? "#FCA5A5" : "#CBD5E1",
               lineHeight: 1.6,
-              fontFamily: "system-ui, sans-serif",
             }}
           >
             {point}
@@ -82,48 +79,47 @@ export const Comparison: React.FC<ComparisonProps> = ({
         </div>
       );
     });
-  };
 
   return (
-    <AbsoluteFill style={{ backgroundColor: "#0F172A", display: "flex", flexDirection: "row" }}>
+    <AbsoluteFill style={{ backgroundColor: '#0F172A', display: 'flex', flexDirection: 'row' }}>
       {/* BEFORE Side */}
       <div
         style={{
+          backgroundColor: 'rgba(239, 68, 68, 0.03)',
+          display: 'flex',
           flex: 1,
-          display: "flex",
-          flexDirection: "column",
-          justifyContent: "center",
-          padding: "60px 40px",
-          backgroundColor: "rgba(239, 68, 68, 0.03)",
+          flexDirection: 'column',
+          justifyContent: 'center',
           opacity: leftOpacity,
+          padding: '60px 40px',
         }}
       >
         {/* Label */}
         <div
           style={{
-            display: "flex",
-            alignItems: "center",
+            alignItems: 'center',
+            display: 'flex',
             gap: 8,
             marginBottom: 32,
           }}
         >
           <div
             style={{
-              width: 8,
-              height: 8,
+              backgroundColor: '#EF4444',
               borderRadius: 4,
-              backgroundColor: "#EF4444",
+              height: 8,
               opacity: 0.6,
+              width: 8,
             }}
           />
           <span
             style={{
+              color: '#EF4444',
+              fontFamily: 'system-ui, sans-serif',
               fontSize: 14,
               fontWeight: 700,
-              color: "#EF4444",
-              textTransform: "uppercase",
-              letterSpacing: "0.1em",
-              fontFamily: "system-ui, sans-serif",
+              letterSpacing: '0.1em',
+              textTransform: 'uppercase',
             }}
           >
             BEFORE
@@ -133,73 +129,73 @@ export const Comparison: React.FC<ComparisonProps> = ({
         {/* Title */}
         <h2
           style={{
+            color: '#FCA5A5',
+            fontFamily: 'system-ui, sans-serif',
             fontSize: 28,
             fontWeight: 800,
-            color: "#FCA5A5",
-            margin: "0 0 28px 0",
-            fontFamily: "system-ui, sans-serif",
+            margin: '0 0 28px 0',
           }}
         >
           {beforeTitle}
         </h2>
 
         {/* Points */}
-        {renderPoints(beforePoints, "before", 20)}
+        {renderPoints(beforePoints, 'before', 20)}
       </div>
 
       {/* Vertial Divider */}
       <div
         style={{
-          width: 3,
-          height: "80%",
-          alignSelf: "center",
-          background: "linear-gradient(180deg, transparent, #0891B2, transparent)",
+          alignSelf: 'center',
+          background: 'linear-gradient(180deg, transparent, #0891B2, transparent)',
+          boxShadow: '0 0 12px rgba(8,145,178,0.3)',
+          height: '80%',
           opacity: interpolate(frame, [15, 30], [0, 1], {
-            extrapolateLeft: "clamp",
-            extrapolateRight: "clamp",
+            extrapolateLeft: 'clamp',
+            extrapolateRight: 'clamp',
           }),
-          boxShadow: "0 0 12px rgba(8,145,178,0.3)",
+          width: 3,
         }}
       />
 
       {/* AFTER Side */}
       <div
         style={{
+          backgroundColor: 'rgba(8, 145, 178, 0.03)',
+          display: 'flex',
           flex: 1,
-          display: "flex",
-          flexDirection: "column",
-          justifyContent: "center",
-          padding: "60px 40px",
-          backgroundColor: "rgba(8, 145, 178, 0.03)",
+          flexDirection: 'column',
+          justifyContent: 'center',
           opacity: rightOpacity,
+          padding: '60px 40px',
         }}
       >
         {/* Label */}
         <div
           style={{
-            display: "flex",
-            alignItems: "center",
+            alignItems: 'center',
+            display: 'flex',
             gap: 8,
             marginBottom: 32,
           }}
         >
           <div
             style={{
-              width: 8,
-              height: 8,
+              backgroundColor: '#22D3EE',
               borderRadius: 4,
-              backgroundColor: "#22D3EE",
+              height: 8,
               opacity: 0.6,
+              width: 8,
             }}
           />
           <span
             style={{
+              color: '#22D3EE',
+              fontFamily: 'system-ui, sans-serif',
               fontSize: 14,
               fontWeight: 700,
-              color: "#22D3EE",
-              textTransform: "uppercase",
-              letterSpacing: "0.1em",
-              fontFamily: "system-ui, sans-serif",
+              letterSpacing: '0.1em',
+              textTransform: 'uppercase',
             }}
           >
             AFTER
@@ -209,18 +205,18 @@ export const Comparison: React.FC<ComparisonProps> = ({
         {/* Title */}
         <h2
           style={{
+            color: '#F8FAFC',
+            fontFamily: 'system-ui, sans-serif',
             fontSize: 28,
             fontWeight: 800,
-            color: "#F8FAFC",
-            margin: "0 0 28px 0",
-            fontFamily: "system-ui, sans-serif",
+            margin: '0 0 28px 0',
           }}
         >
           {afterTitle}
         </h2>
 
         {/* Points */}
-        {renderPoints(afterPoints, "after", 45)}
+        {renderPoints(afterPoints, 'after', 45)}
       </div>
     </AbsoluteFill>
   );

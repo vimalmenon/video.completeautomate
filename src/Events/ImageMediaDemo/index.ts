@@ -1,1 +1,1 @@
-export { ImageMediaDemo, imageMediaDemoSchema } from "./ImageMediaDemo.component";
+export { ImageMediaDemo, imageMediaDemoSchema } from './ImageMediaDemo.component';

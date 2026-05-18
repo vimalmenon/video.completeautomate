@@ -1,1 +1,1 @@
-export { LogoScaleRotate } from "./LogoScaleRotate.component";
+export { LogoScaleRotate } from './LogoScaleRotate.component';

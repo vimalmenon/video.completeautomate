@@ -1,1 +1,1 @@
-export { CardFlip } from "./CardFlip.component";
+export { CardFlip } from './CardFlip.component';

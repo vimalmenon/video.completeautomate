@@ -1,11 +1,6 @@
-import React from "react";
-import {
-  spring,
-  useCurrentFrame,
-  useVideoConfig,
-  interpolate,
-  AbsoluteFill,
-} from "remotion";
+import React from 'react';
+
+import { AbsoluteFill, interpolate, spring, useCurrentFrame, useVideoConfig } from 'remotion';
 
 interface AnimatedListProps {
   items: string[];
@@ -13,14 +8,8 @@ interface AnimatedListProps {
 }
 
 export const AnimatedList: React.FC<AnimatedListProps> = ({
-  items = [
-    "Item 1",
-    "Item 2",
-    "Item 3",
-    "Item 4",
-    "Item 5",
-  ],
-  itemColor = "#0891B2",
+  itemColor = '#0891B2',
+  items = ['Item 1', 'Item 2', 'Item 3', 'Item 4', 'Item 5'],
 }) => {
   const frame = useCurrentFrame();
   const { fps } = useVideoConfig();
@@ -32,15 +21,15 @@ export const AnimatedList: React.FC<AnimatedListProps> = ({
   return (
     <AbsoluteFill
       style={{
-        backgroundColor: "#0F172A",
-        justifyContent: "center",
-        alignItems: "center",
+        alignItems: 'center',
+        backgroundColor: '#0F172A',
+        justifyContent: 'center',
       }}
     >
       <div
         style={{
-          display: "flex",
-          flexDirection: "column",
+          display: 'flex',
+          flexDirection: 'column',
           gap,
           width: 500,
         }}
@@ -49,21 +38,21 @@ export const AnimatedList: React.FC<AnimatedListProps> = ({
           const startFrame = i * staggerFrames;
 
           const slideIn = spring({
-            frame: frame - startFrame,
+            config: { damping: 12, mass: 0.3, stiffness: 120 },
             fps,
+            frame: frame - startFrame,
             from: 0,
             to: 1,
-            config: { mass: 0.3, damping: 12, stiffness: 120 },
           });
 
           const translateX = interpolate(slideIn, [0, 1], [-80, 0], {
-            extrapolateLeft: "clamp",
-            extrapolateRight: "clamp",
+            extrapolateLeft: 'clamp',
+            extrapolateRight: 'clamp',
           });
 
           const opacity = interpolate(slideIn, [0, 0.3, 1], [0, 1, 1], {
-            extrapolateLeft: "clamp",
-            extrapolateRight: "clamp",
+            extrapolateLeft: 'clamp',
+            extrapolateRight: 'clamp',
           });
 
           if (frame < startFrame) return null;
@@ -72,47 +61,47 @@ export const AnimatedList: React.FC<AnimatedListProps> = ({
             <div
               key={i}
               style={{
-                display: "flex",
-                alignItems: "center",
-                gap: 16,
-                padding: "14px 20px",
-                backgroundColor: "rgba(8, 145, 178, 0.08)",
-                borderRadius: 12,
+                alignItems: 'center',
+                backgroundColor: 'rgba(8, 145, 178, 0.08)',
                 border: `1px solid ${itemColor}25`,
-                transform: `translateX(${translateX}px)`,
-                opacity,
+                borderRadius: 12,
+                boxShadow: '0 2px 12px rgba(0,0,0,0.2)',
+                display: 'flex',
+                gap: 16,
                 height: itemHeight,
-                boxShadow: "0 2px 12px rgba(0,0,0,0.2)",
-                transition: "background-color 0.2s",
+                opacity,
+                padding: '14px 20px',
+                transform: `translateX(${translateX}px)`,
+                transition: 'background-color 0.2s',
               }}
             >
               {/* Icon dot */}
               <div
                 style={{
-                  width: 10,
-                  height: 10,
-                  borderRadius: "50%",
                   backgroundColor: itemColor,
-                  flexShrink: 0,
+                  borderRadius: '50%',
                   boxShadow: `0 0 8px ${itemColor}60`,
+                  flexShrink: 0,
+                  height: 10,
+                  width: 10,
                 }}
               />
               <span
                 style={{
-                  fontSize: "1.1rem",
-                  fontWeight: 600,
-                  color: "#FFFFFF",
-                  fontFamily: "system-ui, sans-serif",
+                  color: '#FFFFFF',
                   flex: 1,
+                  fontFamily: 'system-ui, sans-serif',
+                  fontSize: '1.1rem',
+                  fontWeight: 600,
                 }}
               >
                 {item}
               </span>
               <span
                 style={{
-                  fontSize: "0.8rem",
                   color: itemColor,
-                  fontFamily: "system-ui, sans-serif",
+                  fontFamily: 'system-ui, sans-serif',
+                  fontSize: '0.8rem',
                   opacity: 0.6,
                 }}
               >

@@ -1,7 +1,8 @@
-import React, { useMemo } from "react";
-import { ThreeCanvas } from "@remotion/three";
-import { useCurrentFrame, interpolate, AbsoluteFill, useVideoConfig } from "remotion";
-import * as THREE from "three";
+import React, { useMemo } from 'react';
+
+import { ThreeCanvas } from '@remotion/three';
+import { AbsoluteFill, interpolate, useCurrentFrame, useVideoConfig } from 'remotion';
+import * as THREE from 'three';
 
 interface ShapeConfig {
   geometry: () => THREE.BufferGeometry;
@@ -11,24 +12,44 @@ interface ShapeConfig {
 
 export const ThreeShapes: React.FC = () => {
   const frame = useCurrentFrame();
-  const { width, height } = useVideoConfig();
+  const { height, width } = useVideoConfig();
 
   const groupRotation = useMemo(() => interpolate(frame, [0, 300], [0, Math.PI * 2]), [frame]);
 
   const shapes = useMemo<ShapeConfig[]>(() => {
-    const palette = ["#0891B2", "#F472B6", "#A78BFA", "#34D399", "#FBBF24", "#F87171"];
+    const palette = ['#0891B2', '#F472B6', '#A78BFA', '#34D399', '#FBBF24', '#F87171'];
     return [
-      { geometry: () => new THREE.BoxGeometry(0.5, 0.5, 0.5), color: palette[0], phase: 0 },
-      { geometry: () => new THREE.SphereGeometry(0.35, 20, 20), color: palette[1], phase: Math.PI / 3 },
-      { geometry: () => new THREE.ConeGeometry(0.35, 0.6, 20), color: palette[2], phase: (2 * Math.PI) / 3 },
-      { geometry: () => new THREE.CylinderGeometry(0.3, 0.3, 0.6, 20), color: palette[3], phase: Math.PI },
-      { geometry: () => new THREE.TorusGeometry(0.35, 0.12, 12, 24), color: palette[4], phase: (4 * Math.PI) / 3 },
-      { geometry: () => new THREE.IcosahedronGeometry(0.35), color: palette[5], phase: (5 * Math.PI) / 3 },
+      { color: palette[0], geometry: () => new THREE.BoxGeometry(0.5, 0.5, 0.5), phase: 0 },
+      {
+        color: palette[1],
+        geometry: () => new THREE.SphereGeometry(0.35, 20, 20),
+        phase: Math.PI / 3,
+      },
+      {
+        color: palette[2],
+        geometry: () => new THREE.ConeGeometry(0.35, 0.6, 20),
+        phase: (2 * Math.PI) / 3,
+      },
+      {
+        color: palette[3],
+        geometry: () => new THREE.CylinderGeometry(0.3, 0.3, 0.6, 20),
+        phase: Math.PI,
+      },
+      {
+        color: palette[4],
+        geometry: () => new THREE.TorusGeometry(0.35, 0.12, 12, 24),
+        phase: (4 * Math.PI) / 3,
+      },
+      {
+        color: palette[5],
+        geometry: () => new THREE.IcosahedronGeometry(0.35),
+        phase: (5 * Math.PI) / 3,
+      },
     ];
   }, []);
 
   return (
-    <AbsoluteFill style={{ backgroundColor: "#000000" }}>
+    <AbsoluteFill style={{ backgroundColor: '#000000' }}>
       <ThreeCanvas width={width} height={height}>
         <perspectiveCamera position={[0, 0, 5]} />
         <ambientLight intensity={0.4} />

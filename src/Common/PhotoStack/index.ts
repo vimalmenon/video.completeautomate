@@ -1,1 +1,1 @@
-export * from "./PhotoStack.component";
+export * from './PhotoStack.component';

@@ -1,5 +1,6 @@
-import React from "react";
-import { interpolate, useCurrentFrame, useVideoConfig } from "remotion";
+import React from 'react';
+
+import { interpolate, useCurrentFrame, useVideoConfig } from 'remotion';
 
 interface VignettePulseProps {
   children: React.ReactNode;
@@ -11,13 +12,13 @@ interface VignettePulseProps {
 
 export const VignettePulse: React.FC<VignettePulseProps> = ({
   children,
-  startFrame = 0,
-  minOpacity = 0.3,
   maxOpacity = 0.7,
+  minOpacity = 0.3,
   speed = 24,
+  startFrame = 0,
 }) => {
   const frame = useCurrentFrame();
-  const { width, height } = useVideoConfig();
+  const { height, width } = useVideoConfig();
   const elapsed = frame - startFrame;
 
   const pulse = interpolate(
@@ -27,19 +28,19 @@ export const VignettePulse: React.FC<VignettePulseProps> = ({
   );
 
   return (
-    <div style={{ position: "absolute", inset: 0 }}>
+    <div style={{ inset: 0, position: 'absolute' }}>
       {children}
 
       <div
         style={{
-          position: "absolute",
-          inset: 0,
           background: `radial-gradient(
             ellipse ${width * 0.4}px ${height * 0.4}px at 50% 50%,
             transparent 0%,
             rgba(0, 0, 0, ${pulse}) 100%
           )`,
-          pointerEvents: "none",
+          inset: 0,
+          pointerEvents: 'none',
+          position: 'absolute',
           zIndex: 5,
         }}
       />

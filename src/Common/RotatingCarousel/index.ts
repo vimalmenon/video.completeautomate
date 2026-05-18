@@ -1,1 +1,1 @@
-export { RotatingCarousel } from "./RotatingCarousel.component";
+export { RotatingCarousel } from './RotatingCarousel.component';

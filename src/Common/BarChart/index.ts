@@ -1,2 +1,2 @@
-export { BarChart } from "./BarChart.component";
-export type { BarDataPoint } from "./BarChart.component";
+export { BarChart } from './BarChart.component';
+export type { BarDataPoint } from './BarChart.component';

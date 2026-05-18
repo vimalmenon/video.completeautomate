@@ -1,1 +1,1 @@
-export { DynamicLowerThird } from "./DynamicLowerThird.component";
+export { DynamicLowerThird } from './DynamicLowerThird.component';

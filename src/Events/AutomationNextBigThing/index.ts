@@ -1,1 +1,1 @@
-export * from "./AutomationNextBigThing.component";
+export * from './AutomationNextBigThing.component';

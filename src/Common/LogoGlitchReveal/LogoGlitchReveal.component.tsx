@@ -1,13 +1,14 @@
-import React from "react";
+import React from 'react';
+
 import {
+  AbsoluteFill,
+  Easing,
+  interpolate,
+  random,
   spring,
   useCurrentFrame,
   useVideoConfig,
-  interpolate,
-  AbsoluteFill,
-  Easing,
-  random,
-} from "remotion";
+} from 'remotion';
 
 interface LogoGlitchRevealProps {
   logoText: string;
@@ -16,96 +17,89 @@ interface LogoGlitchRevealProps {
 }
 
 export const LogoGlitchReveal: React.FC<LogoGlitchRevealProps> = ({
-  logoText = "CA",
-  companyName = "Complete Automate",
-  tagline = "Building the future",
+  companyName = 'Complete Automate',
+  logoText = 'CA',
+  tagline = 'Building the future',
 }) => {
   const frame = useCurrentFrame();
   const { fps } = useVideoConfig();
 
   const settleProgress = spring({
-    frame,
+    config: { damping: 15, mass: 0.5, stiffness: 100 },
     fps,
+    frame,
     from: 0,
     to: 1,
-    config: { mass: 0.5, damping: 15, stiffness: 100 },
   });
 
   const opacity = interpolate(settleProgress, [0, 0.05, 0.95, 1], [0, 0.7, 0.9, 1], {
-    extrapolateLeft: "clamp",
-    extrapolateRight: "clamp",
+    extrapolateLeft: 'clamp',
+    extrapolateRight: 'clamp',
   });
 
   const glitchActive = frame < 30;
 
   const redOffset = glitchActive
-    ? interpolate(
-        Math.abs(random(`red-${Math.floor(frame / 3)}`)),
-        [0, 1],
-        [0, 8],
-        { extrapolateLeft: "clamp", extrapolateRight: "clamp" }
-      ) *
-      (random(`rdir-${frame}`) > 0.5 ? 1 : -1)
+    ? interpolate(Math.abs(random(`red-${Math.floor(frame / 3)}`)), [0, 1], [0, 8], {
+        extrapolateLeft: 'clamp',
+        extrapolateRight: 'clamp',
+      }) * (random(`rdir-${frame}`) > 0.5 ? 1 : -1)
     : 0;
 
   const cyanOffset = glitchActive
-    ? interpolate(
-        Math.abs(random(`cyan-${Math.floor(frame / 3)}`)),
-        [0, 1],
-        [0, 8],
-        { extrapolateLeft: "clamp", extrapolateRight: "clamp" }
-      ) *
-      (random(`cdir-${frame}`) > 0.5 ? 1 : -1)
+    ? interpolate(Math.abs(random(`cyan-${Math.floor(frame / 3)}`)), [0, 1], [0, 8], {
+        extrapolateLeft: 'clamp',
+        extrapolateRight: 'clamp',
+      }) * (random(`cdir-${frame}`) > 0.5 ? 1 : -1)
     : 0;
 
-  const glitchVisible =
-    glitchActive && random(`glitch-${Math.floor(frame / 2)}`) > 0.4;
+  const glitchVisible = glitchActive && random(`glitch-${Math.floor(frame / 2)}`) > 0.4;
 
   const nameOpacity = spring({
-    frame: frame - 20,
+    config: { damping: 14, mass: 0.4, stiffness: 120 },
     fps,
+    frame: frame - 20,
     from: 0,
     to: 1,
-    config: { mass: 0.4, damping: 14, stiffness: 120 },
   });
 
   const taglineOpacity = spring({
-    frame: frame - 35,
+    config: { damping: 14, mass: 0.4, stiffness: 120 },
     fps,
+    frame: frame - 35,
     from: 0,
     to: 1,
-    config: { mass: 0.4, damping: 14, stiffness: 120 },
   });
 
   const baseStyle: React.CSSProperties = {
-    fontSize: "5rem",
-    fontWeight: 900,
-    color: "#0891B2",
+    color: '#0891B2',
     fontFamily: "'Inter', system-ui, sans-serif",
-    letterSpacing: "0.1em",
-    position: "absolute",
-    textShadow: "0 0 40px rgba(8, 145, 178, 0.3)",
+    fontSize: '5rem',
+    fontWeight: 900,
+    letterSpacing: '0.1em',
     marginBottom: 16,
+    position: 'absolute',
+    textShadow: '0 0 40px rgba(8, 145, 178, 0.3)',
   };
 
   return (
     <AbsoluteFill
       style={{
-        backgroundColor: "#0F172A",
-        justifyContent: "center",
-        alignItems: "center",
-        flexDirection: "column",
+        alignItems: 'center',
+        backgroundColor: '#0F172A',
+        flexDirection: 'column',
+        justifyContent: 'center',
       }}
     >
-      <div style={{ position: "relative", marginBottom: 16 }}>
+      <div style={{ marginBottom: 16, position: 'relative' }}>
         {/* Main clean logo */}
         <div
           style={{
             ...baseStyle,
-            position: "relative",
-            zIndex: 3,
             opacity,
+            position: 'relative',
             transform: `scale(${settleProgress})`,
+            zIndex: 3,
           }}
         >
           {logoText}
@@ -116,13 +110,13 @@ export const LogoGlitchReveal: React.FC<LogoGlitchRevealProps> = ({
           <div
             style={{
               ...baseStyle,
-              position: "absolute",
-              top: 0,
+              color: '#FF0000',
               left: redOffset,
-              color: "#FF0000",
-              zIndex: 2,
               opacity: 0.6,
-              textShadow: "0 0 20px #FF0000",
+              position: 'absolute',
+              textShadow: '0 0 20px #FF0000',
+              top: 0,
+              zIndex: 2,
             }}
           >
             {logoText}
@@ -134,13 +128,13 @@ export const LogoGlitchReveal: React.FC<LogoGlitchRevealProps> = ({
           <div
             style={{
               ...baseStyle,
-              position: "absolute",
-              top: 0,
+              color: '#00FFFF',
               left: cyanOffset,
-              color: "#00FFFF",
-              zIndex: 1,
               opacity: 0.6,
-              textShadow: "0 0 20px #00FFFF",
+              position: 'absolute',
+              textShadow: '0 0 20px #00FFFF',
+              top: 0,
+              zIndex: 1,
             }}
           >
             {logoText}
@@ -151,14 +145,14 @@ export const LogoGlitchReveal: React.FC<LogoGlitchRevealProps> = ({
       {/* Company Name */}
       <div
         style={{
-          fontSize: "2rem",
-          fontWeight: 700,
-          color: "#FFFFFF",
+          color: '#FFFFFF',
           fontFamily: "'Inter', system-ui, sans-serif",
+          fontSize: '2rem',
+          fontWeight: 700,
+          letterSpacing: '0.05em',
+          marginBottom: 8,
           opacity: nameOpacity,
           transform: `translateY(${(1 - nameOpacity) * 20}px)`,
-          letterSpacing: "0.05em",
-          marginBottom: 8,
         }}
       >
         {companyName}
@@ -167,14 +161,14 @@ export const LogoGlitchReveal: React.FC<LogoGlitchRevealProps> = ({
       {/* Tagline */}
       <div
         style={{
-          fontSize: "1.1rem",
-          fontWeight: 400,
-          color: "rgba(255,255,255,0.6)",
+          color: 'rgba(255,255,255,0.6)',
           fontFamily: "'Inter', system-ui, sans-serif",
+          fontSize: '1.1rem',
+          fontWeight: 400,
+          letterSpacing: '0.15em',
           opacity: taglineOpacity,
+          textTransform: 'uppercase',
           transform: `translateY(${(1 - taglineOpacity) * 15}px)`,
-          letterSpacing: "0.15em",
-          textTransform: "uppercase",
         }}
       >
         {tagline}

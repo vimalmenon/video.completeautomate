@@ -1,11 +1,6 @@
-import React from "react";
-import {
-  useCurrentFrame,
-  useVideoConfig,
-  interpolate,
-  AbsoluteFill,
-  Easing,
-} from "remotion";
+import React from 'react';
+
+import { AbsoluteFill, Easing, interpolate, useCurrentFrame, useVideoConfig } from 'remotion';
 
 interface CreditItem {
   role: string;
@@ -18,12 +13,12 @@ interface CreditsRollProps {
 
 export const CreditsRoll: React.FC<CreditsRollProps> = ({
   credits = [
-    { role: "Director", name: "Jane Smith" },
-    { role: "Writer", name: "John Doe" },
-    { role: "Producer", name: "Alice Johnson" },
-    { role: "Cinematography", name: "Bob Williams" },
-    { role: "Music", name: "Eva Martinez" },
-    { role: "Editor", name: "Chris Brown" },
+    { name: 'Jane Smith', role: 'Director' },
+    { name: 'John Doe', role: 'Writer' },
+    { name: 'Alice Johnson', role: 'Producer' },
+    { name: 'Bob Williams', role: 'Cinematography' },
+    { name: 'Eva Martinez', role: 'Music' },
+    { name: 'Chris Brown', role: 'Editor' },
   ],
 }) => {
   const frame = useCurrentFrame();
@@ -35,78 +30,69 @@ export const CreditsRoll: React.FC<CreditsRollProps> = ({
   // Scroll from bottom to top
   const progress = interpolate(frame, [0, durationInFrames], [0, 1], {
     easing: Easing.linear,
-    extrapolateLeft: "clamp",
-    extrapolateRight: "clamp",
+    extrapolateLeft: 'clamp',
+    extrapolateRight: 'clamp',
   });
 
   // Start below screen, end above screen
-  const translateY = interpolate(
-    progress,
-    [0, 1],
-    [900, -totalContentHeight],
-    { extrapolateLeft: "clamp", extrapolateRight: "clamp" }
-  );
+  const translateY = interpolate(progress, [0, 1], [900, -totalContentHeight], {
+    extrapolateLeft: 'clamp',
+    extrapolateRight: 'clamp',
+  });
 
   // Fade out at the end (bottom)
   const bottomFadeStart = 0.75;
-  const bottomOpacity = interpolate(
-    progress,
-    [0, 0.15],
-    [1, 1],
-    { extrapolateLeft: "clamp" }
-  );
+  const bottomOpacity = interpolate(progress, [0, 0.15], [1, 1], { extrapolateLeft: 'clamp' });
 
   // Fade at the top
-  const endOpacity = interpolate(
-    progress,
-    [0.85, 1],
-    [1, 0],
-    { extrapolateLeft: "clamp", extrapolateRight: "clamp" }
-  );
+  const endOpacity = interpolate(progress, [0.85, 1], [1, 0], {
+    extrapolateLeft: 'clamp',
+    extrapolateRight: 'clamp',
+  });
 
   const opacity = Math.min(bottomOpacity, endOpacity);
 
   return (
     <AbsoluteFill
       style={{
-        backgroundColor: "#0F172A",
-        overflow: "hidden",
+        backgroundColor: '#0F172A',
+        overflow: 'hidden',
       }}
     >
       <div
         style={{
-          position: "absolute",
-          left: "50%",
+          left: '50%',
+          opacity,
+          position: 'absolute',
           transform: `translateX(-50%) translateY(${translateY}px)`,
           width: 500,
-          opacity,
         }}
       >
         {/* Title */}
         <div
           style={{
-            textAlign: "center",
             marginBottom: 60,
+            textAlign: 'center',
           }}
         >
           <div
             style={{
+              color: '#0891B2',
+              fontFamily: 'system-ui, sans-serif',
               fontSize: 32,
               fontWeight: 700,
-              color: "#0891B2",
-              fontFamily: "system-ui, sans-serif",
-              letterSpacing: "0.2em",
-              textTransform: "uppercase",
+              letterSpacing: '0.2em',
+              textTransform: 'uppercase',
             }}
           >
             Credits
           </div>
           <div
             style={{
+              backgroundColor: '#0891B2',
               height: 2,
+              margin: '16px auto',
               width: 80,
-              backgroundColor: "#0891B2",
-              margin: "16px auto",
             }}
           />
         </div>
@@ -116,33 +102,33 @@ export const CreditsRoll: React.FC<CreditsRollProps> = ({
           <div
             key={i}
             style={{
-              textAlign: "center",
-              marginBottom: 12,
+              display: 'flex',
+              flexDirection: 'column',
               height: ITEM_HEIGHT,
-              display: "flex",
-              flexDirection: "column",
-              justifyContent: "center",
+              justifyContent: 'center',
+              marginBottom: 12,
+              textAlign: 'center',
             }}
           >
             <div
               style={{
+                color: '#64748B',
+                fontFamily: 'system-ui, sans-serif',
                 fontSize: 16,
                 fontWeight: 500,
-                color: "#64748B",
-                fontFamily: "system-ui, sans-serif",
-                letterSpacing: "0.1em",
-                textTransform: "uppercase",
+                letterSpacing: '0.1em',
                 marginBottom: 4,
+                textTransform: 'uppercase',
               }}
             >
               {credit.role}
             </div>
             <div
               style={{
+                color: '#F1F5F9',
+                fontFamily: 'system-ui, sans-serif',
                 fontSize: 26,
                 fontWeight: 600,
-                color: "#F1F5F9",
-                fontFamily: "system-ui, sans-serif",
               }}
             >
               {credit.name}
@@ -154,22 +140,22 @@ export const CreditsRoll: React.FC<CreditsRollProps> = ({
       {/* Gradient overlays for smooth fading */}
       <div
         style={{
-          position: "absolute",
-          top: 0,
-          left: 0,
-          right: 0,
+          background: 'linear-gradient(to bottom, #0F172A, transparent)',
           height: 120,
-          background: "linear-gradient(to bottom, #0F172A, transparent)",
+          left: 0,
+          position: 'absolute',
+          right: 0,
+          top: 0,
         }}
       />
       <div
         style={{
-          position: "absolute",
+          background: 'linear-gradient(to top, #0F172A, transparent)',
           bottom: 0,
-          left: 0,
-          right: 0,
           height: 120,
-          background: "linear-gradient(to top, #0F172A, transparent)",
+          left: 0,
+          position: 'absolute',
+          right: 0,
         }}
       />
     </AbsoluteFill>

@@ -1,5 +1,6 @@
-import React from "react";
-import { interpolate, spring, useCurrentFrame, useVideoConfig } from "remotion";
+import React from 'react';
+
+import { interpolate, spring, useCurrentFrame, useVideoConfig } from 'remotion';
 
 interface CircularProgressProps {
   value: number;
@@ -12,13 +13,13 @@ interface CircularProgressProps {
 }
 
 export const CircularProgress: React.FC<CircularProgressProps> = ({
-  value,
-  size = 300,
-  strokeWidth = 18,
-  color = "#4361ee",
+  color = '#4361ee',
   label,
-  startFrame = 0,
   showDot = true,
+  size = 300,
+  startFrame = 0,
+  strokeWidth = 18,
+  value,
 }) => {
   const frame = useCurrentFrame();
   const { fps } = useVideoConfig();
@@ -29,22 +30,19 @@ export const CircularProgress: React.FC<CircularProgressProps> = ({
   const circumference = 2 * Math.PI * radius;
 
   const progress = spring({
-    frame: frame - startFrame,
+    config: { damping: 12, mass: 0.5, stiffness: 80 },
     fps,
+    frame: frame - startFrame,
     from: 0,
     to: value / 100,
-    config: { mass: 0.5, damping: 12, stiffness: 80 },
   });
 
   const dashOffset = circumference * (1 - progress);
   const displayValue = Math.round(progress * 100);
 
-  const pulse = interpolate(
-    Math.sin((frame - startFrame) / 8),
-    [-1, 1],
-    [1, 1.08],
-    { extrapolateRight: "clamp" }
-  );
+  const pulse = interpolate(Math.sin((frame - startFrame) / 8), [-1, 1], [1, 1.08], {
+    extrapolateRight: 'clamp',
+  });
 
   const dotAngle = ((frame - startFrame) / 60) * 2 * Math.PI;
   const dotX = cx + radius * Math.cos(dotAngle - Math.PI / 2);
@@ -73,7 +71,7 @@ export const CircularProgress: React.FC<CircularProgressProps> = ({
         strokeDashoffset={dashOffset}
         strokeLinecap="round"
         transform={`rotate(-90 ${cx} ${cy})`}
-        style={{ transition: "stroke-dashoffset 0.1s ease" }}
+        style={{ transition: 'stroke-dashoffset 0.1s ease' }}
       />
       {/* Rotating dot */}
       {showDot && (

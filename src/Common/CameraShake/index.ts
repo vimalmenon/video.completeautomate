@@ -1,1 +1,1 @@
-export * from "./CameraShake.component";
+export * from './CameraShake.component';

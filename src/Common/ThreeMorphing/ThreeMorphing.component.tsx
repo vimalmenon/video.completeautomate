@@ -1,7 +1,8 @@
-import React, { useMemo } from "react";
-import { ThreeCanvas } from "@remotion/three";
-import { useCurrentFrame, AbsoluteFill, useVideoConfig } from "remotion";
-import * as THREE from "three";
+import React, { useMemo } from 'react';
+
+import { ThreeCanvas } from '@remotion/three';
+import { AbsoluteFill, useCurrentFrame, useVideoConfig } from 'remotion';
+import * as THREE from 'three';
 
 interface ShapeDef {
   geometry: () => THREE.BufferGeometry;
@@ -12,26 +13,53 @@ interface ShapeDef {
 
 export const ThreeMorphing: React.FC = () => {
   const frame = useCurrentFrame();
-  const { width, height } = useVideoConfig();
+  const { height, width } = useVideoConfig();
 
   const shapes = useMemo<ShapeDef[]>(() => {
-    const palette = [
-      "#0891B2", "#06B6D4", "#22D3EE", "#67E8F9",
-      "#A5F3FC", "#CFFAFE",
-    ];
+    const palette = ['#0891B2', '#06B6D4', '#22D3EE', '#67E8F9', '#A5F3FC', '#CFFAFE'];
 
     return [
-      { geometry: () => new THREE.BoxGeometry(0.8, 0.8, 0.8), color: new THREE.Color(palette[0]), position: [-3, 0, 0], rotationSpeed: [0.02, 0.03, 0] },
-      { geometry: () => new THREE.SphereGeometry(0.5, 24, 24), color: new THREE.Color(palette[1]), position: [-1.8, 0, 0], rotationSpeed: [0.03, 0.01, 0] },
-      { geometry: () => new THREE.TorusGeometry(0.5, 0.2, 16, 32), color: new THREE.Color(palette[2]), position: [-0.6, 0, 0], rotationSpeed: [0.01, 0.04, 0] },
-      { geometry: () => new THREE.ConeGeometry(0.5, 0.8, 24), color: new THREE.Color(palette[3]), position: [0.6, 0, 0], rotationSpeed: [0.025, 0.015, 0] },
-      { geometry: () => new THREE.CylinderGeometry(0.4, 0.4, 0.8, 24), color: new THREE.Color(palette[4]), position: [1.8, 0, 0], rotationSpeed: [0.015, 0.03, 0] },
-      { geometry: () => new THREE.DodecahedronGeometry(0.5), color: new THREE.Color(palette[5]), position: [3, 0, 0], rotationSpeed: [0.03, 0.02, 0] },
+      {
+        color: new THREE.Color(palette[0]),
+        geometry: () => new THREE.BoxGeometry(0.8, 0.8, 0.8),
+        position: [-3, 0, 0],
+        rotationSpeed: [0.02, 0.03, 0],
+      },
+      {
+        color: new THREE.Color(palette[1]),
+        geometry: () => new THREE.SphereGeometry(0.5, 24, 24),
+        position: [-1.8, 0, 0],
+        rotationSpeed: [0.03, 0.01, 0],
+      },
+      {
+        color: new THREE.Color(palette[2]),
+        geometry: () => new THREE.TorusGeometry(0.5, 0.2, 16, 32),
+        position: [-0.6, 0, 0],
+        rotationSpeed: [0.01, 0.04, 0],
+      },
+      {
+        color: new THREE.Color(palette[3]),
+        geometry: () => new THREE.ConeGeometry(0.5, 0.8, 24),
+        position: [0.6, 0, 0],
+        rotationSpeed: [0.025, 0.015, 0],
+      },
+      {
+        color: new THREE.Color(palette[4]),
+        geometry: () => new THREE.CylinderGeometry(0.4, 0.4, 0.8, 24),
+        position: [1.8, 0, 0],
+        rotationSpeed: [0.015, 0.03, 0],
+      },
+      {
+        color: new THREE.Color(palette[5]),
+        geometry: () => new THREE.DodecahedronGeometry(0.5),
+        position: [3, 0, 0],
+        rotationSpeed: [0.03, 0.02, 0],
+      },
     ];
   }, []);
 
   return (
-    <AbsoluteFill style={{ backgroundColor: "#000000" }}>
+    <AbsoluteFill style={{ backgroundColor: '#000000' }}>
       <ThreeCanvas width={width} height={height}>
         <perspectiveCamera position={[0, 0, 5]} />
         <ambientLight intensity={0.4} />
@@ -45,11 +73,7 @@ export const ThreeMorphing: React.FC = () => {
             <group key={i} position={shape.position} rotation={[rx, ry, 0]}>
               <mesh>
                 <primitive object={shape.geometry()} />
-                <meshStandardMaterial
-                  color={shape.color}
-                  metalness={0.4}
-                  roughness={0.3}
-                />
+                <meshStandardMaterial color={shape.color} metalness={0.4} roughness={0.3} />
               </mesh>
             </group>
           );

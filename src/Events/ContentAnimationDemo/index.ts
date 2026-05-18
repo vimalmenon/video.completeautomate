@@ -1,1 +1,1 @@
-export { ContentAnimationDemo, contentAnimationDemoSchema } from "./ContentAnimationDemo.component";
+export { ContentAnimationDemo, contentAnimationDemoSchema } from './ContentAnimationDemo.component';

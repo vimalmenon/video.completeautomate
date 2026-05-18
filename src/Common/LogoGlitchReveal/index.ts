@@ -1,1 +1,1 @@
-export { LogoGlitchReveal } from "./LogoGlitchReveal.component";
+export { LogoGlitchReveal } from './LogoGlitchReveal.component';

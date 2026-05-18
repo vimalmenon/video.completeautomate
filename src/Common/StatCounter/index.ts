@@ -1,1 +1,1 @@
-export { StatCounter } from "./StatCounter.component";
+export { StatCounter } from './StatCounter.component';

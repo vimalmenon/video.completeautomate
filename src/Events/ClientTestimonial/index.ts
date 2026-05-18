@@ -1,1 +1,1 @@
-export { ClientTestimonial, clientTestimonialSchema } from "./ClientTestimonial.component";
+export { ClientTestimonial, clientTestimonialSchema } from './ClientTestimonial.component';

@@ -1,33 +1,35 @@
-import React from "react";
-import { AbsoluteFill, Sequence } from "remotion";
-import { z } from "zod";
-import { GradientShift } from "../../Common/GradientShift";
-import { Starfield } from "../../Common/Starfield";
-import { BokehCircles } from "../../Common/BokehCircles";
-import { NoiseGrain } from "../../Common/NoiseGrain";
-import { GridPulse } from "../../Common/GridPulse";
-import { LiquidWave } from "../../Common/LiquidWave";
-import { MatrixRain } from "../../Common/MatrixRain";
-import { Particles } from "../../Common/Particles";
-import { SlidingPanels } from "../../Common/SlidingPanels";
+import React from 'react';
+
+import { AbsoluteFill, Sequence } from 'remotion';
+import { z } from 'zod';
+
+import { BokehCircles } from '../../Common/BokehCircles';
+import { GradientShift } from '../../Common/GradientShift';
+import { GridPulse } from '../../Common/GridPulse';
+import { LiquidWave } from '../../Common/LiquidWave';
+import { MatrixRain } from '../../Common/MatrixRain';
+import { NoiseGrain } from '../../Common/NoiseGrain';
+import { Particles } from '../../Common/Particles';
+import { SlidingPanels } from '../../Common/SlidingPanels';
+import { Starfield } from '../../Common/Starfield';
 
 export const backgroundDemoSchema = z.object({
-  text: z.string().optional().default("Backgrounds"),
+  text: z.string().optional().default('Backgrounds'),
 });
 
 type BackgroundDemoProps = z.infer<typeof backgroundDemoSchema>;
 
 export const BackgroundDemo: React.FC<BackgroundDemoProps> = () => {
   const labelStyle: React.CSSProperties = {
-    position: "absolute",
     bottom: 40,
-    left: 0,
-    right: 0,
-    textAlign: "center",
-    color: "rgba(255,255,255,0.6)",
+    color: 'rgba(255,255,255,0.6)',
+    fontFamily: 'system-ui, sans-serif',
     fontSize: 18,
     fontWeight: 600,
-    fontFamily: "system-ui, sans-serif",
+    left: 0,
+    position: 'absolute',
+    right: 0,
+    textAlign: 'center',
     zIndex: 10,
   };
 
@@ -35,7 +37,7 @@ export const BackgroundDemo: React.FC<BackgroundDemoProps> = () => {
     <AbsoluteFill>
       {/* GradientShift (0-50) */}
       <Sequence from={0} durationInFrames={50}>
-        <GradientShift colors={["#0F172A", "#1E293B", "#0891B2", "#0EA5E9"]} />
+        <GradientShift colors={['#0F172A', '#1E293B', '#0891B2', '#0EA5E9']} />
         <div style={labelStyle}>Gradient Shift</div>
       </Sequence>
 

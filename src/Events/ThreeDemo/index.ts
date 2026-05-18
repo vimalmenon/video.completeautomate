@@ -1,1 +1,1 @@
-export { ThreeDemo } from "./ThreeDemo.component";
+export { ThreeDemo } from './ThreeDemo.component';

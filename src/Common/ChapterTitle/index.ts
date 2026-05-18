@@ -1,1 +1,1 @@
-export * from "./ChapterTitle.component";
+export * from './ChapterTitle.component';

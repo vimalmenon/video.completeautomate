@@ -1,1 +1,1 @@
-export { BarChartDemo, barChartDemoSchema } from "./BarChartDemo.component";
+export { BarChartDemo, barChartDemoSchema } from './BarChartDemo.component';

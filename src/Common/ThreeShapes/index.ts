@@ -1,1 +1,1 @@
-export { ThreeShapes } from "./ThreeShapes.component";
+export { ThreeShapes } from './ThreeShapes.component';
