@@ -1,15 +1,23 @@
 import React from "react";
 import { AbsoluteFill, interpolate, Sequence, useCurrentFrame, useVideoConfig } from "remotion";
 import { z } from "zod";
+import { StatCounter } from "../../Common/StatCounter";
+import { LogoWall } from "../../Common/LogoWall";
+
+const logoItemSchema = z.object({
+  name: z.string(),
+  color: z.string().optional(),
+});
 
 export const automationNextBigThingSchema = z.object({
   text: z.string(),
   subtext: z.string(),
+  logos: z.array(logoItemSchema).optional(),
 });
 
 type AutomationNextBigThingProps = z.infer<typeof automationNextBigThingSchema>;
 
-export const AutomationNextBigThing: React.FC<AutomationNextBigThingProps> = ({ text, subtext }) => {
+export const AutomationNextBigThing: React.FC<AutomationNextBigThingProps> = ({ text, subtext, logos }) => {
   const frame = useCurrentFrame();
   const { width } = useVideoConfig();
 
@@ -19,9 +27,6 @@ export const AutomationNextBigThing: React.FC<AutomationNextBigThingProps> = ({ 
 
   const fadeIn = (start: number, end: number) =>
     interpolate(frame, [start, end], [0, 1], { extrapolateLeft: "clamp", extrapolateRight: "clamp" });
-
-  const slideUp = (start: number, end: number) =>
-    interpolate(frame, [start, end], [50, 0], { extrapolateLeft: "clamp", extrapolateRight: "clamp" });
 
   const scaleIn = (start: number, end: number) =>
     interpolate(frame, [start, end], [0.8, 1], { extrapolateLeft: "clamp", extrapolateRight: "clamp" });
@@ -58,41 +63,23 @@ export const AutomationNextBigThing: React.FC<AutomationNextBigThingProps> = ({ 
         </div>
       </Sequence>
 
-      {/* Section 2: Stats (90-210) */}
+      {/* Section 2: Stats with animated counters (90-210) */}
       <Sequence from={90} durationInFrames={120}>
         <div
           style={{
             position: "absolute",
-            top: "45%",
+            top: "50%",
             left: "50%",
             transform: "translate(-50%, -50%)",
-            textAlign: "center",
-            fontSize: baseFontSize / 1.5,
-            fontWeight: "bold",
-            color: primaryLightColor,
+            display: "flex",
+            gap: 60,
+            alignItems: "center",
+            justifyContent: "center",
           }}
         >
-          <div style={{ opacity: fadeIn(90, 110), transform: `translateY(${slideUp(90, 110)}px)` }}>
-            500+ Hours Saved
-          </div>
-          <div
-            style={{
-              opacity: fadeIn(130, 150),
-              transform: `translateY(${slideUp(130, 150)}px)`,
-              marginTop: 24,
-            }}
-          >
-            50+ Businesses Automated
-          </div>
-          <div
-            style={{
-              opacity: fadeIn(170, 190),
-              transform: `translateY(${slideUp(170, 190)}px)`,
-              marginTop: 24,
-            }}
-          >
-            98% Client Satisfaction
-          </div>
+          <StatCounter value={500} label="Hours Saved" suffix="+" startFrame={90} color="#22D3EE" />
+          <StatCounter value={50} label="Businesses Automated" suffix="+" startFrame={130} color="#0891B2" />
+          <StatCounter value={98} label="Client Satisfaction" suffix="%" startFrame={170} color="#22D3EE" />
         </div>
       </Sequence>
 
@@ -122,6 +109,36 @@ export const AutomationNextBigThing: React.FC<AutomationNextBigThingProps> = ({ 
           AI Automation Consulting
         </div>
       </Sequence>
+
+      {/* Section 4: LogoWall (300-420) — only if logos provided */}
+      {logos && logos.length > 0 && (
+        <Sequence from={300} durationInFrames={120}>
+          <div
+            style={{
+              position: "absolute",
+              top: "18%",
+              left: 0,
+              right: 0,
+              textAlign: "center",
+            }}
+          >
+            <div
+              style={{
+                fontSize: 20,
+                fontWeight: 600,
+                color: "#64748B",
+                textTransform: "uppercase",
+                letterSpacing: "0.08em",
+                marginBottom: 40,
+                opacity: fadeIn(300, 320),
+              }}
+            >
+              Trusted By
+            </div>
+            <LogoWall logos={logos} startFrame={310} cols={4} />
+          </div>
+        </Sequence>
+      )}
     </AbsoluteFill>
   );
 };
