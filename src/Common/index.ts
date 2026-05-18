@@ -1,5 +1,7 @@
 export * from "./Intro";
 export * from "./CodeTyper";
+export * from "./StatCounter";
+export * from "./LogoWall";
 export * from "./BarChart";
 export * from "./LineChart";
 export * from "./PieChart";
