@@ -11,8 +11,7 @@ export const introSchema = z.object({
 
 export const Intro: React.FC<IntroProps> = ({ text = "Welcome to CompleteAutomate" }) => {
     const frame = useCurrentFrame();
-    const { fps } = useVideoConfig();
-
+  
     // Characters per frame (adjust speed: higher = faster)
     const charsPerFrame = 0.5;
     const displayedChars = Math.floor(frame * charsPerFrame);

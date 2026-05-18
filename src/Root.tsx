@@ -7,6 +7,12 @@ import { CodeTyperExample } from "./Common/CodeTyper/CodeTyper.example";
 import { BarChartDemo, barChartDemoSchema } from "./Events/BarChartDemo";
 import { ChartsDemo, chartsDemoSchema } from "./Events/ChartDemo";
 import { TextDemo, textDemoSchema } from "./Events/TextDemo";
+import { ContentAnimationDemo, contentAnimationDemoSchema } from "./Events/ContentAnimationDemo";
+import { BackgroundDemo, backgroundDemoSchema } from "./Events/BackgroundDemo";
+import { CinematicTransitionsDemo, cinematicTransitionsDemoSchema } from "./Events/CinematicTransitionsDemo";
+import { LogoBrandingDemo, logoBrandingDemoSchema } from "./Events/LogoBrandingDemo";
+import { IntroOutroDemo, introOutroDemoSchema } from "./Events/IntroOutroDemo";
+import { ImageMediaDemo, imageMediaDemoSchema } from "./Events/ImageMediaDemo";
 
 // Each <Composition> is an entry in the sidebar!
 // Common reusable components live in src/Common/ for import into your own compositions
@@ -107,6 +113,66 @@ export const RemotionRoot: React.FC = () => {
         height={1080}
         schema={textDemoSchema}
         defaultProps={{ text: "BINGO!" }}
+      />
+      <Composition
+        id="ContentAnimationDemo"
+        component={ContentAnimationDemo}
+        durationInFrames={480}
+        fps={30}
+        width={1920}
+        height={1080}
+        schema={contentAnimationDemoSchema}
+        defaultProps={{ text: "BINGO!" }}
+      />
+      <Composition
+        id="BackgroundDemo"
+        component={BackgroundDemo}
+        durationInFrames={500}
+        fps={30}
+        width={1920}
+        height={1080}
+        schema={backgroundDemoSchema}
+        defaultProps={{ text: "Backgrounds" }}
+      />
+      <Composition
+        id="CinematicTransitionsDemo"
+        component={CinematicTransitionsDemo}
+        durationInFrames={680}
+        fps={30}
+        width={1920}
+        height={1080}
+        schema={cinematicTransitionsDemoSchema}
+        defaultProps={{ text: "Cinematic" }}
+      />
+      <Composition
+        id="LogoBrandingDemo"
+        component={LogoBrandingDemo}
+        durationInFrames={500}
+        fps={30}
+        width={1920}
+        height={1080}
+        schema={logoBrandingDemoSchema}
+        defaultProps={{ text: "Brand" }}
+      />
+      <Composition
+        id="IntroOutroDemo"
+        component={IntroOutroDemo}
+        durationInFrames={750}
+        fps={30}
+        width={1920}
+        height={1080}
+        schema={introOutroDemoSchema}
+        defaultProps={{ text: "Intro" }}
+      />
+      <Composition
+        id="ImageMediaDemo"
+        component={ImageMediaDemo}
+        durationInFrames={330}
+        fps={30}
+        width={1920}
+        height={1080}
+        schema={imageMediaDemoSchema}
+        defaultProps={{ text: "Media" }}
       />
     </>
   );
