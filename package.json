@@ -6,7 +6,9 @@
   "license": "UNLICENSED",
   "private": true,
   "dependencies": {
+    "@remotion/bundler": "^4.0.462",
     "@remotion/cli": "4.0.462",
+    "@remotion/renderer": "^4.0.462",
     "@remotion/tailwind-v4": "4.0.462",
     "@remotion/three": "^4.0.462",
     "@remotion/zod-types": "4.0.462",

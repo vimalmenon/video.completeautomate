@@ -14,6 +14,7 @@ import { LogoBrandingDemo, logoBrandingDemoSchema } from "./Events/LogoBrandingD
 import { IntroOutroDemo, introOutroDemoSchema } from "./Events/IntroOutroDemo";
 import { ImageMediaDemo, imageMediaDemoSchema } from "./Events/ImageMediaDemo";
 import { ThreeDemo } from "./Events/ThreeDemo";
+import { YouTubeShorts } from "./YouTubeShorts";
 
 // Each <Composition> is an entry in the sidebar!
 // Common reusable components live in src/Common/ for import into your own compositions
@@ -182,6 +183,20 @@ export const RemotionRoot: React.FC = () => {
         fps={30}
         width={1920}
         height={1080}
+      />
+      <Composition
+        id="YouTubeShorts"
+        component={YouTubeShorts}
+        durationInFrames={300}
+        fps={30}
+        width={1080}
+        height={1920}
+        defaultProps={{
+          speechScript:
+            "Artificial intelligence is transforming every industry. From healthcare to finance, AI is unlocking new possibilities. Machine learning models can now understand language better than ever before. This is just the beginning of a new era. The future of technology has never been more exciting.",
+          topic: "The AI Revolution",
+          accentColor: "#0891B2",
+        }}
       />
     </>
   );
