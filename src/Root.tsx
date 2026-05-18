@@ -5,8 +5,11 @@ import { Intro, introSchema } from "./Common";
 import { AutomationNextBigThing, automationNextBigThingSchema } from "./Events/AutomationNextBigThing";
 import { CodeTyperExample } from "./Common/CodeTyper/CodeTyper.example";
 import { BarChartDemo, barChartDemoSchema } from "./Events/BarChartDemo";
+import { ChartsDemo, chartsDemoSchema } from "./Events/ChartDemo";
+import { TextDemo, textDemoSchema } from "./Events/TextDemo";
 
 // Each <Composition> is an entry in the sidebar!
+// Common reusable components live in src/Common/ for import into your own compositions
 
 export const RemotionRoot: React.FC = () => {
   return (
@@ -81,6 +84,29 @@ export const RemotionRoot: React.FC = () => {
             { x: 9, y: 85, label: "Oct" },
           ],
         }}
+      />
+      <Composition
+        id="ChartsDemo"
+        component={ChartsDemo}
+        durationInFrames={600}
+        fps={30}
+        width={1920}
+        height={1080}
+        schema={chartsDemoSchema}
+        defaultProps={{
+          title: "Performance Metrics",
+          subtitle: "Data visualization showcase",
+        }}
+      />
+      <Composition
+        id="TextDemo"
+        component={TextDemo}
+        durationInFrames={330}
+        fps={30}
+        width={1920}
+        height={1080}
+        schema={textDemoSchema}
+        defaultProps={{ text: "BINGO!" }}
       />
     </>
   );
